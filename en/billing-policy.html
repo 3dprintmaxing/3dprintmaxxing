@@ -1,0 +1,55 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Billing Policy — 3dprintmaxxing</title><meta name="description" content="Billing Policy for 3dprintmaxxing custom 3D printing orders."><link rel="stylesheet" href="../styles.css"><link rel="icon" href="../assets/favicon.ico"></head><body><main class="site"><header class="header"><div class="top"><a class="logo" href="./">3dprint<span>maxxing</span></a><nav class="nav"><a href="./">back to site</a></nav></div></header><div class="wrap"><h1>Billing Policy</h1>
+<div class="intro">
+<p><strong>Plain-English promise:</strong> the print price is calculated from the same inputs shown on the website: filament weight, the price of one 1 kg roll of filament, and print time. Shipping is shown separately because it depends on the delivery address. There are no hidden handling fees, service fees, surprise design fees, or unexplained markups.</p>
+<p>This policy explains exactly how a quote is calculated, when payment is requested, what can change a quote, and what happens if a customer cancels or an order cannot be completed.</p>
+</div>
+<section class="section"><h2>1. What this policy covers</h2>
+<p>This Billing Policy applies to custom 3D-printing requests submitted through the website and discussed by email. Sending the request form is not a purchase, does not create an order, and does not authorize a charge. A binding order begins only after the customer receives an itemized quote, approves that quote, and completes payment through the agreed payment method.</p>
+<p>The policy is written for small custom orders and one-off prints. If a larger commercial order needs different terms, those terms must be written in the quote or a separate agreement before payment.</p></section>
+<section class="section"><h2>2. The only pricing inputs</h2>
+<p>The print-price calculation uses the following variables:</p>
+<ul class="list"><li><strong>W</strong> = estimated filament weight in grams, based on the slicer estimate or a measured equivalent;</li><li><strong>R</strong> = the current price of one 1 kg roll of the selected filament;</li><li><strong>T</strong> = estimated printer time in hours;</li><li><strong>Q</strong> = quantity of items requested;</li><li><strong>S</strong> = the actual shipping cost for the customer’s address and selected delivery method.</li></ul>
+<p>The starting reference for ordinary PLA is $17 per 1 kg roll. If the selected material costs more or less, the quote uses the applicable roll price instead. A different material is never silently substituted.</p></section>
+<section class="section"><h2>3. The transparent formula</h2>
+<p>For one item, calculate:</p>
+<pre>Filament cost = (W ÷ 1,000) × R
+Time cost = T × $2.50
+Print price per item = (Filament cost + Time cost) × 2</pre>
+<p>For the order:</p>
+<pre>Print subtotal = Print price per item × Q
+Total = Print subtotal + S</pre>
+<p>The multiplier of 2 is the simple business margin applied to the direct filament-and-machine-time calculation. It is not a separate fee and is not added again later. The final quote states the print subtotal, shipping, and total as separate lines.</p>
+<p>Calculations are rounded only at the end. A rounded customer-friendly price may be used when it is stated clearly and is not higher than the approved quote.</p></section>
+<section class="section"><h2>4. Worked example</h2>
+<p>Suppose a customer requests one PLA item with an estimated weight of 120 g, a $17 1 kg roll, four hours of print time, and $8 shipping:</p>
+<pre>Filament cost = (120 ÷ 1,000) × $17 = $2.04
+Time cost = 4 × $2.50 = $10.00
+Print price = ($2.04 + $10.00) × 2 = $24.08
+Total = $24.08 + $8.00 shipping = $32.08</pre>
+<p>The customer-facing quote is:</p><ul class="list"><li>Print: $24.08</li><li>Shipping: $8.00</li><li>Total: $32.08</li></ul>
+<p>The customer can see what the number means without needing to trust an unexplained estimate.</p></section>
+<section class="section"><h2>5. Quote review before payment</h2>
+<p>Before sending a quote, the request is reviewed for the object description, quantity, material, approximate weight, print time, scale, file condition, and delivery address. The review may identify a missing file, an incorrect scale, unsupported geometry, a material limitation, or a printer-compatibility issue.</p>
+<p>A quote is an estimate based on the information available at the time. If the requested file or specifications change before production, a revised quote is sent before work continues. The customer is never charged for an unapproved revision.</p>
+<p>If the file cannot reasonably be printed as requested, the problem is explained plainly. A quote is not a guarantee that an unchecked file will succeed.</p></section>
+<section class="section"><h2>6. When payment is due</h2>
+<ol class="list"><li>The customer submits a request.</li><li>A human reviews the request and replies with questions or an itemized quote.</li><li>The customer explicitly approves the quote, preferably by replying “I approve this quote.”</li><li>Payment instructions are provided for the approved total.</li><li>Payment is verified through the payment provider.</li><li>Production begins only after approval and verified payment.</li></ol>
+<p>A screenshot, promise, pending transfer, or unverified payment notification is not treated as confirmed payment. No item is shipped until payment is verified.</p></section>
+<section class="section"><h2>7. What is and is not included</h2>
+<p>The print subtotal covers the quoted filament and printer-time calculation. Shipping is listed separately. The customer is not charged a hidden handling fee, packaging fee, service fee, file-upload fee, communication fee, or surprise markup.</p>
+<p>Design work is not silently bundled into the formula. If a customer asks for substantial modeling, repair, resizing, or editing rather than printing an already suitable file, the scope and price must be explained and approved before that work starts. If no separate amount was approved, no separate amount is owed.</p></section>
+<section class="section"><h2>8. Changes after approval</h2>
+<p>A customer may request a different quantity, scale, material, color, finish, delivery address, or file after approving a quote. Those changes may alter W, R, T, Q, or S. Production pauses while the change is reviewed. If the total changes, a new itemized quote is sent and requires approval before production resumes.</p>
+<p>Changes made by the business for convenience are not passed to the customer as a hidden charge. If a correction is needed because of an error on the business side, the customer is told what happened and the appropriate fix is offered.</p></section>
+<section class="section"><h2>9. Shipping and address accuracy</h2>
+<p>Shipping is based on the address supplied by the customer and the delivery method shown in the quote. The customer is responsible for checking the address before payment. An incomplete or incorrect address can cause delay, return, or additional carrier charges.</p>
+<p>If the business enters the address incorrectly, the business will make a reasonable effort to correct the shipment and will not pass along a cost caused by that mistake. If the customer supplied the wrong address, the available remedy depends on whether the package has shipped and whether the carrier can redirect it.</p></section>
+<section class="section"><h2>10. Payment problems, disputes, and duplicate payments</h2>
+<p>If a payment fails, is reversed, is duplicated, or appears suspicious, production pauses until the issue is resolved. The customer should contact the business first so the transaction can be checked against the quote and payment record.</p>
+<p>A payment dispute should not be used to obtain both a chargeback and a separate refund for the same amount. If a payment provider has already opened a dispute, the business will provide the relevant quote, approval, payment, shipping, and correspondence records to resolve it accurately.</p></section>
+<section class="section"><h2>11. Records and customer questions</h2>
+<p>The quote email should contain the weight, roll price, print time, quantity, print subtotal, shipping, and total. Customers may ask for the calculation to be explained or corrected before approving it. Quote approval, payment verification, shipping information, and any revised quote should remain in the same email conversation when practical.</p>
+<p>Questions about a bill or quote should be sent by replying to the quote email or through the contact details on the website. A human will review the question and correct a genuine mistake.</p></section>
+<section class="section"><h2>12. No hidden-fee rule</h2>
+<p>If an amount is not visible on the approved quote, it is not part of the approved total. This rule applies even if the amount would normally be convenient to charge. The only customer-authorized total is the total the customer saw and approved before payment.</p></section>
+</div><footer class="wrap footer"><p>3dprintmaxxing</p><p><a href="https://linktr.ee/3dprintmaxxing">Linktree</a> · <a href="privacy-policy.html">Privacy Policy</a> · <a href="refund-policy.html">Refund Policy</a> · <a href="billing-policy.html">Billing Policy</a></p></footer></main></body></html>

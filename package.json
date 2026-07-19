@@ -1,0 +1,18 @@
+{
+  "name": "3dprintmaxxing",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "echo static-site-ready",
+    "dev": "npx serve .",
+    "start": "npx serve ."
+  },
+  "devDependencies": {
+    "serve": "^14.2.4"
+  },
+  "dependencies": {
+    "next": "^16.2.10",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  }
+}
