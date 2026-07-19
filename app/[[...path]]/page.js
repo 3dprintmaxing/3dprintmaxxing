@@ -71,12 +71,5 @@ export default async function StaticPage({ params }) {
   }
 
   const localized = localizeLinks(html, requestedLocale);
-  return <>
-    <head>
-      <link rel="stylesheet" href="/styles.css" />
-      <link rel="icon" href="/assets/favicon.ico" />
-      <script src="/script.js" defer />
-    </head>
-    <div lang={requestedLocale} dangerouslySetInnerHTML={{ __html: localized }} />
-  </>;
+  return <div lang={requestedLocale} dangerouslySetInnerHTML={{ __html: localized }} />;
 }
