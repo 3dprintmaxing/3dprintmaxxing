@@ -22,6 +22,7 @@ const LINK_LABELS = {
 function localizeLinks(html, locale) {
   const labels = LINK_LABELS[locale] || LINK_LABELS.en;
   const pagePath = (name) => `/${locale}/${name}`;
+  const head = html.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] || '';
   let content = html
     .replace(/^<!doctype html>/i, '')
     .replace(/<html[^>]*>|<\/html>|<head[\s\S]*?<\/head>|<body[^>]*>|<\/body>/gi, '');
@@ -40,7 +41,7 @@ function localizeLinks(html, locale) {
     ['← back to the site', `← ${labels.back}`],
     ['back to the site', labels.back],
   ]) content = content.replaceAll(`>${from}<`, `>${to}<`);
-  return content;
+  return { head, content };
 }
 
 export async function generateStaticParams() {
@@ -71,5 +72,10 @@ export default async function StaticPage({ params }) {
   }
 
   const localized = localizeLinks(html, requestedLocale);
-  return <div lang={requestedLocale} dangerouslySetInnerHTML={{ __html: localized }} />;
+  return (
+    <>
+      <head dangerouslySetInnerHTML={{ __html: localized.head }} />
+      <div lang={requestedLocale} dangerouslySetInnerHTML={{ __html: localized.content }} />
+    </>
+  );
 }
