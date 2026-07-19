@@ -1,10 +1,11 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 export const dynamic = 'force-static';
 
 const LANGUAGES = ['en', 'es', 'pt-br', 'fr', 'de', 'it', 'ja', 'ko', 'zh'];
+const ROUTES = ['index', 'thanks', 'privacy-policy', 'refund-policy', 'billing-policy', 'rate-limited'];
 
 const LINK_LABELS = {
   en: { privacy: 'Privacy Policy', refund: 'Refund Policy', billing: 'Billing Policy', back: 'back to the site' },
@@ -26,37 +27,56 @@ function localizeLinks(html, locale) {
     .replace(/<html[^>]*>|<\/html>|<head[\s\S]*?<\/head>|<body[^>]*>|<\/body>/gi, '');
 
   content = content
-    .replace(/(data-thanks|data-rate-limited)="[^"]*"/g, (match, attribute) => `${attribute}="${pagePath(attribute === 'data-thanks' ? 'thanks' : 'rate-limited')}"`)
+    .replace(/(data-thanks|data-rate-limited)="[^"]*"/g, (_, attribute) => `${attribute}="${pagePath(attribute === 'data-thanks' ? 'thanks' : 'rate-limited')}"`)
     .replace(/href="(?:\.\/|\.\.\/[^"/]+\/)?(privacy-policy|refund-policy|billing-policy|thanks|rate-limited)(?:\.html)?"/g, (_, name) => `href="${pagePath(name)}"`)
     .replace(/href="(?:\.\/|\.\.\/[^"/]+\/)?index\.html?"/g, `href="/${locale}/"`)
     .replace(/href="\.\/"/g, `href="/${locale}/"`)
     .replace(/href="\.\.\/(en|es|pt-br|fr|de|it|ja|ko|zh)\/"/g, 'href="/$1/"');
 
-  const replacements = [
+  for (const [from, to] of [
     ['Privacy Policy', labels.privacy],
     ['Refund Policy', labels.refund],
     ['Billing Policy', labels.billing],
     ['← back to the site', `← ${labels.back}`],
     ['back to the site', labels.back],
-  ];
-  for (const [from, to] of replacements) content = content.replaceAll(`>${from}<`, `>${to}<`);
+  ]) content = content.replaceAll(`>${from}<`, `>${to}<`);
   return content;
+}
+
+export async function generateStaticParams() {
+  return [
+    { path: [] },
+    ...LANGUAGES.flatMap((lang) =>
+      ROUTES.map((route) => ({
+        path: [lang, ...(route === "index" ? [] : [route])],
+      })),
+    ),
+  ];
 }
 
 export default async function StaticPage({ params }) {
   const { path: segments = [] } = await params;
-  const locale = LANGUAGES.includes(segments[0]) ? segments[0] : 'en';
-  const routeSegments = LANGUAGES.includes(segments[0]) ? segments.slice(1) : segments;
-  const route = routeSegments.length ? routeSegments.join('/') : 'index';
-  const file = route.endsWith('.html') ? route : `${route}.html`;
-  const filePath = LANGUAGES.includes(segments[0])
-    ? path.join(process.cwd(), locale, file)
-    : path.join(process.cwd(), file);
+  const requestedLocale = segments[0];
+  if (!requestedLocale) redirect('/en');
+  if (!LANGUAGES.includes(requestedLocale)) notFound();
+
+  const route = segments.slice(1).join('/') || 'index';
+  if (!ROUTES.includes(route)) notFound();
+
   let html;
   try {
-    html = await readFile(filePath, 'utf8');
+    html = await readFile(path.join(process.cwd(), requestedLocale, `${route}.html`), 'utf8');
   } catch {
     notFound();
   }
-  return <div lang={locale} dangerouslySetInnerHTML={{ __html: localizeLinks(html, locale) }} />;
+
+  const localized = localizeLinks(html, requestedLocale);
+  return <>
+    <head>
+      <link rel="stylesheet" href="/styles.css" />
+      <link rel="icon" href="/assets/favicon.ico" />
+      <script src="/script.js" defer />
+    </head>
+    <div lang={requestedLocale} dangerouslySetInnerHTML={{ __html: localized }} />
+  </>;
 }
