@@ -3,12 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "echo static-site-ready",
-    "dev": "npx serve .",
-    "start": "npx serve ."
-  },
-  "devDependencies": {
-    "serve": "^14.2.4"
+    "build": "next build",
+    "dev": "next dev",
+    "start": "next start"
   },
   "dependencies": {
     "next": "^16.2.10",
