@@ -1,55 +1,57 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>請求ポリシー — 3dprintmaxxing</title><meta name="description" content="請求ポリシー for 3dprintmaxxing custom 3D printing orders."><link rel="stylesheet" href="../styles.css"><link rel="icon" href="../assets/favicon.ico"></head><body><main class="site"><header class="header"><div class="top"><a class="logo" href="./">3dprint<span>maxxing</span></a><nav class="nav"><a href="./">サイトに戻る</a></nav></div></header><div class="wrap"><h1>請求ポリシー</h1>
+<!DOCTYPE html>
+
+<html lang="ja"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>請求ポリシー — 3dprintmaxxing</title><meta content="請求ポリシー for 3dprintmaxxing custom 3D printing orders." name="description"/><link href="../styles.css" rel="stylesheet"/><link href="../assets/favicon.ico" rel="icon"/></head><body><main class="site"><header class="header"><div class="top"><a class="logo" href="./">3dprint<span>maxxing</span></a><nav class="nav"><a href="./">サイトに戻る</a></nav></div></header><div class="wrap"><h1>請求ポリシー</h1>
 <div class="intro">
-<p><strong>Plain-English promise:</strong> the print price is calculated from the same inputs shown on the website: filament weight, the price of one 1 kg roll of filament, and print time. Shipping is shown separately because it depends on the delivery address. There are no hidden handling fees, service fees, surprise design fees, or unexplained markups.</p>
-<p>This policy explains exactly how a quote is calculated, when payment is requested, what can change a quote, and what happens if a customer cancels or an order cannot be completed.</p>
+<p><strong>Plain-English promise:</strong> 印刷価格は、Webサイトに表示されているものと同じ入力値 (フィラメントの重量、1kgロールのフィラメントの価格、および印刷時間) から計算されます。 送料は配送先住所により異なりますので別途表示させて頂きます。 隠れた手数料、サービス料、突然のデザイン料、説明のない値上げなどはありません。</p>
+<p>このポリシーでは、見積りの計算方法、いつ支払われるか、見積りを変更できるか、顧客がキャンセルした場合や注文を完了できなかった場合に起こるかについて正確に説明します。</p>
 </div>
-<section class="section"><h2>1. What this policy covers</h2>
-<p>This Billing Policy applies to custom 3D-printing requests submitted through the website and discussed by email. Sending the request form is not a purchase, does not create an order, and does not authorize a charge. A binding order begins only after the customer receives an itemized quote, approves that quote, and completes payment through the agreed payment method.</p>
-<p>The policy is written for small custom orders and one-off prints. If a larger commercial order needs different terms, those terms must be written in the quote or a separate agreement before payment.</p></section>
-<section class="section"><h2>2. The only pricing inputs</h2>
-<p>The print-price calculation uses the following variables:</p>
-<ul class="list"><li><strong>W</strong> = estimated filament weight in grams, based on the slicer estimate or a measured equivalent;</li><li><strong>R</strong> = the current price of one 1 kg roll of the selected filament;</li><li><strong>T</strong> = estimated printer time in hours;</li><li><strong>Q</strong> = quantity of items requested;</li><li><strong>S</strong> = the actual shipping cost for the customer’s address and selected delivery method.</li></ul>
-<p>The starting reference for ordinary PLA is $17 per 1 kg roll. If the selected material costs more or less, the quote uses the applicable roll price instead. A different material is never silently substituted.</p></section>
-<section class="section"><h2>3. The transparent formula</h2>
-<p>For one item, calculate:</p>
+<section class="section"><h2>1. このポリシーの対象となる内容</h2>
+<p>この請求ポリシーは、Web サイトお子様送信され、電子メールで議論されたカスタム 3D プリントのリクエストに適用されます。 リクエスト フォームの送信は購入ではなく、注文の作成でも、請求の承認でもありません。</p>
+<p>このポリシーは、小規模なカスタム注文と 1 回限りのプリントを対象に書かれています。大規模な商業注文で別の条件が必要な場合は、支払い前にそれらの条件を見積書または別の契約書に記載する必要があります。</p></section>
+<section class="section"><h2>2. 唯一の価格設定入力</h2>
+<p>印刷価格の計算には次の変数が使用されます。</p>
+<ul class="list"><li><strong>W</strong> = スライサーの推定値または測定された同等物に基づく、グラム単位の推定フィラメント重量。</li><li><strong>R</strong> = 選択したフィラメントの 1kg ロール 1 つの最新価格。</li><li><strong>T</strong> = 推定プリンター時間 (時間単位)。</li><li><strong>Q</strong> = 要求されたアイテムの数;</li><li><strong>S</strong> =お客様の住所および選択された配送方法に応じた実際の送料。</li></ul>
+<p>通常のPLAの開始参考価格は、1kgロールあたり17ドルです。選択した材料のコストが多かれ少なかれある場合、見積もりでは代わりに該当するロール価格が使用されます。別の素材が黙って置き換えられることはありません。</p></section>
+<section class="section"><h2>3. 透明性のあるフォーミュラ</h2>
+<p>1 の項目について、次のように計算します。</p>
 <pre>Filament cost = (W ÷ 1,000) × R
 Time cost = T × $2.50
 Print price per item = (Filament cost + Time cost) × 2</pre>
-<p>For the order:</p>
+<p>注文の場合:</p>
 <pre>Print subtotal = Print price per item × Q
 Total = Print subtotal + S</pre>
-<p>The multiplier of 2 is the simple business margin applied to the direct filament-and-machine-time calculation. It is not a separate fee and is not added again later. The final quote states the print subtotal, shipping, and total as separate lines.</p>
-<p>Calculations are rounded only at the end. A rounded customer-friendly price may be used when it is stated clearly and is not higher than the approved quote.</p></section>
-<section class="section"><h2>4. Worked example</h2>
-<p>Suppose a customer requests one PLA item with an estimated weight of 120 g, a $17 1 kg roll, four hours of print time, and $8 shipping:</p>
+<p>2 の乗数は、フィラメントと機械時間の直接計算に適用される単純なビジネス マージンです。個別の料金ではなく、後から追加されることもありません。最後の概算書には、小計、送料、合計が別々の行として表示されます。</p>
+<p>計算は最後のみ四五入されます。明確に記載されており、承認された見積もりを超えない場合には、顧客に優しい四五入された価格が使用される場合があります。</p></section>
+<section class="section"><h2>4. 作業例</h2>
+<p>顧客が、推定重量 120 g、1 kg ロール 17 ドル、印刷時間 4 時間、送料 8 ドルの PLA アイテム 1 つをリクエストしました。</p>
 <pre>Filament cost = (120 ÷ 1,000) × $17 = $2.04
 Time cost = 4 × $2.50 = $10.00
 Print price = ($2.04 + $10.00) × 2 = $24.08
 Total = $24.08 + $8.00 shipping = $32.08</pre>
-<p>The customer-facing quote is:</p><ul class="list"><li>Print: $24.08</li><li>Shipping: $8.00</li><li>Total: $32.08</li></ul>
-<p>The customer can see what the number means without needing to trust an unexplained estimate.</p></section>
-<section class="section"><h2>5. Quote review before payment</h2>
-<p>Before sending a quote, the request is reviewed for the object description, quantity, material, approximate weight, print time, scale, file condition, and delivery address. The review may identify a missing file, an incorrect scale, unsupported geometry, a material limitation, or a printer-compatibility issue.</p>
-<p>A quote is an estimate based on the information available at the time. If the requested file or specifications change before production, a revised quote is sent before work continues. The customer is never charged for an unapproved revision.</p>
-<p>If the file cannot reasonably be printed as requested, the problem is explained plainly. A quote is not a guarantee that an unchecked file will succeed.</p></section>
-<section class="section"><h2>6. When payment is due</h2>
-<ol class="list"><li>The customer submits a request.</li><li>A human reviews the request and replies with questions or an itemized quote.</li><li>The customer explicitly approves the quote, preferably by replying “I approve this quote.”</li><li>Payment instructions are provided for the approved total.</li><li>Payment is verified through the payment provider.</li><li>Production begins only after approval and verified payment.</li></ol>
-<p>A screenshot, promise, pending transfer, or unverified payment notification is not treated as confirmed payment. No item is shipped until payment is verified.</p></section>
-<section class="section"><h2>7. What is and is not included</h2>
-<p>The print subtotal covers the quoted filament and printer-time calculation. Shipping is listed separately. The customer is not charged a hidden handling fee, packaging fee, service fee, file-upload fee, communication fee, or surprise markup.</p>
-<p>Design work is not silently bundled into the formula. If a customer asks for substantial modeling, repair, resizing, or editing rather than printing an already suitable file, the scope and price must be explained and approved before that work starts. If no separate amount was approved, no separate amount is owed.</p></section>
-<section class="section"><h2>8. Changes after approval</h2>
-<p>A customer may request a different quantity, scale, material, color, finish, delivery address, or file after approving a quote. Those changes may alter W, R, T, Q, or S. Production pauses while the change is reviewed. If the total changes, a new itemized quote is sent and requires approval before production resumes.</p>
-<p>Changes made by the business for convenience are not passed to the customer as a hidden charge. If a correction is needed because of an error on the business side, the customer is told what happened and the appropriate fix is offered.</p></section>
-<section class="section"><h2>9. Shipping and address accuracy</h2>
-<p>Shipping is based on the address supplied by the customer and the delivery method shown in the quote. The customer is responsible for checking the address before payment. An incomplete or incorrect address can cause delay, return, or additional carrier charges.</p>
-<p>If the business enters the address incorrectly, the business will make a reasonable effort to correct the shipment and will not pass along a cost caused by that mistake. If the customer supplied the wrong address, the available remedy depends on whether the package has shipped and whether the carrier can redirect it.</p></section>
-<section class="section"><h2>10. Payment problems, disputes, and duplicate payments</h2>
-<p>If a payment fails, is reversed, is duplicated, or appears suspicious, production pauses until the issue is resolved. The customer should contact the business first so the transaction can be checked against the quote and payment record.</p>
-<p>A payment dispute should not be used to obtain both a chargeback and a separate refund for the same amount. If a payment provider has already opened a dispute, the business will provide the relevant quote, approval, payment, shipping, and correspondence records to resolve it accurately.</p></section>
-<section class="section"><h2>11. Records and customer questions</h2>
-<p>The quote email should contain the weight, roll price, print time, quantity, print subtotal, shipping, and total. Customers may ask for the calculation to be explained or corrected before approving it. Quote approval, payment verification, shipping information, and any revised quote should remain in the same email conversation when practical.</p>
-<p>Questions about a bill or quote should be sent by replying to the quote email or through the contact details on the website. A human will review the question and correct a genuine mistake.</p></section>
-<section class="section"><h2>12. No hidden-fee rule</h2>
-<p>If an amount is not visible on the approved quote, it is not part of the approved total. This rule applies even if the amount would normally be convenient to charge. The only customer-authorized total is the total the customer saw and approved before payment.</p></section>
-</div><footer class="wrap footer"><p>3dprintmaxxing</p><p><a href="https://linktr.ee/3dprintmaxxing">Linktree</a> · <a href="privacy-policy.html">Privacy Policy</a> · <a href="refund-policy.html">Refund Policy</a> · <a href="billing-policy.html">Billing Policy</a></p></footer></main></body></html>
+<p>顧客向けの見積りは次のとおりです。</p><ul class="list"><li>印刷物: $24.08</li><li>送料：$8.00</li><li>合計: $32.08</li></ul>
+<p>お客様は、説明のない見積もりを信頼する必要はなく、その数値が何を意味するのかを確認できます。</p></section>
+<section class="section"><h2>5.支払い前の見積確認</h2>
+<p>見積もりを送信する前に、オブジェクトの説明、数量、材質、一応の重量、印刷時間、スケール、ファイルの状態、および配送先住所についてリクエストが確認されます。レビューにより、ファイルの欠落、間違ったスケール、サポートされていないジオメトリ、材料の制限、またはプリンターの互換性の問題が特定される場合があります。</p>
+<p>お見積りは、暫くで入手可能な情報に基づいた見積りです。 要求されたファイルまたは仕様が生産前に変更された場合は、作業を続行する前に修正された見積り書が送信されます。 未承認のリビジョンに対する顧客に料金が請求されることはありません。</p>
+<p>ファイルを要求するために印刷できない場合は、問題がわかりやすく説明されます。符は、チェックされていないファイルが成功することを保証するものではありません。</p></section>
+<section class="section"><h2>6.支払い期日が来たら</h2>
+<ol class="list"><li>お客様がリクエストを送信します。</li><li>人間がリクエストを確認し、質問または項目別の見積りを返信します。</li><li>お客様は、できれば「この見積もりを承認します」と返信することで、見積もりを承知します。</li><li>承認された総額に対して支払い手順が提供されます。</li><li>支払いは決済プロバイダーしっかり確認されます。</li><li>承認と支払いの確認後にのみ生産が開始されます。</li></ol>
+<p>スクリーンショット、約束、保留中の送金、または未確認の支払い通知は、確認済みの支払いとして扱われません。支払いが確認されるまで商品は発送されません。</p></section>
+<section class="section"><h2>7. 含まれないもの</h2>
+<p>印刷小計には、見積もられたフィラメントと印刷時間の計算が含まれます。 送料は別途記載しております。顧客には、隠れた手数料、梱包​​料、サービス料、ファイルアップロード料、通信料、または予期せぬ値上げは請求されません。</p>
+<p>デザイン作業は、黙って公式に納得できるわけではありません。顧客が、一応正しいファイルを印刷するのではなく、大幅なモデリング、修復、サイズ変更、または編集要求した場合、作業を開始する前に範囲と価格を説明し、承認する必要があります。別の金額が承認されなかった場合、別の金額を支払う義務はありません。</p></section>
+<section class="section"><h2>8.承認後の変更</h2>
+<p>お客さまは、見積もり承認後、異なる数量、スケール、材質、色、仕上げ、先住所、またはファイルをリクエストすることができます。 これらの変更により、W、R、T、Q、または S が変更される可能性があります。 変更が確認されている間、生産は一時停止します。 合計が変更された場合は、新しい詳細化された見積書が送信され、生産を再開する前に承認が必要になります。</p>
+<p>企業が便宜上行った変更は、隠れた料金として顧客に渡されることはありません。ビジネス側のエラーにより修正が必要な場合は、発生したのかが顧客に伝えられ、適切な修正が提供されます。</p></section>
+<section class="section"><h2>9. 配送と住所の正確性</h2>
+<p>配送は、お客様が指定した住所と見積書に示されている配送方法に基づいて行われます。お客様は支払い前に住所を確認する責任があります。</p>
+<p>企業が住所を誤って入力した場合、企業は出荷を修正するために合理的な努力をし、その間違いによって生じた費用を転嫁することはありません。 顧客が間違っていた住所を入力した場合、利用可能な救済措置は、荷物が発送されたかどうか、また配送業者が荷物を転送できるかどうかによって異なります。</p></section>
+<section class="section"><h2>10.支払い問題、トラブル、二重支払い</h2>
+<p>支払いが失敗した場合、取り消された場合、重複している場合、または疑われる場合は、問題が解決されるまで生産が一時停止します。取引を見積書と支払い記録と照合して確認できるよう、顧客はまず企業に連絡する必要があります。</p>
+<p>支払いに関する手続きは、チャージバックと同じ金額の個別の支払いの両方を取得するために使用されるべきではありません。決済プロバイダーが一応紛争を開始している場合、事業者は正確に解決するために、関連する見積り、承認、支払い、配送、通信記録を提供します。</p></section>
+<section class="section"><h2>11. 記録と顧客からの質問</h2>
+<p>見積りメールには、重量、ロール価格、印刷時間、数量、印刷小計、送料、合計が含まれている必要があります。 お客様は、計算を承認する前に、計算の説明または修正を求めることができます。 実際には、見積りの承認、支払いの確認、配送情報、および修正された見積りは、同じ電子メールでの会話に残す必要があります。</p>
+<p>請求書または見積りに関する質問は、見積りメールに返信するか、Web サイト上の連絡先に詳細を送信してください。人間が質問を見直し、真の間違いを修正します。</p></section>
+<section class="section"><h2>12. 隠れ料金ルールなし</h2>
+<p>承認された見積書に金額が表示されない場合、その金額は承認された合計の一部ではありません。このルールは、通常は請求するのが便利な金額であっても適用されます。顧客が承認した合計は、顧客が支払う前に確認し承認した合計のみです。</p></section>
+</div><footer class="wrap footer"><p>3Dプリントマックスシング</p><p><a href="https://linktr.ee/3dprintmaxxing">Linktree</a> · <a href="privacy-policy.html">Privacy Policy</a> · <a href="refund-policy.html">Refund Policy</a> · <a href="billing-policy.html">Billing Policy</a></p></footer></main></body></html>

@@ -1,55 +1,57 @@
-<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Abrechnungsrichtlinie — 3dprintmaxxing</title><meta name="description" content="Abrechnungsrichtlinie for 3dprintmaxxing custom 3D printing orders."><link rel="stylesheet" href="../styles.css"><link rel="icon" href="../assets/favicon.ico"></head><body><main class="site"><header class="header"><div class="top"><a class="logo" href="./">3dprint<span>maxxing</span></a><nav class="nav"><a href="./">zurück zur Website</a></nav></div></header><div class="wrap"><h1>Abrechnungsrichtlinie</h1>
+<!DOCTYPE html>
+
+<html lang="de"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Abrechnungsrichtlinie – 3dprintmaxxing</title><meta content="Abrechnungsrichtlinie for 3dprintmaxxing custom 3D printing orders." name="description"/><link href="../styles.css" rel="stylesheet"/><link href="../assets/favicon.ico" rel="icon"/></head><body><main class="site"><header class="header"><div class="top"><a class="logo" href="./">3dprint<span>maxxing</span></a><nav class="nav"><a href="./">zurück zur Website</a></nav></div></header><div class="wrap"><h1>Abrechnungsrichtlinie</h1>
 <div class="intro">
-<p><strong>Plain-English promise:</strong> the print price is calculated from the same inputs shown on the website: filament weight, the price of one 1 kg roll of filament, and print time. Shipping is shown separately because it depends on the delivery address. There are no hidden handling fees, service fees, surprise design fees, or unexplained markups.</p>
-<p>This policy explains exactly how a quote is calculated, when payment is requested, what can change a quote, and what happens if a customer cancels or an order cannot be completed.</p>
+<p><strong>Plain-English promise:</strong> Der Druckpreis wird aus den gleichen Angaben wie auf der Website berechnet: Filamentgewicht, Preis für eine 1-kg-Filamentrolle und Druckzeit. Der Versand wird ausdrücklich ausgewiesen, da er von der Lieferadresse abhängt. Es gibt keine versteckten Bearbeitungsgebühren, Servicegebühren, überraschende Designgebühren oder unerklärte Aufschläge.</p>
+<p>In dieser Richtlinie wird genau erläutert, wie ein Angebot berechnet wird, wann eine Zahlung verlangt wird, was ein Angebot ändern kann und was passiert, wenn ein Kunde storniert oder eine Bestellung nicht abgeschlossen werden kann.</p>
 </div>
-<section class="section"><h2>1. What this policy covers</h2>
-<p>This Billing Policy applies to custom 3D-printing requests submitted through the website and discussed by email. Sending the request form is not a purchase, does not create an order, and does not authorize a charge. A binding order begins only after the customer receives an itemized quote, approves that quote, and completes payment through the agreed payment method.</p>
-<p>The policy is written for small custom orders and one-off prints. If a larger commercial order needs different terms, those terms must be written in the quote or a separate agreement before payment.</p></section>
-<section class="section"><h2>2. The only pricing inputs</h2>
-<p>The print-price calculation uses the following variables:</p>
-<ul class="list"><li><strong>W</strong> = estimated filament weight in grams, based on the slicer estimate or a measured equivalent;</li><li><strong>R</strong> = the current price of one 1 kg roll of the selected filament;</li><li><strong>T</strong> = estimated printer time in hours;</li><li><strong>Q</strong> = quantity of items requested;</li><li><strong>S</strong> = the actual shipping cost for the customer’s address and selected delivery method.</li></ul>
-<p>The starting reference for ordinary PLA is $17 per 1 kg roll. If the selected material costs more or less, the quote uses the applicable roll price instead. A different material is never silently substituted.</p></section>
-<section class="section"><h2>3. The transparent formula</h2>
-<p>For one item, calculate:</p>
+<section class="section"><h2>1. Wurde diese Polizei abdeckt?</h2>
+<p>Diese Abrechnungsrichtlinie gilt für individuelle 3D-Druckanfragen, die über die Website eingereicht und per E-Mail besprochen werden. Das Absenden des Anfrageformulars stellt keinen Kauf dar, stellt keine Bestellung dar und berechtigt nicht zu einer Belastung. Eine verbindliche Bestellung beginnt erst, nachdem der Kunde ein detailliertes Angebot erhalten, dieses Angebot genehmigt und die Zahlung über die vereinbarte Zahlungsmethode abgeschlossen hat.</p>
+<p>Die Richtlinie gilt für kleine Sonderanfertigungen und einmalige Drucke. Wenn für einen größeren kommerziellen Auftrag andere Bedingungen erforderlich sind, müssen diese Bedingungen vor der Zahlung im Angebot oder in einer gesonderten Vereinbarung festgehalten werden.</p></section>
+<section class="section"><h2>2. Die einzigen Preisangaben</h2>
+<p>Bei der Druckpreisberechnung werden folgende Variablen verwendet:</p>
+<ul class="list"><li><strong>W</strong> = geschätztes Filamentgewicht in Gramm, basierend auf der Slicer-Schätzung oder einem gemessenen Äquivalent;</li><li><strong>R</strong> = der aktuelle Preis einer 1-kg-Rolle des ausgewählten Filaments;</li><li><strong>T</strong> = geschätzte Druckerzeit in Stunden;</li><li><strong>Q</strong> = Menge der geforderten Artikel;</li><li><strong>S</strong> = die tatsächlichen Versandkosten für die Adresse des Kunden und die ausgewählte Versandart.</li></ul>
+<p>Der Startpreis für gewöhnliches PLA liegt bei 17 $ pro 1-kg-Rolle. Sollte das ausgewählte Material mehr oder weniger kosten, wird im Angebot stattdessen der geltende Rollenpreis zugrunde gelegt. Ein anderes Material wird niemals stillschweigend ersetzt.</p></section>
+<section class="section"><h2>3. Die transparente Formel</h2>
+<p>Berechnen Sie für einen Artikel:</p>
 <pre>Filament cost = (W ÷ 1,000) × R
 Time cost = T × $2.50
 Print price per item = (Filament cost + Time cost) × 2</pre>
-<p>For the order:</p>
+<p>Zur Bestellung:</p>
 <pre>Print subtotal = Print price per item × Q
 Total = Print subtotal + S</pre>
-<p>The multiplier of 2 is the simple business margin applied to the direct filament-and-machine-time calculation. It is not a separate fee and is not added again later. The final quote states the print subtotal, shipping, and total as separate lines.</p>
-<p>Calculations are rounded only at the end. A rounded customer-friendly price may be used when it is stated clearly and is not higher than the approved quote.</p></section>
-<section class="section"><h2>4. Worked example</h2>
-<p>Suppose a customer requests one PLA item with an estimated weight of 120 g, a $17 1 kg roll, four hours of print time, and $8 shipping:</p>
+<p>Der Multiplikator von 2 ist die einfache Geschäftsspanne, die auf die direkte Berechnung von Filament und Maschinenzeit angewendet wird. Es handelt sich nicht um eine gesonderte Gebühr und wird später nicht erneut erhoben. Im endgültigen Angebot sind die Druckzwischensumme, der Versand und die Gesamtsumme in separaten Zeilen aufgeführt.</p>
+<p>Berechnungen werden erst am Ende gerundet. Ein gerundeter, kundenfreundlicher Preis kann verwendet werden, wenn er klar ist und nicht höher als das genehmigte Angebot angegeben ist.</p></section>
+<section class="section"><h2>4. Ausgearbeitetes Beispiel</h2>
+<p>Angenommen, ein Kunde wünscht einen PLA-Artikel mit einem geschätzten Gewicht von 120 g, eine 1-kg-Rolle für 17 $, vier Stunden Druckzeit und 8 $ Versand:</p>
 <pre>Filament cost = (120 ÷ 1,000) × $17 = $2.04
 Time cost = 4 × $2.50 = $10.00
 Print price = ($2.04 + $10.00) × 2 = $24.08
 Total = $24.08 + $8.00 shipping = $32.08</pre>
-<p>The customer-facing quote is:</p><ul class="list"><li>Print: $24.08</li><li>Shipping: $8.00</li><li>Total: $32.08</li></ul>
-<p>The customer can see what the number means without needing to trust an unexplained estimate.</p></section>
-<section class="section"><h2>5. Quote review before payment</h2>
-<p>Before sending a quote, the request is reviewed for the object description, quantity, material, approximate weight, print time, scale, file condition, and delivery address. The review may identify a missing file, an incorrect scale, unsupported geometry, a material limitation, or a printer-compatibility issue.</p>
-<p>A quote is an estimate based on the information available at the time. If the requested file or specifications change before production, a revised quote is sent before work continues. The customer is never charged for an unapproved revision.</p>
-<p>If the file cannot reasonably be printed as requested, the problem is explained plainly. A quote is not a guarantee that an unchecked file will succeed.</p></section>
-<section class="section"><h2>6. When payment is due</h2>
-<ol class="list"><li>The customer submits a request.</li><li>A human reviews the request and replies with questions or an itemized quote.</li><li>The customer explicitly approves the quote, preferably by replying “I approve this quote.”</li><li>Payment instructions are provided for the approved total.</li><li>Payment is verified through the payment provider.</li><li>Production begins only after approval and verified payment.</li></ol>
-<p>A screenshot, promise, pending transfer, or unverified payment notification is not treated as confirmed payment. No item is shipped until payment is verified.</p></section>
-<section class="section"><h2>7. What is and is not included</h2>
-<p>The print subtotal covers the quoted filament and printer-time calculation. Shipping is listed separately. The customer is not charged a hidden handling fee, packaging fee, service fee, file-upload fee, communication fee, or surprise markup.</p>
-<p>Design work is not silently bundled into the formula. If a customer asks for substantial modeling, repair, resizing, or editing rather than printing an already suitable file, the scope and price must be explained and approved before that work starts. If no separate amount was approved, no separate amount is owed.</p></section>
-<section class="section"><h2>8. Changes after approval</h2>
-<p>A customer may request a different quantity, scale, material, color, finish, delivery address, or file after approving a quote. Those changes may alter W, R, T, Q, or S. Production pauses while the change is reviewed. If the total changes, a new itemized quote is sent and requires approval before production resumes.</p>
-<p>Changes made by the business for convenience are not passed to the customer as a hidden charge. If a correction is needed because of an error on the business side, the customer is told what happened and the appropriate fix is offered.</p></section>
-<section class="section"><h2>9. Shipping and address accuracy</h2>
-<p>Shipping is based on the address supplied by the customer and the delivery method shown in the quote. The customer is responsible for checking the address before payment. An incomplete or incorrect address can cause delay, return, or additional carrier charges.</p>
-<p>If the business enters the address incorrectly, the business will make a reasonable effort to correct the shipment and will not pass along a cost caused by that mistake. If the customer supplied the wrong address, the available remedy depends on whether the package has shipped and whether the carrier can redirect it.</p></section>
-<section class="section"><h2>10. Payment problems, disputes, and duplicate payments</h2>
-<p>If a payment fails, is reversed, is duplicated, or appears suspicious, production pauses until the issue is resolved. The customer should contact the business first so the transaction can be checked against the quote and payment record.</p>
-<p>A payment dispute should not be used to obtain both a chargeback and a separate refund for the same amount. If a payment provider has already opened a dispute, the business will provide the relevant quote, approval, payment, shipping, and correspondence records to resolve it accurately.</p></section>
-<section class="section"><h2>11. Records and customer questions</h2>
-<p>The quote email should contain the weight, roll price, print time, quantity, print subtotal, shipping, and total. Customers may ask for the calculation to be explained or corrected before approving it. Quote approval, payment verification, shipping information, and any revised quote should remain in the same email conversation when practical.</p>
-<p>Questions about a bill or quote should be sent by replying to the quote email or through the contact details on the website. A human will review the question and correct a genuine mistake.</p></section>
-<section class="section"><h2>12. No hidden-fee rule</h2>
-<p>If an amount is not visible on the approved quote, it is not part of the approved total. This rule applies even if the amount would normally be convenient to charge. The only customer-authorized total is the total the customer saw and approved before payment.</p></section>
+<p>Das kundenorientierte Zitat lautet:</p><ul class="list"><li>Drucken: 24,08 $</li><li>Versand: 8,00 $</li><li>Gesamt: 32,08 $</li></ul>
+<p>Der Kunde kann sehen, was die Zahl bedeutet, ohne sich auf eine ungeklärte Schätzung verlassen zu müssen.</p></section>
+<section class="section"><h2>5. Angebotsüberprüfung vor der Zahlung</h2>
+<p>Vor dem Absenden eines Angebots wird die Anfrage auf Objektbeschreibung, Menge, Material, ungefähres Gewicht, Druckzeit, Maßstab, Dateizustand und Lieferadresse überprüft. Bei der Überprüfung kann eine fehlende Datei, ein falscher Maßstab, eine nicht unterstützte Geometrie, eine Materialbeschränkung oder ein Problem mit der Druckerkompatibilität festgestellt werden.</p>
+<p>Ein Angebot ist eine Schätzung, die auf den zu diesem Zeitpunkt verfügbaren Informationen basiert. Wenn sich die angeforderte Datei oder die Spezifikationen vor der Produktion ändern, wird vor der Fortsetzung der Arbeiten ein überarbeitetes Angebot gesendet. Eine nicht genehmigte Überarbeitung wird dem Kunden niemals in Rechnung gestellt.</p>
+<p>Wenn die Datei nicht wie gewünscht gedruckt werden kann, wird das Problem klar erläutert. Ein Angebot ist keine Garantie dafür, dass eine ungeprüfte Datei erfolgreich sein wird.</p></section>
+<section class="section"><h2>6. Wann die Zahlung fällig ist</h2>
+<ol class="list"><li>Der Kunde stellt eine Anfrage.</li><li>Ein Mensch prüft die Anfrage und antwortet mit Fragen oder einem detaillierten Angebot.</li><li>Der Kunde stimmt dem Angebot ausdrücklich zu, vorzugsweise durch die Antwort „Ich stimme diesem Angebot zu.“</li><li>Für den genehmigten Gesamtbetrag werden Zahlungsanweisungen bereitgestellt.</li><li>Die Zahlung wird durch den Zahlungsanbieter überprüft.</li><li>Die Produktion beginnt erst nach Freigabe und bestätigter Zahlung.</li></ol>
+<p>Ein Screenshot, ein Versprechen, eine ausstehende Überweisung oder eine nicht bestätigte Zahlungsbenachrichtigung werden nicht als bestätigte Zahlung behandelt. Bis zur Bestätigung der Zahlung wird kein Artikel versendet.</p></section>
+<section class="section"><h2>7. Was ist enthalten und was nicht?</h2>
+<p>Die Druckzwischensumme deckt die angegebene Filament- und Druckerzeitberechnung ab. Der Versand wird separat aufgeführt. Dem Kunden werden keine versteckten Bearbeitungsgebühren, Verpackungsgebühren, Servicegebühren, Datei-Upload-Gebühren, Kommunikationsgebühren oder Überraschungsaufschläge berechnet.</p>
+<p>Designarbeit wird nicht stillschweigend in die Formel gebündelt. Wenn ein Kunde anstelle des Druckens einer bereits geeigneten Datei umfangreiche Modellierungs-, Reparatur-, Größenänderungs- oder Bearbeitungsarbeiten wünscht, müssen Umfang und Preis vor Beginn der Arbeiten erläutert und genehmigt werden. Sofern kein besonderer Betrag genehmigt wurde, ist kein besonderer Betrag geschuldet.</p></section>
+<section class="section"><h2>8. Änderungen nach Genehmigung</h2>
+<p>Ein Kunde kann nach der Genehmigung eines Angebots eine andere Menge, einen anderen Maßstab, ein anderes Material, eine andere Farbe, ein anderes Finish, eine andere Lieferadresse oder eine andere Datei anfordern. Diese Änderungen können W, R, T, Q oder S ändern. Die Produktion wird unterbrochen, während die Änderung überprüft wird. Wenn sich die Gesamtsumme ändert, wird ein neues Einzelangebot gesendet und muss genehmigt werden, bevor die Produktion wieder aufgenommen wird.</p>
+<p>Vom Unternehmen aus Bequemlichkeitsgründen vorgenommene Änderungen werden nicht als versteckte Gebühr an den Kunden weitergegeben. Wenn aufgrund eines Fehlers auf Unternehmensseite eine Korrektur erforderlich ist, wird dem Kunden mitgeteilt, was passiert ist, und die entsprechende Lösung wird angeboten.</p></section>
+<section class="section"><h2>9. Versand- und Adressgenauigkeit</h2>
+<p>Der Versand richtet sich nach der vom Kunden angegebenen Adresse und der im Angebot angegebenen Versandart. Der Kunde ist dafür verantwortlich, die Adresse vor der Zahlung zu überprüfen. Eine unvollständige oder falsche Adresse kann zu Verzögerungen, Rücksendungen oder zusätzlichen Speditionsgebühren führen.</p>
+<p>Wenn das Unternehmen die Adresse falsch angibt, unternimmt das Unternehmen entsprechende Anstrengungen, um die Sendung zu korrigieren, und gibt die durch diesen Fehler verursachten Kosten nicht weiter. Wenn der Kunde die falsche Adresse angegeben hat, hängt die verfügbare Hilfe davon ab, ob das Paket versendet wurde und ob der Spediteur es umleiten kann.</p></section>
+<section class="section"><h2>10. Zahlungsprobleme, Streitigkeiten und Doppelzahlungen</h2>
+<p>Wenn eine Zahlung fehlschlägt, rückgängig gemacht wird, doppelt erfolgt oder verdächtig erscheint, wird die Produktion unterbrochen, bis das Problem behoben ist. Der Kunde sollte sich zunächst mit dem Unternehmen in Verbindung setzen, damit die Transaktion anhand des Angebots und der Zahlungsaufzeichnungen überprüft werden kann.</p>
+<p>Ein Zahlungsstreit sollte dazu nicht genutzt werden, sowohl eine Rückbuchung als auch eine gesonderte Rückerstattung für denselben Betrag zu erreichen. Wenn ein Zahlungsanbieter bereits einen Streit eröffnet hat, stellt das Unternehmen die entsprechenden Angebots-, Genehmigungs-, Zahlungs-, Versand- und Korrespondenzunterlagen zur Verfügung, um den Streit korrekt zu klären.</p></section>
+<section class="section"><h2>11. Aufzeichnungen und Kundenfragen</h2>
+<p>Die Angebots-E-Mail sollte das Gewicht, den Rollenpreis, die Druckzeit, die Menge, die Druckzwischensumme, den Versand und die Gesamtsumme enthalten. Kunden können verlangen, dass die Berechnung erläutert oder korrigiert wird, bevor sie diese genehmigt. Angebotsgenehmigung, Zahlungsüberprüfung, Versandinformationen und etwaige überarbeitete Angebote sollten nach Möglichkeit in derselben E-Mail-Konversation verbleiben.</p>
+<p>Fragen zu einer Rechnung oder einem Angebot sollten per Antwort auf die Angebots-E-Mail oder über die Kontaktdaten auf der Website gesendet werden. Ein Mensch wird die Frage überprüfen und einen echten Fehler korrigieren.</p></section>
+<section class="section"><h2>12. Keine versteckte Gebührenregel</h2>
+<p>Wenn ein Betrag im genehmigten Angebot nicht sichtbar ist, ist er nicht Teil der genehmigten Gesamtsumme. Diese Regel gilt auch dann, wenn der Betrag normalerweise bequem abzurechnen wäre. Der einzige vom Kunden autorisierte Gesamtbetrag ist der Gesamtbetrag, den der Kunde vor der Zahlung gesehen und genehmigt hat.</p></section>
 </div><footer class="wrap footer"><p>3dprintmaxxing</p><p><a href="https://linktr.ee/3dprintmaxxing">Linktree</a> · <a href="privacy-policy.html">Privacy Policy</a> · <a href="refund-policy.html">Refund Policy</a> · <a href="billing-policy.html">Billing Policy</a></p></footer></main></body></html>
