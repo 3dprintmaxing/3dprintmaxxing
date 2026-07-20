@@ -23,19 +23,37 @@ function localizeLinks(html, locale) {
   const labels = LINK_LABELS[locale] || LINK_LABELS.en;
   const pagePath = (name) => `/${locale}/${name}`;
   const head = html.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] || '';
-  let content = html.replace(/^<!doctype html>/i, '').replace(/<html[^>]*>|<\/html>|<head[\s\S]*?<\/head>|<body[^>]*>|<\/body>/gi, '');
+  let content = html
+    .replace(/^<!doctype html>/i, '')
+    .replace(/<html[^>]*>|<\/html>|<head[\s\S]*?<\/head>|<body[^>]*>|<\/body>/gi, '');
+
   content = content
     .replace(/(data-thanks|data-rate-limited)="[^"]*"/g, (_, attribute) => `${attribute}="${pagePath(attribute === 'data-thanks' ? 'thanks' : 'rate-limited')}"`)
     .replace(/href="(?:\.\/|\.\.\/[^"/]+\/)?(blog|privacy-policy|refund-policy|billing-policy|thanks|rate-limited)(?:\.html)?"/g, (_, name) => `href="${pagePath(name)}"`)
     .replace(/href="(?:\.\/|\.\.\/[^"/]+\/)?index\.html?"/g, `href="/${locale}/"`)
     .replace(/href="\.\/"/g, `href="/${locale}/"`)
     .replace(/href="\.\.\/(en|es|pt-br|fr|de|it|ja|ko|zh)\/"/g, 'href="/$1/"');
-  for (const [from, to] of [['Blog', labels.blog], ['Privacy Policy', labels.privacy], ['Refund Policy', labels.refund], ['Billing Policy', labels.billing], ['← back to the site', `← ${labels.back}`], ['back to the site', labels.back]]) content = content.replaceAll(`>${from}<`, `>${to}<`);
+
+  for (const [from, to] of [
+    ['Blog', labels.blog],
+    ['Privacy Policy', labels.privacy],
+    ['Refund Policy', labels.refund],
+    ['Billing Policy', labels.billing],
+    ['← back to the site', `← ${labels.back}`],
+    ['back to the site', labels.back],
+  ]) content = content.replaceAll(`>${from}<`, `>${to}<`);
   return { head, content };
 }
 
 export async function generateStaticParams() {
-  return [{ path: [] }, ...LANGUAGES.flatMap((lang) => ROUTES.map((route) => ({ path: [lang, ...(route === 'index' ? [] : [route])] })) )];
+  return [
+    { path: [] },
+    ...LANGUAGES.flatMap((lang) =>
+      ROUTES.map((route) => ({
+        path: [lang, ...(route === "index" ? [] : [route])],
+      })),
+    ),
+  ];
 }
 
 export default async function StaticPage({ params }) {
@@ -43,10 +61,22 @@ export default async function StaticPage({ params }) {
   const requestedLocale = segments[0];
   if (!requestedLocale) redirect('/en');
   if (!LANGUAGES.includes(requestedLocale)) notFound();
+
   const route = segments.slice(1).join('/') || 'index';
   if (!ROUTES.includes(route)) notFound();
+
   let html;
-  try { html = await readFile(path.join(process.cwd(), requestedLocale, `${route}.html`), 'utf8'); } catch { notFound(); }
+  try {
+    html = await readFile(path.join(process.cwd(), requestedLocale, `${route}.html`), 'utf8');
+  } catch {
+    notFound();
+  }
+
   const localized = localizeLinks(html, requestedLocale);
-  return <><head dangerouslySetInnerHTML={{ __html: localized.head }} /><div lang={requestedLocale} dangerouslySetInnerHTML={{ __html: localized.content }} /></>;
+  return (
+    <>
+      <head dangerouslySetInnerHTML={{ __html: localized.head }} />
+      <div lang={requestedLocale} dangerouslySetInnerHTML={{ __html: localized.content }} />
+    </>
+  );
 }
