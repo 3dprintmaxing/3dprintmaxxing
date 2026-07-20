@@ -43,7 +43,8 @@ document.querySelectorAll('form[data-print-form]').forEach((form) => {
   var hasLocale = KNOWN.indexOf(parts[0]) !== -1;
   var locale = hasLocale ? parts[0] : 'en';
   var isHome = hasLocale ? parts.length === 1 : parts.length === 0;
-  var anchorBase = isHome ? '' : '/' + locale + '/';
+  var pageName = hasLocale && parts.length > 1 ? parts[1] : '';
+  var anchorBase = '/' + locale + '/';
 
   var top = document.querySelector('.header .top');
   if (top) {
@@ -57,9 +58,10 @@ document.querySelectorAll('form[data-print-form]').forEach((form) => {
       else top.appendChild(nav);
     }
     var labels = NAV_LABELS[locale] || NAV_LABELS.en;
-    nav.innerHTML = NAV_IDS.map(function (id, i) {
+    nav.innerHTML = isHome ? NAV_IDS.map(function (id, i) {
       return '<a href="' + anchorBase + '#' + id + '">' + labels[i] + '</a>';
-    }).join('');
+    }).join('') : '<a href="' + anchorBase + '">' + (locale === 'es' ? 'inicio' : locale === 'fr' ? 'accueil' : locale === 'de' ? 'Startseite' : locale === 'ja' ? 'ホーム' : locale === 'zh' ? '首页' : locale === 'ko' ? '홈' : locale === 'it' ? 'home' : locale === 'pt-br' ? 'início' : 'home') + '</a>';
+    if (pageName === 'blog') nav.innerHTML += '<a href="' + anchorBase + 'blog">' + (locale === 'ja' ? 'ブログ' : locale === 'ko' ? '블로그' : locale === 'zh' ? '博客' : 'Blog') + '</a>';
 
     var lang = top.querySelector('.lang');
     if (!lang) {
