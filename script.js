@@ -57,12 +57,22 @@ document.querySelectorAll('form[data-print-form]').forEach((form) => {
       if (logo && logo.nextSibling) top.insertBefore(nav, logo.nextSibling);
       else top.appendChild(nav);
     }
-    var labels = NAV_LABELS[locale] || NAV_LABELS.en;
-    nav.innerHTML = isHome ? NAV_IDS.map(function (id, i) {
-      return '<a href="' + anchorBase + '#' + id + '">' + labels[i] + '</a>';
-    }).join('') : '<a href="' + anchorBase + '">' + (locale === 'es' ? 'inicio' : locale === 'fr' ? 'accueil' : locale === 'de' ? 'Startseite' : locale === 'ja' ? 'ホーム' : locale === 'zh' ? '首页' : locale === 'ko' ? '홈' : locale === 'it' ? 'home' : locale === 'pt-br' ? 'início' : 'home') + '</a>';
-    if (!isHome && pageName !== 'blog') nav.innerHTML += '<a href="' + anchorBase + 'blog">' + (locale === 'ja' ? 'ブログ' : locale === 'ko' ? '블로그' : locale === 'zh' ? '博客' : 'Blog') + '</a>';
-    if (pageName === 'blog') nav.innerHTML += '<a href="' + anchorBase + '">' + (locale === 'es' ? 'inicio' : locale === 'fr' ? 'accueil' : locale === 'de' ? 'Startseite' : locale === 'ja' ? 'ホーム' : locale === 'zh' ? '首页' : locale === 'ko' ? '홈' : locale === 'it' ? 'home' : locale === 'pt-br' ? 'início' : 'home') + '</a>';
+    var headings = Array.from(document.querySelectorAll('main h1, main h2, main h3'));
+    var usedIds = new Set();
+    var slugify = function (text) {
+      var base = text.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '') || 'section';
+      var id = base;
+      var suffix = 2;
+      while (usedIds.has(id) || document.getElementById(id)) id = base + '-' + suffix++;
+      usedIds.add(id);
+      return id;
+    };
+    var sectionLinks = headings.map(function (heading) {
+      if (!heading.id) heading.id = slugify(heading.textContent || '');
+      else usedIds.add(heading.id);
+      return '<a href="#' + heading.id + '">' + (heading.textContent || '').trim() + '</a>';
+    }).join('');
+    nav.innerHTML = sectionLinks || '<a href="#">' + (document.title || 'top') + '</a>';
 
     var lang = top.querySelector('.lang');
     if (!lang) {
