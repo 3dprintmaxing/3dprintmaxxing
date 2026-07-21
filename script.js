@@ -39,12 +39,11 @@ document.querySelectorAll('form[data-print-form]').forEach((form) => {
     zh: ['流程', '打印设备', '申请打印', '打印政策', '常见问题']
   };
 
-  var parts = location.pathname.replace(/index\.html$/, '').replace(/\/+$/, '').split('/').filter(Boolean);
+      var parts = location.pathname.replace(/index\.html$/, '').replace(/\/+$/, '').split('/').filter(Boolean);
   var hasLocale = KNOWN.indexOf(parts[0]) !== -1;
   var locale = hasLocale ? parts[0] : 'en';
-  var isHome = hasLocale ? parts.length === 1 : parts.length === 0;
-  var pageName = hasLocale && parts.length > 1 ? parts[1] : '';
-  var anchorBase = '/' + locale + '/';
+  var pageName = hasLocale && parts.length > 1 ? parts.slice(1).join('/') : '';
+  var pageRoot = hasLocale ? '/' + locale + '/' : '/';
 
   var top = document.querySelector('.header .top');
   if (top) {
@@ -70,9 +69,9 @@ document.querySelectorAll('form[data-print-form]').forEach((form) => {
     var sectionLinks = headings.map(function (heading) {
       if (!heading.id) heading.id = slugify(heading.textContent || '');
       else usedIds.add(heading.id);
-      return '<a href="#' + heading.id + '">' + (heading.textContent || '').trim() + '</a>';
+      return '<a href="' + pageRoot + '#' + heading.id + '">' + (heading.textContent || '').trim() + '</a>';
     }).join('');
-    nav.innerHTML = sectionLinks || '<a href="#">' + (document.title || 'top') + '</a>';
+    nav.innerHTML = sectionLinks || '<a href="' + pageRoot + '">' + (document.title || 'top') + '</a>';
 
     var lang = top.querySelector('.lang');
     if (!lang) {
