@@ -45,7 +45,8 @@ document.querySelectorAll('form[data-print-form]').forEach((form) => {
   };
   const pathParts = window.location.pathname.split('/').filter(Boolean);
   const locale = languages.includes(pathParts[0]) ? pathParts[0] : 'en';
-  const page = languages.includes(pathParts[0]) ? pathParts.slice(1).join('/') : pathParts.join('/');
+  const rawPage = languages.includes(pathParts[0]) ? pathParts.slice(1).join('/') : pathParts.join('/');
+  const page = rawPage.replace(/\.html$/, '').replace(/^index$/, '');
   const currentPage = `/${locale}${page ? `/${page}` : '/'}`;
 
   const slugify = (text, used) => {
