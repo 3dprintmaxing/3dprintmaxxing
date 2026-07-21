@@ -61,7 +61,8 @@ document.querySelectorAll('form[data-print-form]').forEach((form) => {
     nav.innerHTML = isHome ? NAV_IDS.map(function (id, i) {
       return '<a href="' + anchorBase + '#' + id + '">' + labels[i] + '</a>';
     }).join('') : '<a href="' + anchorBase + '">' + (locale === 'es' ? 'inicio' : locale === 'fr' ? 'accueil' : locale === 'de' ? 'Startseite' : locale === 'ja' ? 'ホーム' : locale === 'zh' ? '首页' : locale === 'ko' ? '홈' : locale === 'it' ? 'home' : locale === 'pt-br' ? 'início' : 'home') + '</a>';
-    if (pageName === 'blog') nav.innerHTML += '<a href="' + anchorBase + 'blog">' + (locale === 'ja' ? 'ブログ' : locale === 'ko' ? '블로그' : locale === 'zh' ? '博客' : 'Blog') + '</a>';
+    if (!isHome && pageName !== 'blog') nav.innerHTML += '<a href="' + anchorBase + 'blog">' + (locale === 'ja' ? 'ブログ' : locale === 'ko' ? '블로그' : locale === 'zh' ? '博客' : 'Blog') + '</a>';
+    if (pageName === 'blog') nav.innerHTML += '<a href="' + anchorBase + '">' + (locale === 'es' ? 'inicio' : locale === 'fr' ? 'accueil' : locale === 'de' ? 'Startseite' : locale === 'ja' ? 'ホーム' : locale === 'zh' ? '首页' : locale === 'ko' ? '홈' : locale === 'it' ? 'home' : locale === 'pt-br' ? 'início' : 'home') + '</a>';
 
     var lang = top.querySelector('.lang');
     if (!lang) {
@@ -79,7 +80,7 @@ document.querySelectorAll('form[data-print-form]').forEach((form) => {
   document.querySelectorAll('.footer a[href]').forEach(function (a) {
     var href = a.getAttribute('href');
     FILES.forEach(function (name) {
-      if (href === name + '.html' || href === './' + name + '.html' || href.indexOf('/' + name + '.html') !== -1) {
+      if (href === name + '.html' || href === './' + name + '.html' || href.indexOf('/' + name + '.html') !== -1 || href === name || href === './' + name) {
         a.setAttribute('href', '/' + locale + '/' + name);
       }
     });
