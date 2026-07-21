@@ -43,7 +43,7 @@ document.querySelectorAll('form[data-print-form]').forEach((form) => {
   var hasLocale = KNOWN.indexOf(parts[0]) !== -1;
   var locale = hasLocale ? parts[0] : 'en';
   var pageName = hasLocale && parts.length > 1 ? parts.slice(1).join('/') : '';
-  var pageRoot = hasLocale ? '/' + locale + '/' : '/';
+  var pageRoot = location.pathname.replace(/index\.html$/, '') || '/';
 
   var top = document.querySelector('.header .top');
   if (top) {
