@@ -65,6 +65,7 @@ document.querySelectorAll('form[data-print-form]').forEach((form) => {
     top.querySelectorAll('.menu-toggle, .menu-panel').forEach((element) => element.remove());
 
     const logo = top.querySelector('.logo');
+    if (logo) logo.href = `/${locale}/`;
     const nav = top.querySelector('.nav') || document.createElement('nav');
     nav.className = 'nav';
     const headings = Array.from(document.querySelectorAll('main h1, main h2, main h3'));
