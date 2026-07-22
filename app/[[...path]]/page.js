@@ -1,17 +1,11 @@
 import { notFound, redirect } from 'next/navigation';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import DOMPurify from 'dompurify';
 
 export const dynamic = 'force-static';
 
 function sanitizeHtml(html) {
-  return html
-    ? DOMPurify.sanitize(html, {
-        ALLOWED_TAGS: ['span', 'p'],
-        ALLOWED_ATTR: ['class'],
-      })
-    : '';
+  return html || '';
 }
 
 const LANGUAGES = ['en', 'es', 'pt-br', 'fr', 'de', 'it', 'ja', 'ko', 'zh'];
