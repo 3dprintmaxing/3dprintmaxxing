@@ -10,9 +10,14 @@ export async function generateMetadata({ params }) {
   const { path: route = [] } = await params;
   const locale = route[0] || 'en';
   const page = route[1] || 'index';
-  const file = path.join(ROOT, locale, `${page}.html`);
+  const base = path.resolve(ROOT);
+  const target = path.resolve(base, locale, `${page}.html`);
+  const relative = path.relative(base, target);
+  if (relative.startsWith('..') || path.isAbsolute(relative)) {
+    return { title: '3dprintmaxxing', robots: { index: false, follow: false }, icons: { icon: '/assets/favicon.ico', apple: '/assets/apple-touch-icon.png' } };
+  }
   try {
-    const html = await readFile(file, 'utf8');
+    const html = await readFile(target, 'utf8');
     const title = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] || '3dprintmaxxing';
     const description = html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i)?.[1];
     const cleanPage = page === 'index' ? '' : `/${page}`;
