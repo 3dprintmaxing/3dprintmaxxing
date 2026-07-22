@@ -1,8 +1,18 @@
 import { notFound, redirect } from 'next/navigation';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import DOMPurify from 'dompurify';
 
 export const dynamic = 'force-static';
+
+function sanitizeHtml(html) {
+  return html
+    ? DOMPurify.sanitize(html, {
+        ALLOWED_TAGS: ['span', 'p'],
+        ALLOWED_ATTR: ['class'],
+      })
+    : '';
+}
 
 const LANGUAGES = ['en', 'es', 'pt-br', 'fr', 'de', 'it', 'ja', 'ko', 'zh'];
 const ROUTES = ['index', 'thanks', 'privacy-policy', 'refund-policy', 'billing-policy', 'rate-limited', 'blog', 'article-filament', 'article-reliable-pla', 'article-first-layer'];
@@ -75,8 +85,8 @@ export default async function StaticPage({ params }) {
   const localized = localizeLinks(html, requestedLocale);
   return (
     <>
-      <head dangerouslySetInnerHTML={{ __html: localized.head }} />
-      <div lang={requestedLocale} dangerouslySetInnerHTML={{ __html: localized.content }} />
+      <head dangerouslySetInnerHTML={{ __html: sanitizeHtml(localized.head) }} />
+      <div lang={requestedLocale} dangerouslySetInnerHTML={{ __html: sanitizeHtml(localized.content) }} />
     </>
   );
 }
