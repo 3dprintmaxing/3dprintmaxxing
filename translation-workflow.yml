@@ -1,11 +1,97 @@
-name: Translate articles
+name: Translate long-form articles
+
 on:
   workflow_dispatch:
+
 permissions:
   contents: write
+
 jobs:
   translate:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
-      - run: echo translate
+      - name: Check out the site
+        uses: actions/checkout@v4
+
+      - name: Translate every article from English
+        run: |
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urlencode
+          from urllib.request import Request, urlopen
+          import json
+          import re
+          import time
+
+          root = Path('.')
+          targets = {'es': 'es', 'pt-br': 'pt', 'fr': 'fr', 'de': 'de', 'it': 'it', 'ja': 'ja', 'ko': 'ko', 'zh': 'zh-CN'}
+          articles = sorted((root / 'en').glob('article-*.html'))
+          skip_tags = {'script', 'style', 'noscript'}
+          skip_text = re.compile(r'^[\s\d\W_]+$')
+
+          def translate(text, target):
+              if not text.strip() or skip_text.fullmatch(text.strip()):
+                  return text
+              leading = text[:len(text) - len(text.lstrip())]
+              trailing = text[len(text.rstrip()):]
+              core = text.strip()
+              for attempt in range(6):
+                  try:
+                      query = urlencode({'client': 'gtx', 'sl': 'en', 'tl': target, 'dt': 't', 'q': core})
+                      req = Request('https://translate.googleapis.com/translate_a/single?' + query, headers={'User-Agent': 'Mozilla/5.0'})
+                      with urlopen(req, timeout=45) as response:
+                          data = json.load(response)
+                      result = ''.join(part[0] for part in data[0] if part and part[0])
+                      if result:
+                          time.sleep(0.08)
+                          return leading + result + trailing
+                  except Exception as error:
+                      if attempt == 5:
+                          raise error
+                      time.sleep(2 * (attempt + 1))
+              return text
+
+          class Localizer(HTMLParser):
+              def __init__(self, target):
+                  super().__init__(convert_charrefs=False)
+                  self.target = target
+                  self.output = []
+                  self.skip_depth = 0
+              def handle_decl(self, decl): self.output.append('<!' + decl + '>')
+              def handle_comment(self, data): self.output.append('<!--' + data + '-->')
+              def handle_starttag(self, tag, attrs):
+                  self.output.append(self.get_starttag_text())
+                  if tag.lower() in skip_tags: self.skip_depth += 1
+              def handle_startendtag(self, tag, attrs): self.output.append(self.get_starttag_text())
+              def handle_endtag(self, tag):
+                  self.output.append('</' + tag + '>')
+                  if tag.lower() in skip_tags and self.skip_depth: self.skip_depth -= 1
+              def handle_entityref(self, name): self.output.append('&' + name + ';')
+              def handle_charref(self, name): self.output.append('&#' + name + ';')
+              def handle_data(self, data):
+                  self.output.append(data if self.skip_depth else translate(data, self.target))
+              def handle_pi(self, data): self.output.append('<?' + data + '>')
+
+          for source in articles:
+              source_html = source.read_text(encoding='utf-8')
+              for lang, target in targets.items():
+                  parser = Localizer(target)
+                  parser.feed(source_html)
+                  output = ''.join(parser.output)
+                  output = re.sub(r'<html lang="en">', f'<html lang="{lang}">', output, count=1)
+                  destination = root / lang / source.name
+                  destination.write_text(output, encoding='utf-8')
+                  print(f'{destination}: {len(output)} bytes')
+          PY
+
+      - name: Commit translated articles
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add es pt-br fr de it ja ko zh
+          if ! git diff --cached --quiet; then
+            git commit -m "Translate long-form articles for every language"
+            git push
+          fi
