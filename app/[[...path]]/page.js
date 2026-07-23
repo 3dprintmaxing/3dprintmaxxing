@@ -23,7 +23,26 @@ const LINK_LABELS = {
   zh: { blog: '博客', privacy: '隐私政策', refund: '退款政策', billing: '账单政策', back: '返回网站' },
 };
 
-function localizeLinks(html, locale) {
+const RELATED_ARTICLES = {
+  en: { heading: 'Keep reading', browse: 'Browse all tutorials →', read: 'Read the guide →', titles: { 'article-filament': 'How to Choose Filament for a Custom 3D Print', 'article-reliable-pla': 'How to Get More Reliable PLA 3D Prints', 'article-first-layer': 'First-Layer Problems, Warping, and Failed PLA Prints' } },
+  es: { heading: 'Sigue leyendo', browse: 'Ver todos los tutoriales →', read: 'Leer la guía →', titles: { 'article-filament': 'Cómo elegir filamento para una impresión 3D personalizada', 'article-reliable-pla': 'Cómo obtener impresiones 3D de PLA más confiables', 'article-first-layer': 'Problemas de primera capa, deformación y fallos de PLA' } },
+  'pt-br': { heading: 'Continue lendo', browse: 'Ver todos os tutoriais →', read: 'Ler o guia →', titles: { 'article-filament': 'Como escolher filamento para uma impressão 3D personalizada', 'article-reliable-pla': 'Como obter impressões 3D de PLA mais confiáveis', 'article-first-layer': 'Problemas da primeira camada, empenamento e falhas de PLA' } },
+  fr: { heading: 'Poursuivre la lecture', browse: 'Voir tous les tutoriels →', read: 'Lire le guide →', titles: { 'article-filament': 'Comment choisir le filament pour une impression 3D personnalisée', 'article-reliable-pla': 'Comment obtenir des impressions 3D en PLA plus fiables', 'article-first-layer': 'Première couche, déformation et échecs d’impression PLA' } },
+  de: { heading: 'Weiterlesen', browse: 'Alle Anleitungen ansehen →', read: 'Anleitung lesen →', titles: { 'article-filament': 'Filament für einen individuellen 3D-Druck auswählen', 'article-reliable-pla': 'Zuverlässigere PLA-3D-Drucke erstellen', 'article-first-layer': 'Probleme mit der ersten Schicht, Warping und PLA-Fehler' } },
+  it: { heading: 'Continua a leggere', browse: 'Vedi tutte le guide →', read: 'Leggi la guida →', titles: { 'article-filament': 'Come scegliere il filamento per una stampa 3D personalizzata', 'article-reliable-pla': 'Come ottenere stampe 3D in PLA più affidabili', 'article-first-layer': 'Problemi del primo layer, deformazioni e stampe PLA fallite' } },
+  ja: { heading: '続きを読む', browse: 'すべてのチュートリアルを見る →', read: 'ガイドを読む →', titles: { 'article-filament': 'カスタム3Dプリント用フィラメントの選び方', 'article-reliable-pla': 'より安定したPLA 3Dプリントの作り方', 'article-first-layer': '初層の問題、反り、PLAプリントの失敗' } },
+  ko: { heading: '계속 읽기', browse: '모든 튜토리얼 보기 →', read: '가이드 읽기 →', titles: { 'article-filament': '맞춤형 3D 프린트용 필라멘트 선택 방법', 'article-reliable-pla': '더 안정적인 PLA 3D 프린트를 만드는 방법', 'article-first-layer': '첫 레이어 문제, 뒤틀림 및 PLA 출력 실패' } },
+  zh: { heading: '继续阅读', browse: '浏览所有教程 →', read: '阅读指南 →', titles: { 'article-filament': '如何为定制 3D 打印选择耗材', 'article-reliable-pla': '如何获得更可靠的 PLA 3D 打印', 'article-first-layer': '首层问题、翘曲与 PLA 打印失败' } },
+};
+
+function relatedMarkup(locale, route) {
+  if (!route.startsWith('article-')) return '';
+  const copy = RELATED_ARTICLES[locale] || RELATED_ARTICLES.en;
+  const links = Object.keys(copy.titles).filter((name) => name !== route).map((name) => `<a class="related-card" href="/${locale}/${name}"><strong>${copy.titles[name]}</strong><span>${copy.read}</span></a>`).join('');
+  return `<section class="related-articles" aria-labelledby="related-heading"><h2 id="related-heading">${copy.heading}</h2><div class="related-grid">${links}</div><p><a href="/${locale}/blog">${copy.browse}</a></p></section>`;
+}
+
+function localizeLinks(html, locale, route) {
   const labels = LINK_LABELS[locale] || LINK_LABELS.en;
   const pagePath = (name) => `/${locale}/${name}`;
   const head = html.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] || '';
@@ -38,26 +57,12 @@ function localizeLinks(html, locale) {
     .replace(/href="\.\/"/g, `href="/${locale}/"`)
     .replace(/href="\.\.\/(en|es|pt-br|fr|de|it|ja|ko|zh)\/"/g, 'href="/$1/"');
 
-  for (const [from, to] of [
-    ['Blog', labels.blog],
-    ['Privacy Policy', labels.privacy],
-    ['Refund Policy', labels.refund],
-    ['Billing Policy', labels.billing],
-    ['← back to the site', `← ${labels.back}`],
-    ['back to the site', labels.back],
-  ]) content = content.replaceAll(`>${from}<`, `>${to}<`);
-  return { head, content };
+  for (const [from, to] of [['Blog', labels.blog], ['Privacy Policy', labels.privacy], ['Refund Policy', labels.refund], ['Billing Policy', labels.billing], ['← back to the site', `← ${labels.back}`], ['back to the site', labels.back]]) content = content.replaceAll(`>${from}<`, `>${to}<`);
+  return { head, content: content.replace('</div></main>', `${relatedMarkup(locale, route)}</div></main>`) };
 }
 
 export async function generateStaticParams() {
-  return [
-    { path: [] },
-    ...LANGUAGES.flatMap((lang) =>
-      ROUTES.map((route) => ({
-        path: [lang, ...(route === "index" ? [] : [route])],
-      })),
-    ),
-  ];
+  return [{ path: [] }, ...LANGUAGES.flatMap((lang) => ROUTES.map((route) => ({ path: [lang, ...(route === 'index' ? [] : [route])] })))];
 }
 
 export default async function StaticPage({ params }) {
@@ -65,22 +70,10 @@ export default async function StaticPage({ params }) {
   const requestedLocale = segments[0];
   if (!requestedLocale) redirect('/en');
   if (!LANGUAGES.includes(requestedLocale)) notFound();
-
   const route = segments.slice(1).join('/') || 'index';
   if (!ROUTES.includes(route)) notFound();
-
   let html;
-  try {
-    html = await readFile(path.join(process.cwd(), requestedLocale, `${route}.html`), 'utf8');
-  } catch {
-    notFound();
-  }
-
-  const localized = localizeLinks(html, requestedLocale);
-  return (
-    <>
-      <head dangerouslySetInnerHTML={{ __html: sanitizeHtml(localized.head) }} />
-      <div lang={requestedLocale} dangerouslySetInnerHTML={{ __html: sanitizeHtml(localized.content) }} />
-    </>
-  );
+  try { html = await readFile(path.join(process.cwd(), requestedLocale, `${route}.html`), 'utf8'); } catch { notFound(); }
+  const localized = localizeLinks(html, requestedLocale, route);
+  return <><head dangerouslySetInnerHTML={{ __html: sanitizeHtml(localized.head) }} /><div lang={requestedLocale} dangerouslySetInnerHTML={{ __html: sanitizeHtml(localized.content) }} /></>;
 }
