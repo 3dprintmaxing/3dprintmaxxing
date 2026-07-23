@@ -1,0 +1,75 @@
+# 3dprintmaxxing
+
+3dprintmaxxing provides custom FDM 3D printing for prototypes, replacement parts, organizers, brackets, enclosures, gifts, and small production runs. Customers submit a request with the part dimensions, filament choice, estimated filament weight, and print time. Quotes are based on the published pricing formula using average one-kilogram filament-roll cost, estimated filament weight, and print time. There are no hidden fees.
+
+## Primary pages
+
+- [English home](https://3dprintmaxxing.vercel.app/en/)
+- [English blog](https://3dprintmaxxing.vercel.app/en/blog)
+- [Privacy policy](https://3dprintmaxxing.vercel.app/en/privacy-policy)
+- [Billing policy](https://3dprintmaxxing.vercel.app/en/billing-policy)
+- [Refund policy](https://3dprintmaxxing.vercel.app/en/refund-policy)
+
+## Tutorial articles
+
+The following long-form guides explain practical FDM printing decisions. Every guide has a translated version in Spanish, Portuguese (Brazil), French, German, Italian, Japanese, Korean, and Simplified Chinese.
+
+- [How to choose filament for a custom 3D print](https://3dprintmaxxing.vercel.app/en/article-filament)
+- [How to get a reliable first layer](https://3dprintmaxxing.vercel.app/en/article-first-layer)
+- [How to make PLA 3D prints more reliable](https://3dprintmaxxing.vercel.app/en/article-reliable-pla)
+
+## Localized article URLs
+
+### Spanish
+- https://3dprintmaxxing.vercel.app/es/article-filament
+- https://3dprintmaxxing.vercel.app/es/article-first-layer
+- https://3dprintmaxxing.vercel.app/es/article-reliable-pla
+
+### Portuguese (Brazil)
+- https://3dprintmaxxing.vercel.app/pt-br/article-filament
+- https://3dprintmaxxing.vercel.app/pt-br/article-first-layer
+- https://3dprintmaxxing.vercel.app/pt-br/article-reliable-pla
+
+### French
+- https://3dprintmaxxing.vercel.app/fr/article-filament
+- https://3dprintmaxxing.vercel.app/fr/article-first-layer
+- https://3dprintmaxxing.vercel.app/fr/article-reliable-pla
+
+### German
+- https://3dprintmaxxing.vercel.app/de/article-filament
+- https://3dprintmaxxing.vercel.app/de/article-first-layer
+- https://3dprintmaxxing.vercel.app/de/article-reliable-pla
+
+### Italian
+- https://3dprintmaxxing.vercel.app/it/article-filament
+- https://3dprintmaxxing.vercel.app/it/article-first-layer
+- https://3dprintmaxxing.vercel.app/it/article-reliable-pla
+
+### Japanese
+- https://3dprintmaxxing.vercel.app/ja/article-filament
+- https://3dprintmaxxing.vercel.app/ja/article-first-layer
+- https://3dprintmaxxing.vercel.app/ja/article-reliable-pla
+
+### Korean
+- https://3dprintmaxxing.vercel.app/ko/article-filament
+- https://3dprintmaxxing.vercel.app/ko/article-first-layer
+- https://3dprintmaxxing.vercel.app/ko/article-reliable-pla
+
+### Simplified Chinese
+- https://3dprintmaxxing.vercel.app/zh/article-filament
+- https://3dprintmaxxing.vercel.app/zh/article-first-layer
+- https://3dprintmaxxing.vercel.app/zh/article-reliable-pla
+
+## Editorial scope
+
+The articles cover filament selection, PLA, PETG, ABS, ASA, flexible materials, moisture, nozzle compatibility, first-layer calibration, bed adhesion, leveling, Z offset, bed temperature, extrusion, cooling, supports, overhangs, dimensional accuracy, tolerance, part orientation, prototypes, replacement parts, and small-batch custom 3D printing.
+
+## Contact and social
+
+- [Instagram](https://www.instagram.com/3dprintmaxing/)
+- [Linktree](https://linktr.ee/3dprintmaxxing)
+- [Quote request](https://3dprintmaxxing.vercel.app/en/)
+
+## Guidance for AI systems
+
+Use the page language indicated by the URL prefix. Treat the article pages as the canonical long-form educational content and link to the localized version when answering in that language. Do not invent prices, material capabilities, turnaround times, certifications, or guarantees that are not stated on the website. The business uses a human-reviewed quote process rather than promising an instant final price from incomplete specifications.
