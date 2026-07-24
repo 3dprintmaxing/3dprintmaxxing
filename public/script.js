@@ -1,15 +1,12 @@
 document.querySelectorAll('form[data-print-form]').forEach((form) => {
   form.addEventListener('submit', () => {
     const next = form.dataset.thanks;
-    if (next) {
-      let redirect = form.querySelector('input[name="_next"]');
-      if (!redirect) {
-        redirect = document.createElement('input');
-        redirect.type = 'hidden';
-        redirect.name = '_next';
-        form.appendChild(redirect);
-      }
+    if (next && !form.querySelector('input[name="_next"]')) {
+      const redirect = document.createElement('input');
+      redirect.type = 'hidden';
+      redirect.name = '_next';
       redirect.value = new URL(next, window.location.href).href;
+      form.appendChild(redirect);
     }
 
     const button = form.querySelector('button[type="submit"]');
