@@ -77,7 +77,7 @@ export async function generateStaticParams() {
 export default async function StaticPage({ params }) {
   const { path: segments = [] } = await params;
   const requestedLocale = segments[0];
-  if (!requestedLocale) redirect('/en');
+  if (!requestedLocale) redirect('/en/');
   if (!LANGUAGES.includes(requestedLocale)) notFound();
   const route = segments.slice(1).join('/') || 'index';
   if (!ROUTES.includes(route)) notFound();
