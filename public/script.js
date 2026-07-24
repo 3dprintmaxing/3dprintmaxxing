@@ -1,18 +1,33 @@
 document.querySelectorAll('form[data-print-form]').forEach((form) => {
-  form.addEventListener('submit', () => {
-    const next = form.dataset.thanks;
-    if (next && !form.querySelector('input[name="_next"]')) {
-      const redirect = document.createElement('input');
-      redirect.type = 'hidden';
-      redirect.name = '_next';
-      redirect.value = new URL(next, window.location.href).href;
-      form.appendChild(redirect);
-    }
-
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
     const button = form.querySelector('button[type="submit"]');
     const status = form.querySelector('[data-status]');
+    const next = form.dataset.thanks;
+    const destination = next ? new URL(next, window.location.href).href : null;
+    let redirect = form.querySelector('input[name="_next"]');
+    if (!redirect) {
+      redirect = document.createElement('input');
+      redirect.type = 'hidden';
+      redirect.name = '_next';
+      form.appendChild(redirect);
+    }
+    if (destination) redirect.value = destination;
     if (button) button.disabled = true;
     if (status) status.textContent = 'Sending…';
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      });
+      if (!response.ok) throw new Error('Form submission failed');
+      if (destination) window.location.assign(destination);
+    } catch (error) {
+      if (button) button.disabled = false;
+      if (status) status.textContent = 'Something went wrong. Please try again.';
+    }
   });
 });
 
