@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 const ROOT = process.cwd();
 const BASE_URL = 'https://3dprintmaxxing.vercel.app';
 const LANGUAGES = ['en', 'es', 'pt-br', 'fr', 'de', 'it', 'ja', 'ko', 'zh'];
-const LANGUAGE_NAMES = { en: 'en-US', es: 'es', 'pt-br: 'pt-BR', fr: 'fr', de: 'de', it: 'it', ja: 'ja', ko: 'ko', zh: 'zh-CN' };
+const LANGUAGE_NAMES = { en: 'en-US', es: 'es', 'pt-br': 'pt-BR', fr: 'fr', de: 'de', it: 'it', ja: 'ja', ko: 'ko', zh: 'zh-CN' };
 const PAGE_KEYWORDS = {
   index: ['custom 3D printing', 'FDM 3D printing service', 'STL printing', '3D print quote', 'PLA 3D printing', 'prototype printing'],
   blog: ['3D printing tutorials', 'FDM printing guide', 'PLA troubleshooting', 'filament guide'],
@@ -19,7 +19,7 @@ const TITLE_OVERRIDES = {
   de: { 'article-filament': 'Filament für individuellen 3D-Druck auswählen', 'article-first-layer': 'Erste Schicht, Warping und PLA-Fehler' },
   es: { 'article-filament': 'Elegir filamento para impresión 3D personalizada', 'article-first-layer': 'Primera capa, deformación y fallos de PLA' },
   fr: { 'article-filament': 'Choisir un filament pour impression 3D personnalisée', 'article-first-layer': 'Première couche, déformation et échecs PLA' },
-  it: { 'article-filament': 'Scegliere il filamento per stampa 3D personalizzata', 'article-first-layer': 'Primo strato, deformazioni e stampe PLA fallite' },
+  it: { 'article-filament': 'Scegliere il filamento per stampa 3D personalizada', 'article-first-layer': 'Primo strato, deformazioni e stampe PLA fallite' },
   'pt-br': { 'article-filament': 'Escolher filamento para impressão 3D personalizada', 'article-first-layer': 'Primeira camada, empenamento e falhas de PLA' },
 };
 
