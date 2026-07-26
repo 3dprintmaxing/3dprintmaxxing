@@ -46,7 +46,7 @@ export async function generateMetadata({ params }) {
       openGraph: { type: page.startsWith('article-') ? 'article' : 'website', url: canonical, title, description, siteName: '3dprintmaxxing', locale: LANGUAGE_NAMES[locale] || locale },
       twitter: { card: 'summary_large_image', title, description },
       robots: page === 'thanks' ? { index: false, follow: false } : { index: true, follow: true },
-      icons: { icon: '/assets/favicon.ico', apple: '/assets/apple-touch-icon.png' },
+      icons: { icon: [{ url: '/assets/favicon.ico', type: 'image/x-icon' }, { url: '/assets/favicon-32x32.png', sizes: '32x32', type: 'image/png' }, { url: '/assets/favicon-16x16.png', sizes: '16x16', type: 'image/png' }], apple: '/assets/apple-touch-icon.png' },
     };
   } catch {
     return { title: '3dprintmaxxing', robots: { index: false, follow: false } };
