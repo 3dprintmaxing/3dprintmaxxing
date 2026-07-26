@@ -15,19 +15,19 @@ const PAGE_KEYWORDS = {
   'refund-policy': ['3D printing refund policy'],
   'billing-policy': ['3D printing billing policy'],
 };
-const TITLE_OVERRIDES = {
-  de: { 'article-filament': 'Filament für individuellen 3D-Druck auswählen', 'article-first-layer': 'Erste Schicht, Warping und PLA-Fehler' },
-  es: { 'article-filament': 'Elegir filamento para impresión 3D personalizada', 'article-first-layer': 'Primera capa, deformación y fallos de PLA' },
-  fr: { 'article-filament': 'Choisir un filament pour impression 3D personnalisée', 'article-first-layer': 'Première couche, déformation et échecs PLA' },
-  it: { 'article-filament': 'Scegliere il filamento per stampa 3D personalizada', 'article-first-layer': 'Primo strato, deformazioni e stampe PLA fallite' },
-  'pt-br': { 'article-filament': 'Escolher filamento para impressão 3D personalizada', 'article-first-layer': 'Primeira camada, empenamento e falhas de PLA' },
+const SHORT_TITLES = {
+  en: { index: 'Custom 3D Printing — 3dprintmaxxing', blog: '3D Printing Tutorials — 3dprintmaxxing', 'article-filament': '3D Printing Filament Guide — 3dprintmaxxing', 'article-reliable-pla': 'Reliable PLA 3D Printing — 3dprintmaxxing', 'article-first-layer': 'First-Layer 3D Printing Fixes — 3dprintmaxxing' },
+  es: { index: 'Impresión 3D personalizada — 3dprintmaxxing', blog: 'Tutoriales de impresión 3D — 3dprintmaxxing', 'article-filament': 'Guía de filamento 3D — 3dprintmaxxing', 'article-reliable-pla': 'Impresiones PLA fiables — 3dprintmaxxing', 'article-first-layer': 'Soluciones para la primera capa — 3dprintmaxxing' },
+  'pt-br': { index: 'Impressão 3D personalizada — 3dprintmaxxing', blog: 'Tutoriais de impressão 3D — 3dprintmaxxing', 'article-filament': 'Guia de filamento 3D — 3dprintmaxxing', 'article-reliable-pla': 'Impressões PLA confiáveis — 3dprintmaxxing', 'article-first-layer': 'Soluções para a primeira camada — 3dprintmaxxing' },
+  fr: { index: 'Impression 3D personnalisée — 3dprintmaxxing', blog: 'Tutoriels d’impression 3D — 3dprintmaxxing', 'article-filament': 'Guide du filament 3D — 3dprintmaxxing', 'article-reliable-pla': 'Impressions PLA fiables — 3dprintmaxxing', 'article-first-layer': 'Dépannage de la première couche — 3dprintmaxxing' },
+  de: { index: 'Individueller 3D-Druck — 3dprintmaxxing', blog: '3D-Druck-Anleitungen — 3dprintmaxxing', 'article-filament': '3D-Druck-Filament wählen — 3dprintmaxxing', 'article-reliable-pla': 'Zuverlässiger PLA-Druck — 3dprintmaxxing', 'article-first-layer': 'Erste Schicht richtig drucken — 3dprintmaxxing' },
+  it: { index: 'Stampa 3D personalizzata — 3dprintmaxxing', blog: 'Guide per la stampa 3D — 3dprintmaxxing', 'article-filament': 'Guida ai filamenti 3D — 3dprintmaxxing', 'article-reliable-pla': 'Stampe PLA affidabili — 3dprintmaxxing', 'article-first-layer': 'Problemi del primo layer — 3dprintmaxxing' },
+  ja: { index: 'カスタム3Dプリント — 3dprintmaxxing', blog: '3Dプリントガイド — 3dprintmaxxing', 'article-filament': '3Dプリント用フィラメント — 3dprintmaxxing', 'article-reliable-pla': '安定したPLAプリント — 3dprintmaxxing', 'article-first-layer': '初層プリントの問題解決 — 3dprintmaxxing' },
+  ko: { index: '맞춤형 3D 프린팅 — 3dprintmaxxing', blog: '3D 프린팅 가이드 — 3dprintmaxxing', 'article-filament': '3D 프린팅 필라멘트 가이드 — 3dprintmaxxing', 'article-reliable-pla': '안정적인 PLA 출력 — 3dprintmaxxing', 'article-first-layer': '첫 레이어 문제 해결 — 3dprintmaxxing' },
+  zh: { index: '定制3D打印 — 3dprintmaxxing', blog: '3D打印指南 — 3dprintmaxxing', 'article-filament': '3D打印耗材指南 — 3dprintmaxxing', 'article-reliable-pla': '稳定PLA打印 — 3dprintmaxxing', 'article-first-layer': '首层打印问题解决 — 3dprintmaxxing' },
 };
-
-function routeUrl(locale, page) {
-  return `${BASE_URL}/${locale}${page === 'index' ? '' : `/${page}`}`;
-}
-
-export async function generatePageMetadata({ params }) {
+function routeUrl(locale, page) { return `${BASE_URL}/${locale}${page === 'index' ? '' : `/${page}`}`; }
+export async function generateMetadata({ params }) {
   const { path: route = [] } = await params;
   const locale = LANGUAGES.includes(route[0]) ? route[0] : 'en';
   const page = route[1] || 'index';
@@ -36,21 +36,15 @@ export async function generatePageMetadata({ params }) {
   if (relative.startsWith('..') || path.isAbsolute(relative)) return { title: '3dprintmaxxing', robots: { index: false, follow: false } };
   try {
     const html = await readFile(target, 'utf8');
-    const rawTitle = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.trim() || '3dprintmaxxing';
-    const title = TITLE_OVERRIDES[locale]?.[page] || rawTitle.replace(/&amp;/g, '&');
+    const sourceTitle = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.trim() || '3dprintmaxxing';
+    const title = SHORT_TITLES[locale]?.[page] || sourceTitle.replace(/\s*[—–-]\s*3dprintmaxxing\s*$/i, '').slice(0, 55) + ' — 3dprintmaxxing';
     const description = html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i)?.[1]?.trim() || 'Custom FDM 3D printing with clear, parameter-based quotes and practical printing guidance.';
     const canonical = routeUrl(locale, page);
     const languages = Object.fromEntries(LANGUAGES.map((language) => [language, routeUrl(language, page)]));
     languages['x-default'] = routeUrl('en', page);
-    return {
-      metadataBase: new URL(BASE_URL), title, description, keywords: PAGE_KEYWORDS[page] || PAGE_KEYWORDS.index,
-      authors: [{ name: '3dprintmaxxing' }], creator: '3dprintmaxxing', publisher: '3dprintmaxxing',
-      alternates: { canonical, languages },
-      openGraph: { type: page.startsWith('article-') ? 'article' : 'website', url: canonical, title, description, siteName: '3dprintmaxxing', locale: LANGUAGE_NAMES[locale] || locale },
-      twitter: { card: 'summary_large_image', title, description }, robots: page === 'thanks' ? { index: false, follow: false } : { index: true, follow: true },
-      icons: { icon: '/assets/favicon.ico', apple: '/assets/apple-touch-icon.png' },
-    };
+    return { metadataBase: new URL(BASE_URL), title, description, keywords: PAGE_KEYWORDS[page] || PAGE_KEYWORDS.index, authors: [{ name: '3dprintmaxxing' }], creator: '3dprintmaxxing', publisher: '3dprintmaxxing', alternates: { canonical, languages }, openGraph: { type: page.startsWith('article-') ? 'article' : 'website', url: canonical, title, description, siteName: '3dprintmaxxing', locale: LANGUAGE_NAMES[locale] || locale }, twitter: { card: 'summary_large_image', title, description }, robots: page === 'thanks' ? { index: false, follow: false } : { index: true, follow: true }, icons: { icon: [{ url: '/assets/favicon.ico', type: 'image/x-icon' }, { url: '/assets/favicon-32x32.png', sizes: '32x32', type: 'image/png' }, { url: '/assets/favicon-16x16.png', sizes: '16x16', type: 'image/png' }], apple: '/assets/apple-touch-icon.png' } };
   } catch {
     return { title: '3dprintmaxxing', robots: { index: false, follow: false } };
   }
 }
+export default function LocaleLayout({ children }) { return children; }
