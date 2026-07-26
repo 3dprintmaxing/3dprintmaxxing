@@ -1,7 +1,6 @@
 import { notFound, redirect } from 'next/navigation';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import blogSeo from '../../content/blog-seo.json';
 
 export const dynamic = 'force-static';
 
@@ -48,7 +47,10 @@ function localizeLinks(html, locale, route) {
   const labels = LINK_LABELS[locale] || LINK_LABELS.en;
   const pagePath = (name) => `/${locale}/${name}`;
   const head = html.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] || '';
-  let content = html.replace(/^<!doctype html>/i, '').replace(/<html[^>]*>|<\/html>|<head[\s\S]*?<\/head>|<body[^>]*>|<\/body>/gi, '');
+  let content = html
+    .replace(/^<!doctype html>/i, '')
+    .replace(/<html[^>]*>|<\/html>|<head[\s\S]*?<\/head>|<body[^>]*>|<\/body>/gi, '');
+
   content = content
     .replace(/(data-thanks|data-rate-limited)="[^"]*"/g, (_, attribute) => `${attribute}="${pagePath(attribute === 'data-thanks' ? 'thanks' : 'rate-limited')}"`)
     .replace(/href="(?:\.\/|\.\.\/[^"/]+\/)?(blog|privacy-policy|refund-policy|billing-policy|thanks|rate-limited|article-filament|article-reliable-pla|article-first-layer)(?:\.html)?"/g, (_, name) => `href="${pagePath(name)}"`)
@@ -57,14 +59,17 @@ function localizeLinks(html, locale, route) {
     .replace(/href="thanks\.html"/g, `href="/${locale}/thanks"`)
     .replace(/href="rate-limited\.html"/g, `href="/${locale}/rate-limited"`)
     .replace(/href="\.\.\/(en|es|pt-br|fr|de|it|ja|ko|zh)\/"/g, 'href="/$1/"');
+
   for (const [from, to] of [['Blog', labels.blog], ['Privacy Policy', labels.privacy], ['Refund Policy', labels.refund], ['Billing Policy', labels.billing], ['← back to the site', `← ${labels.back}`], ['back to the site', labels.back]]) content = content.replaceAll(`>${from}<`, `>${to}<`);
-  if (route === 'blog') content = content.replace('</div></div><footer', `${blogSeo.blog[locale] || blogSeo.blog.en}</div></div><footer`);
   return { head, content: content.replace('</div></main>', `${relatedMarkup(locale, route)}</div></main>`) };
 }
 
 function ensureDocumentLanguage(content, locale) {
   const lang = HTML_LANGUAGES[locale] || locale;
-  return content.replace(/<html([^>]*)>/i, (_, attributes) => `<html${attributes.replace(/\s+lang=("[^"]*"|'[^']*')/i, '')} lang="${lang}">`);
+  return content.replace(/<html([^>]*)>/i, (_, attributes) => {
+    const withoutLang = attributes.replace(/\s+lang=("[^"]*"|'[^']*')/i, '');
+    return `<html${withoutLang} lang="${lang}">`;
+  });
 }
 
 export async function generateStaticParams() {
