@@ -29,7 +29,7 @@ export async function generatePageMetadata({ params }) {
   if (relative.startsWith('..') || path.isAbsolute(relative)) return { title: '3dprintmaxxing', robots: { index: false, follow: false } };
   try {
     const html = await readFile(target, 'utf8');
-    const title = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.trim() || '3dprintmaxxing';
+    const title = (html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.trim() || '3dprintmaxxing').replace(/&amp;/g, '&');
     const description = html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i)?.[1]?.trim() || 'Custom FDM 3D printing with clear, parameter-based quotes and practical printing guidance.';
     const canonical = routeUrl(locale, page);
     const languages = Object.fromEntries(LANGUAGES.map((language) => [language, routeUrl(language, page)]));
