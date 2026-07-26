@@ -1,8 +1,4 @@
-import { generatePageMetadata } from './metadata';
-
-export async function generateMetadata({ params }) {
-  return generatePageMetadata({ params });
-}
+import { generateMetadata as generatePageMetadata } from './metadata';
 
 export default function RootLayout({ children }) {
   return <html lang="en"><body>{children}</body></html>;
