@@ -26,7 +26,7 @@ export async function generateMetadata({ params }) {
   const page = route[1] || 'index';
   const target = path.resolve(ROOT, locale, `${page}.html`);
   const relative = path.relative(ROOT, target);
-  if (relative.startsWith('..') || path.isAbsolute(relative)) return { title: '3dprintmaxxing', robots: { index: false, follow: false } };
+  if (relative.startsWith('..') || path.isAbsolute(relative)) return { title: '3dprintmaxxing', robots: { index: false, follow: false }, icons: { icon: '/assets/favicon.ico', apple: '/assets/apple-touch-icon.png' } };
   try {
     const html = await readFile(target, 'utf8');
     const title = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.trim() || '3dprintmaxxing';
@@ -45,11 +45,11 @@ export async function generateMetadata({ params }) {
       alternates: { canonical, languages },
       openGraph: { type: page.startsWith('article-') ? 'article' : 'website', url: canonical, title, description, siteName: '3dprintmaxxing', locale: LANGUAGE_NAMES[locale] || locale },
       twitter: { card: 'summary_large_image', title, description },
-      robots: ['thanks', 'rate-limited'].includes(page) ? { index: false, follow: false } : { index: true, follow: true },
+      robots: page === 'thanks' ? { index: false, follow: false } : { index: true, follow: true },
       icons: { icon: '/assets/favicon.ico', apple: '/assets/apple-touch-icon.png' },
     };
   } catch {
-    return { title: '3dprintmaxxing', robots: { index: false, follow: false } };
+    return { title: '3dprintmaxxing', robots: { index: false, follow: false }, icons: { icon: '/assets/favicon.ico', apple: '/assets/apple-touch-icon.png' } };
   }
 }
 
