@@ -1,0 +1,94 @@
+{
+  "index": {
+    "en": {
+      "heading": "Explore the 3D printing guides",
+      "intro": "Use these practical guides before requesting a custom print quote. Each one covers a decision that affects material choice, print reliability, or first-layer quality.",
+      "links": [
+        { "href": "/en/blog", "label": "3D printing tutorials", "summary": "Browse the full library of FDM printing notes and troubleshooting guides." },
+        { "href": "/en/article-filament", "label": "3D printing filament guide", "summary": "Compare PLA, PETG, ABS, TPU, and specialty materials for real use cases." },
+        { "href": "/en/article-reliable-pla", "label": "reliable PLA printing guide", "summary": "Build a repeatable PLA workflow with practical settings and quality checks." },
+        { "href": "/en/article-first-layer", "label": "first-layer troubleshooting guide", "summary": "Diagnose bed adhesion, warping, nozzle height, and failed first layers." }
+      ]
+    },
+    "es": {
+      "heading": "Explora las guías de impresión 3D",
+      "intro": "Consulta estas guías antes de solicitar un presupuesto de impresión personalizada. Cada una cubre una decisión que afecta al material, la fiabilidad o la primera capa.",
+      "links": [
+        { "href": "/es/blog", "label": "tutoriales de impresión 3D", "summary": "Consulta la biblioteca completa de notas y diagnósticos FDM." },
+        { "href": "/es/article-filament", "label": "guía de filamentos para impresión 3D", "summary": "Compara PLA, PETG, ABS, TPU y materiales especiales para cada uso." },
+        { "href": "/es/article-reliable-pla", "label": "guía para imprimir PLA de forma fiable", "summary": "Crea un flujo de trabajo repetible con ajustes y controles prácticos." },
+        { "href": "/es/article-first-layer", "label": "guía para solucionar problemas de primera capa", "summary": "Diagnostica adhesión, deformación, altura de boquilla y fallos iniciales." }
+      ]
+    },
+    "pt-br": {
+      "heading": "Explore os guias de impressão 3D",
+      "intro": "Use estes guias antes de pedir um orçamento de impressão personalizada. Cada um aborda uma decisão que afeta o material, a confiabilidade ou a primeira camada.",
+      "links": [
+        { "href": "/pt-br/blog", "label": "tutoriais de impressão 3D", "summary": "Veja a biblioteca completa de notas e diagnósticos para impressão FDM." },
+        { "href": "/pt-br/article-filament", "label": "guia de filamentos para impressão 3D", "summary": "Compare PLA, PETG, ABS, TPU e materiais especiais para cada uso." },
+        { "href": "/pt-br/article-reliable-pla", "label": "guia para impressão PLA confiável", "summary": "Monte um fluxo repetível com configurações e verificações práticas." },
+        { "href": "/pt-br/article-first-layer", "label": "guia de problemas da primeira camada", "summary": "Diagnostique adesão, empenamento, altura do bico e falhas iniciais." }
+      ]
+    },
+    "fr": {
+      "heading": "Explorer les guides d’impression 3D",
+      "intro": "Consultez ces guides avant de demander un devis d’impression personnalisée. Chacun traite une décision qui influence le matériau, la fiabilité ou la première couche.",
+      "links": [
+        { "href": "/fr/blog", "label": "tutoriels d’impression 3D", "summary": "Parcourez la bibliothèque complète de notes et de dépannage FDM." },
+        { "href": "/fr/article-filament", "label": "guide des filaments pour l’impression 3D", "summary": "Comparez PLA, PETG, ABS, TPU et matériaux spéciaux selon l’usage." },
+        { "href": "/fr/article-reliable-pla", "label": "guide pour des impressions PLA fiables", "summary": "Construisez une méthode reproductible avec des réglages pratiques." },
+        { "href": "/fr/article-first-layer", "label": "guide de dépannage de la première couche", "summary": "Diagnostiquez l’adhérence, la déformation, la hauteur de buse et les échecs." }
+      ]
+    },
+    "de": {
+      "heading": "3D-Druck-Anleitungen entdecken",
+      "intro": "Nutze diese Anleitungen vor einer Anfrage für einen individuellen Druck. Jede behandelt eine Entscheidung, die Material, Zuverlässigkeit oder die erste Schicht beeinflusst.",
+      "links": [
+        { "href": "/de/blog", "label": "3D-Druck-Tutorials", "summary": "Durchsuche die vollständige Sammlung von FDM-Notizen und Fehlerdiagnosen." },
+        { "href": "/de/article-filament", "label": "3D-Druck-Filament-Ratgeber", "summary": "Vergleiche PLA, PETG, ABS, TPU und Spezialmaterialien für den Einsatzzweck." },
+        { "href": "/de/article-reliable-pla", "label": "Ratgeber für zuverlässigen PLA-Druck", "summary": "Baue einen wiederholbaren Ablauf mit praktischen Einstellungen auf." },
+        { "href": "/de/article-first-layer", "label": "Ratgeber für Probleme mit der ersten Schicht", "summary": "Diagnostiziere Haftung, Warping, Düsenhöhe und frühe Fehldrucke." }
+      ]
+    },
+    "it": {
+      "heading": "Esplora le guide per la stampa 3D",
+      "intro": "Consulta queste guide prima di chiedere un preventivo per una stampa personalizzata. Ognuna tratta una scelta che influenza materiale, affidabilità o primo layer.",
+      "links": [
+        { "href": "/it/blog", "label": "guide sulla stampa 3D", "summary": "Sfoglia la raccolta completa di note e diagnosi per la stampa FDM." },
+        { "href": "/it/article-filament", "label": "guida ai filamenti per la stampa 3D", "summary": "Confronta PLA, PETG, ABS, TPU e materiali speciali in base all’uso." },
+        { "href": "/it/article-reliable-pla", "label": "guida per stampe PLA affidabili", "summary": "Crea un flusso ripetibile con impostazioni e controlli pratici." },
+        { "href": "/it/article-first-layer", "label": "guida ai problemi del primo layer", "summary": "Diagnostica adesione, deformazioni, altezza dell’ugello e primi errori." }
+      ]
+    },
+    "ja": {
+      "heading": "3Dプリントガイドを見る",
+      "intro": "カスタム3Dプリントの見積もりを依頼する前に、これらのガイドを確認してください。材料、安定性、初層品質に関わる判断を説明します。",
+      "links": [
+        { "href": "/ja/blog", "label": "3Dプリントのチュートリアル", "summary": "FDMプリントのメモとトラブル解決ガイドをまとめて確認できます。" },
+        { "href": "/ja/article-filament", "label": "3Dプリント用フィラメントガイド", "summary": "用途に合わせてPLA、PETG、ABS、TPUなどを比較します。" },
+        { "href": "/ja/article-reliable-pla", "label": "安定したPLAプリントのガイド", "summary": "実用的な設定と品質確認で再現性のある手順を作ります。" },
+        { "href": "/ja/article-first-layer", "label": "初層トラブル解決ガイド", "summary": "密着、反り、ノズル高さ、初層の失敗を診断します。" }
+      ]
+    },
+    "ko": {
+      "heading": "3D 프린팅 가이드 살펴보기",
+      "intro": "맞춤형 출력 견적을 요청하기 전에 이 가이드들을 확인하세요. 재료 선택, 출력 안정성, 첫 레이어 품질에 영향을 주는 판단을 설명합니다.",
+      "links": [
+        { "href": "/ko/blog", "label": "3D 프린팅 튜토리얼", "summary": "FDM 출력 노트와 문제 해결 가이드를 모두 살펴보세요." },
+        { "href": "/ko/article-filament", "label": "3D 프린팅 필라멘트 가이드", "summary": "용도에 맞춰 PLA, PETG, ABS, TPU와 특수 재료를 비교합니다." },
+        { "href": "/ko/article-reliable-pla", "label": "안정적인 PLA 출력 가이드", "summary": "실용적인 설정과 품질 확인으로 반복 가능한 작업을 만듭니다." },
+        { "href": "/ko/article-first-layer", "label": "첫 레이어 문제 해결 가이드", "summary": "접착, 뒤틀림, 노즐 높이와 초기 출력 실패를 진단합니다." }
+      ]
+    },
+    "zh": {
+      "heading": "探索3D打印指南",
+      "intro": "申请定制3D打印报价前，请先阅读这些指南。它们说明会影响材料选择、打印稳定性和首层质量的关键判断。",
+      "links": [
+        { "href": "/zh/blog", "label": "3D打印教程", "summary": "浏览完整的FDM打印笔记和故障排查指南。" },
+        { "href": "/zh/article-filament", "label": "3D打印耗材指南", "summary": "根据实际用途比较PLA、PETG、ABS、TPU和特殊材料。" },
+        { "href": "/zh/article-reliable-pla", "label": "稳定PLA打印指南", "summary": "通过实用设置和质量检查建立可重复的打印流程。" },
+        { "href": "/zh/article-first-layer", "label": "首层问题排查指南", "summary": "诊断粘附、翘曲、喷嘴高度和首层失败。" }
+      ]
+    }
+  }
+}
