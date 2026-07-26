@@ -1,6 +1,7 @@
 import { notFound, redirect } from 'next/navigation';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import blogSeo from '../../content/blog-seo.json';
 
 export const dynamic = 'force-static';
 
@@ -8,10 +9,11 @@ function sanitizeHtml(html) {
   return html || '';
 }
 
-const BASE_URL = 'https://3dprintmaxxing.vercel.app';
 const LANGUAGES = ['en', 'es', 'pt-br', 'fr', 'de', 'it', 'ja', 'ko', 'zh'];
 const HTML_LANGUAGES = { en: 'en-US', es: 'es', 'pt-br': 'pt-BR', fr: 'fr', de: 'de', it: 'it', ja: 'ja', ko: 'ko', zh: 'zh-CN' };
 const ROUTES = ['index', 'thanks', 'privacy-policy', 'refund-policy', 'billing-policy', 'rate-limited', 'blog', 'article-filament', 'article-reliable-pla', 'article-first-layer'];
+const BASE_URL = 'https://3dprintmaxxing.vercel.app';
+const PAGE_PATHS = ROUTES.filter((route) => !['index', 'thanks', 'rate-limited'].includes(route));
 
 const LINK_LABELS = {
   en: { blog: 'Blog', privacy: 'Privacy Policy', refund: 'Refund Policy', billing: 'Billing Policy', back: 'back to the site' },
@@ -41,35 +43,6 @@ function routeUrl(locale, route) {
   return `${BASE_URL}/${locale}${route === 'index' ? '' : `/${route}`}`;
 }
 
-function pageMetadata(locale, route, html) {
-  const title = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.trim() || '3dprintmaxxing';
-  const description = html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i)?.[1]?.trim() || 'Custom FDM 3D printing with clear, parameter-based quotes and practical printing guidance.';
-  const canonical = routeUrl(locale, route);
-  const alternates = Object.fromEntries(LANGUAGES.map((language) => [language, routeUrl(language, route)]));
-  alternates['x-default'] = routeUrl('en', route);
-  return { title, description, canonical, alternates };
-}
-
-export async function generateMetadata({ params }) {
-  const { path: segments = [] } = await params;
-  const locale = LANGUAGES.includes(segments[0]) ? segments[0] : 'en';
-  const route = segments[1] || 'index';
-  try {
-    const html = await readFile(path.join(process.cwd(), locale, `${route}.html`), 'utf8');
-    const metadata = pageMetadata(locale, route, html);
-    return {
-      title: metadata.title,
-      description: metadata.description,
-      alternates: { canonical: metadata.canonical, languages: metadata.alternates },
-      openGraph: { type: route.startsWith('article-') ? 'article' : 'website', url: metadata.canonical, title: metadata.title, description: metadata.description, siteName: '3dprintmaxxing', locale: HTML_LANGUAGES[locale] || locale },
-      robots: route === 'thanks' || route === 'rate-limited' ? { index: false, follow: false } : { index: true, follow: true },
-      icons: { icon: '/assets/favicon.ico', apple: '/assets/apple-touch-icon.png' },
-    };
-  } catch {
-    return { title: '3dprintmaxxing', robots: { index: false, follow: false } };
-  }
-}
-
 function relatedMarkup(locale, route) {
   if (!route.startsWith('article-')) return '';
   const copy = RELATED_ARTICLES[locale] || RELATED_ARTICLES.en;
@@ -81,25 +54,17 @@ function localizeLinks(html, locale, route) {
   const labels = LINK_LABELS[locale] || LINK_LABELS.en;
   const pagePath = (name) => `/${locale}/${name}`;
   const head = html.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] || '';
-  let content = html.replace(/^<!doctype html>/i, '').replace(/<html[^>]*>|<\/html>|<head[\s\S]*?<\/head>|<body[^>]*>|<\/body>/gi, '');
-  content = content
-    .replace(/(data-thanks|data-rate-limited)="[^"]*"/g, (_, attribute) => `${attribute}="${pagePath(attribute === 'data-thanks' ? 'thanks' : 'rate-limited')}"`)
-    .replace(/href="(?:\.\/|\.\.\/[^"/]+\/)?(blog|privacy-policy|refund-policy|billing-policy|thanks|rate-limited|article-filament|article-reliable-pla|article-first-layer)(?:\.html)?"/g, (_, name) => `href="${pagePath(name)}"`)
-    .replace(/href="(?:\.\/|\.\.\/[^"/]+\/)?index\.html?"/g, `href="/${locale}/"`)
-    .replace(/href="\.\/"/g, `href="/${locale}/"`)
-    .replace(/href="thanks\.html"/g, `href="/${locale}/thanks"`)
-    .replace(/href="rate-limited\.html"/g, `href="/${locale}/rate-limited"`)
-    .replace(/href="\.\.\/(en|es|pt-br|fr|de|it|ja|ko|zh)\/"/g, 'href="/$1/"');
+  let content = html.replace(/^<!doctype html>/i, '').replace(/<html[^>]*>|<\/html>|<head[\s\S]*?<\/head>|<body[^>]*>/gi, '');
+  content = content.replace(/(data-thanks|data-rate-limited)="[^"]*"/g, (_, attribute) => `${attribute}="${pagePath(attribute === 'data-thanks' ? 'thanks' : 'rate-limited')}"`).replace(/href="(?:\.\/|\.\.\/[^"/]+\/)?(blog|privacy-policy|refund-policy|billing-policy|thanks|rate-limited|article-filament|article-reliable-pla|article-first-layer)(?:\.html)?"/g, (_, name) => `href="${pagePath(name)}"`).replace(/href="(?:\.\/|\.\.\/[^"/]+\/)?index\.html?"/g, `href="/${locale}"`).replace(/href="\.\/"/g, `href="/${locale}"`).replace(/href="thanks\.html"/g, `href="/${locale}/thanks"`).replace(/href="rate-limited\.html"/g, `href="/${locale}/rate-limited"`).replace(/href="\.\.\/(en|es|pt-br|fr|de|it|ja|ko|zh)\/"/g, 'href="/$1"');
   for (const [from, to] of [['Blog', labels.blog], ['Privacy Policy', labels.privacy], ['Refund Policy', labels.refund], ['Billing Policy', labels.billing], ['← back to the site', `← ${labels.back}`], ['back to the site', labels.back]]) content = content.replaceAll(`>${from}<`, `>${to}<`);
+  if (route === 'blog') content = content.replace('</div></div><footer', `${blogSeo.blog[locale] || blogSeo.blog.en}</div></div><footer`);
+  content = content.replace(/<link[^>]+(?:styles\.css|favicon)[^>]*>/gi, '').replace(/<script[^>]+script\.js[^>]*><\/script>/gi, '');
   return { head, content: content.replace('</div></main>', `${relatedMarkup(locale, route)}</div></main>`) };
 }
 
 function ensureDocumentLanguage(content, locale) {
   const lang = HTML_LANGUAGES[locale] || locale;
-  return content.replace(/<html([^>]*)>/i, (_, attributes) => {
-    const withoutLang = attributes.replace(/\s+lang=("[^"]*"|'[^']*')/i, '');
-    return `<html${withoutLang} lang="${lang}">`;
-  });
+  return content.replace(/<html([^>]*)>/i, (_, attributes) => `<html${attributes.replace(/\s+lang=("[^"]*"|'[^']*')/i, '')} lang="${lang}">`);
 }
 
 export async function generateStaticParams() {
@@ -109,12 +74,12 @@ export async function generateStaticParams() {
 export default async function StaticPage({ params }) {
   const { path: segments = [] } = await params;
   const requestedLocale = segments[0];
-  if (!requestedLocale) redirect('/en/');
+  if (!requestedLocale) redirect('/en');
   if (!LANGUAGES.includes(requestedLocale)) notFound();
   const route = segments.slice(1).join('/') || 'index';
   if (!ROUTES.includes(route)) notFound();
   let html;
   try { html = await readFile(path.join(process.cwd(), requestedLocale, `${route}.html`), 'utf8'); } catch { notFound(); }
   const localized = localizeLinks(html, requestedLocale, route);
-  return <><head dangerouslySetInnerHTML={{ __html: sanitizeHtml(localized.head) }} /><div lang={HTML_LANGUAGES[requestedLocale] || requestedLocale} dangerouslySetInnerHTML={{ __html: sanitizeHtml(ensureDocumentLanguage(localized.content, requestedLocale)) }} /></>;
+  return <><head dangerouslySetInnerHTML={{ __html: sanitizeHtml(localized.head) }} /><link rel="stylesheet" href="/styles.min.css" /><div lang={HTML_LANGUAGES[requestedLocale] || requestedLocale} dangerouslySetInnerHTML={{ __html: sanitizeHtml(ensureDocumentLanguage(localized.content, requestedLocale)) }} /><script src="/script.min.js" defer /></>;
 }
