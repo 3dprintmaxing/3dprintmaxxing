@@ -30,11 +30,11 @@ export async function generatePageMetadata({ params }) {
   try {
     const html = await readFile(target, 'utf8');
     const title = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.trim() || '3dprintmaxxing';
-    const description = html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i)?.[1]?.trim() || 'Custom FDM 3D printing with practical guidance for reliable prints.';
+    const description = html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i)?.[1]?.trim() || 'Custom FDM 3D printing with practical guidance.';
     const canonical = routeUrl(locale, page);
     const languages = Object.fromEntries(LANGUAGES.map((language) => [language, routeUrl(language, page)]));
     languages['x-default'] = routeUrl('en', page);
-    return { title, description, keywords: PAGE_KEYWORDS[page] || PAGE_KEYWORDS.index, alternates: { canonical, languages }, openGraph: { type: page.startsWith('article-') ? 'article' : 'website', url: canonical, title, description, siteName: '3dprintmaxxing', locale: LANGUAGE_NAMES[locale] || locale }, twitter: { card: 'summary_large_image', title, description }, robots: page === 'thanks' ? { index: false, follow: false } : { index: true, follow: true }, icons: { icon: '/assets/favicon.ico', apple: '/assets/apple-touch-icon.png' } };
+    return { title, description, keywords: PAGE_KEYWORDS[page] || PAGE_KEYWORDS.index, authors: [{ name: '3dprintmaxxing' }], creator: '3dprintmaxxing', publisher: '3dprintmaxxing', alternates: { canonical, languages }, openGraph: { type: page.startsWith('article-') ? 'article' : 'website', url: canonical, title, description, siteName: '3dprintmaxxing', locale: LANGUAGE_NAMES[locale] || locale }, twitter: { card: 'summary_large_image', title, description }, robots: page === 'thanks' ? { index: false, follow: false } : { index: true, follow: true }, icons: { icon: '/assets/favicon.ico', apple: '/assets/apple-touch-icon.png' } };
   } catch {
     return { title: '3dprintmaxxing', robots: { index: false, follow: false } };
   }
