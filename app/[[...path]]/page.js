@@ -12,7 +12,6 @@ function sanitizeHtml(html) {
 const LANGUAGES = ['en', 'es', 'pt-br', 'fr', 'de', 'it', 'ja', 'ko', 'zh'];
 const HTML_LANGUAGES = { en: 'en-US', es: 'es', 'pt-br': 'pt-BR', fr: 'fr', de: 'de', it: 'it', ja: 'ja', ko: 'ko', zh: 'zh-CN' };
 const ROUTES = ['index', 'thanks', 'privacy-policy', 'refund-policy', 'billing-policy', 'rate-limited', 'blog', 'article-filament', 'article-reliable-pla', 'article-first-layer'];
-const BASE_URL = 'https://3dprintmaxxing.vercel.app';
 
 const LINK_LABELS = {
   en: { blog: 'Blog', privacy: 'Privacy Policy', refund: 'Refund Policy', billing: 'Billing Policy', back: 'back to the site' },
@@ -48,9 +47,16 @@ function relatedMarkup(locale, route) {
 function localizeLinks(html, locale, route) {
   const labels = LINK_LABELS[locale] || LINK_LABELS.en;
   const pagePath = (name) => `/${locale}/${name}`;
-  const head = (html.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] || '').replace(/<link[^>]+(?:styles\.css|favicon)[^>]*>/gi, '');
-  let content = html.replace(/^<!doctype html>/i, '').replace(/<html[^>]*>|<\/html>|<head[\s\S]*?<\/head>|<body[^>]*>/gi, '');
-  content = content.replace(/(data-thanks|data-rate-limited)="[^"]*"/g, (_, attribute) => `${attribute}="${pagePath(attribute === 'data-thanks' ? 'thanks' : 'rate-limited')}"`).replace(/href="(?:\.\/|\.\.\/[^"/]+\/)?(blog|privacy-policy|refund-policy|billing-policy|thanks|rate-limited|article-filament|article-reliable-pla|article-first-layer)(?:\.html)?"/g, (_, name) => `href="${pagePath(name)}"`).replace(/href="(?:\.\/|\.\.\/[^"/]+\/)?index\.html?"/g, `href="/${locale}"`).replace(/href="\.\/"/g, `href="/${locale}"`).replace(/href="thanks\.html"/g, `href="/${locale}/thanks"`).replace(/href="rate-limited\.html"/g, `href="/${locale}/rate-limited"`).replace(/href="\.\.\/(en|es|pt-br|fr|de|it|ja|ko|zh)\/"/g, 'href="/$1"');
+  const head = html.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] || '';
+  let content = html.replace(/^<!doctype html>/i, '').replace(/<html[^>]*>|<\/html>|<head[\s\S]*?<\/head>|<body[^>]*>|<\/body>/gi, '');
+  content = content
+    .replace(/(data-thanks|data-rate-limited)="[^"]*"/g, (_, attribute) => `${attribute}="${pagePath(attribute === 'data-thanks' ? 'thanks' : 'rate-limited')}"`)
+    .replace(/href="(?:\.\/|\.\.\/[^"/]+\/)?(blog|privacy-policy|refund-policy|billing-policy|thanks|rate-limited|article-filament|article-reliable-pla|article-first-layer)(?:\.html)?"/g, (_, name) => `href="${pagePath(name)}"`)
+    .replace(/href="(?:\.\/|\.\.\/[^"/]+\/)?index\.html?"/g, `href="/${locale}/"`)
+    .replace(/href="\.\/"/g, `href="/${locale}/"`)
+    .replace(/href="thanks\.html"/g, `href="/${locale}/thanks"`)
+    .replace(/href="rate-limited\.html"/g, `href="/${locale}/rate-limited"`)
+    .replace(/href="\.\.\/(en|es|pt-br|fr|de|it|ja|ko|zh)\/"/g, 'href="/$1/"');
   for (const [from, to] of [['Blog', labels.blog], ['Privacy Policy', labels.privacy], ['Refund Policy', labels.refund], ['Billing Policy', labels.billing], ['← back to the site', `← ${labels.back}`], ['back to the site', labels.back]]) content = content.replaceAll(`>${from}<`, `>${to}<`);
   if (route === 'blog') content = content.replace('</div></div><footer', `${blogSeo.blog[locale] || blogSeo.blog.en}</div></div><footer`);
   return { head, content: content.replace('</div></main>', `${relatedMarkup(locale, route)}</div></main>`) };
@@ -68,12 +74,12 @@ export async function generateStaticParams() {
 export default async function StaticPage({ params }) {
   const { path: segments = [] } = await params;
   const requestedLocale = segments[0];
-  if (!requestedLocale) redirect('/en');
+  if (!requestedLocale) redirect('/en/');
   if (!LANGUAGES.includes(requestedLocale)) notFound();
   const route = segments.slice(1).join('/') || 'index';
   if (!ROUTES.includes(route)) notFound();
   let html;
   try { html = await readFile(path.join(process.cwd(), requestedLocale, `${route}.html`), 'utf8'); } catch { notFound(); }
   const localized = localizeLinks(html, requestedLocale, route);
-  return <><head dangerouslySetInnerHTML={{ __html: sanitizeHtml(localized.head) }} /><link rel="stylesheet" href="/styles.min.css" /><div lang={HTML_LANGUAGES[requestedLocale] || requestedLocale} dangerouslySetInnerHTML={{ __html: sanitizeHtml(ensureDocumentLanguage(localized.content, requestedLocale)) }} /><script src="/script.min.js" defer /></>;
+  return <><head dangerouslySetInnerHTML={{ __html: sanitizeHtml(localized.head) }} /><div lang={HTML_LANGUAGES[requestedLocale] || requestedLocale} dangerouslySetInnerHTML={{ __html: sanitizeHtml(ensureDocumentLanguage(localized.content, requestedLocale)) }} /></>;
 }
