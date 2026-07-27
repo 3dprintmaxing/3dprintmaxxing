@@ -12,7 +12,13 @@ const LANGUAGES = ['en', 'es', 'pt-br', 'fr', 'de', 'it', 'ja', 'ko', 'zh'];
 const HTML_LANGUAGES = { en: 'en-US', es: 'es', 'pt-br': 'pt-BR', fr: 'fr', de: 'de', it: 'it', ja: 'ja', ko: 'ko', zh: 'zh-CN' };
 const ROUTES = ['index', 'thanks', 'privacy-policy', 'refund-policy', 'billing-policy', 'rate-limited', 'blog', 'article-filament', 'article-reliable-pla', 'article-first-layer'];
 const BLOG_SEO_PATH = path.join(process.cwd(), 'content', 'blog-seo.json');
-const SUPPORTING_COPY_PATH = path.join(process.cwd(), 'content', 'seo-supporting-copy.json');
+const SUPPORTING_COPY_PATH = path.join(process.cwd(), 'content', 'seo-supporting-copy.json');const SITE_URL = 'https://3dprintmaxxing.vercel.app';
+const ARTICLE_ROUTES = ['article-filament', 'article-reliable-pla', 'article-first-layer'];
+const ARTICLE_TOPICS = {
+  'article-filament': 'FDM 3D printing filament selection',
+  'article-reliable-pla': 'reliable PLA 3D printing',
+  'article-first-layer': '3D printing first-layer troubleshooting',
+};
 
 const LINK_LABELS = {
   en: { blog: 'Blog', privacy: 'Privacy Policy', refund: 'Refund Policy', billing: 'Billing Policy', back: 'back to the site' },
@@ -61,6 +67,57 @@ async function blogSeoMarkup(locale) {
 async function supportingCopyMarkup(locale, route) {
   const copy = await readJson(SUPPORTING_COPY_PATH);
   return copy[locale]?.[route] || '';
+}
+
+function absoluteUrl(pathname) {
+  return new URL(pathname, SITE_URL).toString();
+}
+
+function jsonLdScript(data) {
+  return `<script type="application/ld+json">${JSON.stringify(data).replace(/</g, '\u003c')}</script>`;
+}
+
+function plainText(value) {
+  return value.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+function structuredDataMarkup(locale, route, html) {
+  const canonical = absoluteUrl(`/${locale}${route === 'index' ? '' : `/${route}`}`);
+  const title = plainText(html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] || '3dprintmaxxing');
+  const description = plainText(html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i)?.[1] || 'Practical FDM 3D printing guidance and custom print requests from 3dprintmaxxing.');
+  const breadcrumbNames = [{ name: 'Home', item: absoluteUrl(`/${locale}`) }];
+  if (route !== 'index') breadcrumbNames.push({ name: title.replace(/\s*[—|].*$/, ''), item: canonical });
+  const graph = [{
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbNames.map((item, index) => ({ '@type': 'ListItem', position: index + 1, name: item.name, item: item.item })),
+  }];
+
+  if (route === 'index') {
+    graph.push(
+      { '@type': 'WebSite', name: '3dprintmaxxing', url: absoluteUrl(`/${locale}`), inLanguage: HTML_LANGUAGES[locale] || locale },
+      { '@type': 'Organization', name: '3dprintmaxxing', url: SITE_URL, logo: absoluteUrl('/assets/apple-touch-icon.png') },
+      { '@type': 'Service', name: title, serviceType: 'Custom FDM 3D printing', provider: { '@type': 'Organization', name: '3dprintmaxxing', url: SITE_URL }, description, url: canonical },
+    );
+  } else if (route === 'blog') {
+    const articleTitles = RELATED_ARTICLES[locale]?.titles || RELATED_ARTICLES.en.titles;
+    graph.push({
+      '@type': 'CollectionPage', name: title, description, url: canonical, inLanguage: HTML_LANGUAGES[locale] || locale,
+      mainEntity: { '@type': 'ItemList', itemListElement: Object.keys(articleTitles).map((articleRoute, index) => ({ '@type': 'ListItem', position: index + 1, name: articleTitles[articleRoute], url: absoluteUrl(`/${locale}/${articleRoute}`) })) },
+    });
+  } else if (ARTICLE_ROUTES.includes(route)) {
+    const imagePath = html.match(/<img[^>]+src=["']([^"']+)["']/i)?.[1];
+    graph.push({
+      '@type': 'Article', headline: title, description, url: canonical, mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+      inLanguage: HTML_LANGUAGES[locale] || locale, articleSection: '3D printing', about: { '@type': 'Thing', name: ARTICLE_TOPICS[route] },
+      author: { '@type': 'Organization', name: '3dprintmaxxing', url: SITE_URL },
+      publisher: { '@type': 'Organization', name: '3dprintmaxxing', url: SITE_URL, logo: { '@type': 'ImageObject', url: absoluteUrl('/assets/apple-touch-icon.png') } },
+      ...(imagePath ? { image: absoluteUrl(imagePath) } : {}),
+    });
+  } else {
+    graph.push({ '@type': 'WebPage', name: title, description, url: canonical, inLanguage: HTML_LANGUAGES[locale] || locale });
+  }
+
+  return jsonLdScript({ '@context': 'https://schema.org', '@graph': graph });
 }
 
 async function pageInjectedMarkup(locale, route) {
@@ -115,5 +172,6 @@ export default async function StaticPage({ params }) {
   try { html = await readFile(path.join(process.cwd(), requestedLocale, `${route}.html`), 'utf8'); } catch { notFound(); }
   const injected = await pageInjectedMarkup(requestedLocale, route);
   const localized = localizeLinks(html, requestedLocale, route, injected);
-  return <><head dangerouslySetInnerHTML={{ __html: sanitizeHtml(localized.head) }} /><div lang={HTML_LANGUAGES[requestedLocale] || requestedLocale} dangerouslySetInnerHTML={{ __html: sanitizeHtml(ensureDocumentLanguage(localized.content, requestedLocale)) }} /></>;
+  const structuredData = structuredDataMarkup(requestedLocale, route, html);
+  return <><head dangerouslySetInnerHTML={{ __html: sanitizeHtml(`${localized.head}${structuredData}`) }} /><div lang={HTML_LANGUAGES[requestedLocale] || requestedLocale} dangerouslySetInnerHTML={{ __html: sanitizeHtml(ensureDocumentLanguage(localized.content, requestedLocale)) }} /></>;
 }
