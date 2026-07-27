@@ -68,8 +68,8 @@ function localizeLinks(html, locale, route, injected = '') {
   content = content
     .replace(/(data-thanks|data-rate-limited)="[^"]*"/g, (_, attribute) => `${attribute}="${pagePath(attribute === 'data-thanks' ? 'thanks' : 'rate-limited')}"`)
     .replace(/href="(?:\.\/|\.\.\/[^"/]+\/)?(blog|privacy-policy|refund-policy|billing-policy|thanks|rate-limited|article-filament|article-reliable-pla|article-first-layer)(?:\.html)?"/g, (_, name) => `href="${pagePath(name)}"`)
-    .replace(/href="(?:\.\/|\.\.\/[^"/]+\/)?index\.html?"/g, `href="/${locale}/"`)
-    .replace(/href="\.\/"/g, `href="/${locale}/"`)
+    .replace(/href="(?:\.\/|\.\.\/[^"/]+\/)?index\.html?"/g, `href="/${locale}"`)
+    .replace(/href="\.\/"/g, `href="/${locale}"`)
     .replace(/href="thanks\.html"/g, `href="/${locale}/thanks"`)
     .replace(/href="rate-limited\.html"/g, `href="/${locale}/rate-limited"`)
     .replace(/href="\.\.\/(en|es|pt-br|fr|de|it|ja|ko|zh)\/"/g, 'href="/$1/"');
@@ -93,7 +93,7 @@ export async function generateStaticParams() {
 export default async function StaticPage({ params }) {
   const { path: segments = [] } = await params;
   const requestedLocale = segments[0];
-  if (!requestedLocale) redirect('/en/');
+  if (!requestedLocale) redirect('/en');
   if (!LANGUAGES.includes(requestedLocale)) notFound();
   const route = segments.slice(1).join('/') || 'index';
   if (!ROUTES.includes(route)) notFound();
