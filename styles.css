@@ -7,3 +7,4 @@
 .header.menu-open .menu-panel{display:flex!important;flex-direction:column}
 .header .menu-panel .nav,.header .menu-panel .lang{display:flex!important;flex-direction:column}
 .footer{display:block;width:100%;max-width:720px;margin:40px auto 0;text-align:center}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
