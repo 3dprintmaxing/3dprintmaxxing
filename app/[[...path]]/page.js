@@ -12,7 +12,6 @@ const LANGUAGES = ['en', 'es', 'pt-br', 'fr', 'de', 'it', 'ja', 'ko', 'zh'];
 const HTML_LANGUAGES = { en: 'en-US', es: 'es', 'pt-br': 'pt-BR', fr: 'fr', de: 'de', it: 'it', ja: 'ja', ko: 'ko', zh: 'zh-CN' };
 const ROUTES = ['index', 'thanks', 'privacy-policy', 'refund-policy', 'billing-policy', 'rate-limited', 'blog', 'article-filament', 'article-reliable-pla', 'article-first-layer'];
 const BLOG_SEO_PATH = path.join(process.cwd(), 'content', 'blog-seo.json');
-const INTERNAL_LINKS_PATH = path.join(process.cwd(), 'content', 'internal-links.json');
 
 const LINK_LABELS = {
   en: { blog: 'Blog', privacy: 'Privacy Policy', refund: 'Refund Policy', billing: 'Billing Policy', back: 'back to the site' },
@@ -51,14 +50,6 @@ async function readJson(pathname) {
   } catch {
     return {};
   }
-}
-
-function internalLinksMarkup(locale, route, data) {
-  if (!['index', 'blog'].includes(route)) return '';
-  const page = data.index?.[locale] || data.index?.en;
-  if (!page) return '';
-  const links = page.links.map((link) => `<li><a href="${link.href.replace(/^\/[^/]+/, `/${locale}`)}">${link.label}</a><span>${link.summary}</span></li>`).join('');
-  return `<section class="internal-links" aria-labelledby="internal-links-heading"><h2 id="internal-links-heading">${page.heading}</h2><p>${page.intro}</p><ul>${links}</ul></section>`;
 }
 
 async function blogSeoMarkup(locale) {
@@ -108,7 +99,6 @@ export default async function StaticPage({ params }) {
   if (!ROUTES.includes(route)) notFound();
   let html;
   try { html = await readFile(path.join(process.cwd(), requestedLocale, `${route}.html`), 'utf8'); } catch { notFound(); }
-  const data = await readJson(INTERNAL_LINKS_PATH);
   const injected = route === 'blog' ? await blogSeoMarkup(requestedLocale) : '';
   const localized = localizeLinks(html, requestedLocale, route, injected);
   return <><head dangerouslySetInnerHTML={{ __html: sanitizeHtml(localized.head) }} /><div lang={HTML_LANGUAGES[requestedLocale] || requestedLocale} dangerouslySetInnerHTML={{ __html: sanitizeHtml(ensureDocumentLanguage(localized.content, requestedLocale)) }} /></>;
