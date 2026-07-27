@@ -109,7 +109,7 @@ export default async function StaticPage({ params }) {
   let html;
   try { html = await readFile(path.join(process.cwd(), requestedLocale, `${route}.html`), 'utf8'); } catch { notFound(); }
   const data = await readJson(INTERNAL_LINKS_PATH);
-  const injected = route === 'blog' ? await blogSeoMarkup(requestedLocale) : internalLinksMarkup(requestedLocale, route, data);
+  const injected = route === 'blog' ? await blogSeoMarkup(requestedLocale) : '';
   const localized = localizeLinks(html, requestedLocale, route, injected);
   return <><head dangerouslySetInnerHTML={{ __html: sanitizeHtml(localized.head) }} /><div lang={HTML_LANGUAGES[requestedLocale] || requestedLocale} dangerouslySetInnerHTML={{ __html: sanitizeHtml(ensureDocumentLanguage(localized.content, requestedLocale)) }} /></>;
 }

@@ -63,7 +63,6 @@ document.querySelectorAll('form[data-print-form]').forEach((form) => {
     if (!top || top.dataset.pageMenuReady === 'true') return;
     top.dataset.pageMenuReady = 'true';
 
-    top.querySelectorAll('.menu-toggle, .menu-panel').forEach((element) => element.remove());
 
     const logo = top.querySelector('.logo');
     if (logo) logo.href = `/${locale}/`;
