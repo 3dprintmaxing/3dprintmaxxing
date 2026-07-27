@@ -58,7 +58,7 @@ document.querySelectorAll('form[data-print-form]').forEach((form) => {
   const pathParts = window.location.pathname.split('/').filter(Boolean);
   const locale = languages.includes(pathParts[0]) ? pathParts[0] : 'en';
   const page = languages.includes(pathParts[0]) ? pathParts.slice(1).join('/') : pathParts.join('/');
-  const currentPage = `/${locale}${page ? `/${page}` : '/'}`;
+  const currentPage = `/${locale}${page ? `/${page}` : ''}`;
 
   const slugify = (text, used) => {
     const base = text.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '') || 'section';
@@ -92,7 +92,7 @@ document.querySelectorAll('form[data-print-form]').forEach((form) => {
     const lang = top.querySelector('.lang') || document.createElement('span');
     lang.className = 'lang';
     lang.innerHTML = languages.map((code) => {
-      const destination = `/${code}${page ? `/${page}` : '/'}`;
+      const destination = `/${code}${page ? `/${page}` : ''}`;
       const current = code === locale ? ' aria-current="page"' : '';
       return `<a href="${destination}"${current}>${languageLabels[code]}</a>`;
     }).join(' ');

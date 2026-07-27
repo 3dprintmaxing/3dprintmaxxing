@@ -47,7 +47,7 @@ document.querySelectorAll('form[data-print-form]').forEach((form) => {
   const locale = languages.includes(pathParts[0]) ? pathParts[0] : 'en';
   const rawPage = languages.includes(pathParts[0]) ? pathParts.slice(1).join('/') : pathParts.join('/');
   const page = rawPage.replace(/\.html$/, '').replace(/^index$/, '');
-  const currentPage = `/${locale}${page ? `/${page}` : '/'}`;
+  const currentPage = `/${locale}${page ? `/${page}` : ''}`;
 
   const slugify = (text, used) => {
     const base = text.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '') || 'section';
@@ -65,7 +65,7 @@ document.querySelectorAll('form[data-print-form]').forEach((form) => {
 
 
     const logo = top.querySelector('.logo');
-    if (logo) logo.href = `/${locale}/`;
+    if (logo) logo.href = `/${locale}`;
     const nav = top.querySelector('.nav') || document.createElement('nav');
     nav.className = 'nav';
     const headings = Array.from(document.querySelectorAll('main h1, main h2, main h3'));
@@ -81,7 +81,7 @@ document.querySelectorAll('form[data-print-form]').forEach((form) => {
     const lang = top.querySelector('.lang') || document.createElement('span');
     lang.className = 'lang';
     lang.innerHTML = languages.map((code) => {
-      const destination = `/${code}${page ? `/${page}` : '/'}`;
+      const destination = `/${code}${page ? `/${page}` : ''}`;
       const current = code === locale ? ' aria-current="page"' : '';
       return `<a href="${destination}"${current}>${languageLabels[code]}</a>`;
     }).join(' ');

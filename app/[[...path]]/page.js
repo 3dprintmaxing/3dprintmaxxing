@@ -72,7 +72,7 @@ function localizeLinks(html, locale, route, injected = '') {
     .replace(/href="\.\/"/g, `href="/${locale}"`)
     .replace(/href="thanks\.html"/g, `href="/${locale}/thanks"`)
     .replace(/href="rate-limited\.html"/g, `href="/${locale}/rate-limited"`)
-    .replace(/href="\.\.\/(en|es|pt-br|fr|de|it|ja|ko|zh)\/"/g, 'href="/$1/"');
+    .replace(/href="\.\.\/(en|es|pt-br|fr|de|it|ja|ko|zh)\/"/g, 'href="/$1"');
 
   for (const [from, to] of [['Blog', labels.blog], ['Privacy Policy', labels.privacy], ['Refund Policy', labels.refund], ['Billing Policy', labels.billing], ['← back to the site', `← ${labels.back}`], ['back to the site', labels.back]]) content = content.replaceAll(`>${from}<`, `>${to}<`);
   return { head, content: injected ? content.replace('<footer', `${injected}<footer`) : content };
