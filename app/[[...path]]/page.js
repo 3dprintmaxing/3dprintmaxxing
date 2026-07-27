@@ -12,6 +12,7 @@ const LANGUAGES = ['en', 'es', 'pt-br', 'fr', 'de', 'it', 'ja', 'ko', 'zh'];
 const HTML_LANGUAGES = { en: 'en-US', es: 'es', 'pt-br': 'pt-BR', fr: 'fr', de: 'de', it: 'it', ja: 'ja', ko: 'ko', zh: 'zh-CN' };
 const ROUTES = ['index', 'thanks', 'privacy-policy', 'refund-policy', 'billing-policy', 'rate-limited', 'blog', 'article-filament', 'article-reliable-pla', 'article-first-layer'];
 const BLOG_SEO_PATH = path.join(process.cwd(), 'content', 'blog-seo.json');
+const SUPPORTING_COPY_PATH = path.join(process.cwd(), 'content', 'seo-supporting-copy.json');
 
 const LINK_LABELS = {
   en: { blog: 'Blog', privacy: 'Privacy Policy', refund: 'Refund Policy', billing: 'Billing Policy', back: 'back to the site' },
@@ -57,6 +58,19 @@ async function blogSeoMarkup(locale) {
   return seo.blog?.[locale] || '';
 }
 
+async function supportingCopyMarkup(locale, route) {
+  const copy = await readJson(SUPPORTING_COPY_PATH);
+  return copy[locale]?.[route] || '';
+}
+
+async function pageInjectedMarkup(locale, route) {
+  const blocks = [];
+  if (route === 'blog') blocks.push(await blogSeoMarkup(locale));
+  const supporting = await supportingCopyMarkup(locale, route);
+  if (supporting) blocks.push(supporting);
+  return blocks.join('');
+}
+
 function localizeLinks(html, locale, route, injected = '') {
   const labels = LINK_LABELS[locale] || LINK_LABELS.en;
   const pagePath = (name) => `/${locale}/${name}`;
@@ -99,7 +113,7 @@ export default async function StaticPage({ params }) {
   if (!ROUTES.includes(route)) notFound();
   let html;
   try { html = await readFile(path.join(process.cwd(), requestedLocale, `${route}.html`), 'utf8'); } catch { notFound(); }
-  const injected = route === 'blog' ? await blogSeoMarkup(requestedLocale) : '';
+  const injected = await pageInjectedMarkup(requestedLocale, route);
   const localized = localizeLinks(html, requestedLocale, route, injected);
   return <><head dangerouslySetInnerHTML={{ __html: sanitizeHtml(localized.head) }} /><div lang={HTML_LANGUAGES[requestedLocale] || requestedLocale} dangerouslySetInnerHTML={{ __html: sanitizeHtml(ensureDocumentLanguage(localized.content, requestedLocale)) }} /></>;
 }
