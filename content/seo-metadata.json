@@ -1,0 +1,380 @@
+{
+  "en": {
+    "index": [
+      "Custom 3D Printing — 3dprintmaxxing",
+      "Request a custom FDM 3D print with clear material choices, practical guidance, and a quote based on your model and intended use."
+    ],
+    "blog": [
+      "3D Printing Tutorials — 3dprintmaxxing",
+      "Learn practical 3D printing basics: choose filament, improve PLA reliability, fix first-layer problems, and reduce failed prints."
+    ],
+    "article-filament": [
+      "3D Printing Filament Guide — 3dprintmaxxing",
+      "Compare PLA, PETG, ABS, and TPU for custom 3D prints, including strength, heat resistance, flexibility, finish, and cost."
+    ],
+    "article-reliable-pla": [
+      "Reliable PLA 3D Printing — 3dprintmaxxing",
+      "Improve PLA print quality with a clean bed, dry filament, sensible temperatures, controlled cooling, and repeatable slicer checks."
+    ],
+    "article-first-layer": [
+      "First-Layer 3D Printing Fixes — 3dprintmaxxing",
+      "Diagnose first-layer 3D printing problems such as poor adhesion, nozzle height, warping, elephant foot, and lifted corners."
+    ],
+    "privacy-policy": [
+      "Privacy Policy — 3dprintmaxxing",
+      "Read how 3dprintmaxxing handles information submitted for custom 3D printing quotes, communication, and website operations."
+    ],
+    "refund-policy": [
+      "Refund Policy — 3dprintmaxxing",
+      "Review the refund terms for 3dprintmaxxing custom 3D printing orders, including approved cancellations and production-stage limits."
+    ],
+    "billing-policy": [
+      "Billing Policy — 3dprintmaxxing",
+      "Review billing, quote approval, payment timing, shipping charges, and address responsibilities for 3dprintmaxxing print orders."
+    ],
+    "thanks": [
+      "Request Received — 3dprintmaxxing",
+      "Your custom 3D printing request was received. Review the next steps and return to the 3dprintmaxxing site."
+    ],
+    "rate-limited": [
+      "Request Limit Reached — 3dprintmaxxing",
+      "This request form has reached its temporary limit. Return to 3dprintmaxxing and try again later."
+    ]
+  },
+  "es": {
+    "index": [
+      "Impresión 3D personalizada — 3dprintmaxxing",
+      "Solicita una impresión 3D FDM personalizada con materiales claros y un presupuesto basado en tu modelo y el uso previsto."
+    ],
+    "blog": [
+      "Tutoriales de impresión 3D — 3dprintmaxxing",
+      "Aprende a elegir filamento, mejorar el PLA, corregir problemas de primera capa y reducir impresiones 3D fallidas."
+    ],
+    "article-filament": [
+      "Guía de filamento 3D — 3dprintmaxxing",
+      "Compara PLA, PETG, ABS y TPU para impresión 3D personalizada según resistencia, calor, flexibilidad, acabado y coste."
+    ],
+    "article-reliable-pla": [
+      "Impresiones PLA fiables — 3dprintmaxxing",
+      "Mejora la calidad del PLA con una cama limpia, filamento seco, temperaturas adecuadas, refrigeración y ajustes repetibles."
+    ],
+    "article-first-layer": [
+      "Soluciones para la primera capa — 3dprintmaxxing",
+      "Diagnostica adhesión deficiente, altura de boquilla, warping, elefant foot y esquinas levantadas en impresiones 3D."
+    ],
+    "privacy-policy": [
+      "Política de privacidad — 3dprintmaxxing",
+      "Conoce cómo 3dprintmaxxing gestiona la información de solicitudes, presupuestos personalizados y comunicaciones del sitio."
+    ],
+    "refund-policy": [
+      "Política de reembolsos — 3dprintmaxxing",
+      "Consulta las condiciones de reembolso de pedidos de impresión 3D personalizada, cancelaciones aprobadas y límites de producción."
+    ],
+    "billing-policy": [
+      "Política de facturación — 3dprintmaxxing",
+      "Consulta pagos, aprobación de presupuestos, gastos de envío y responsabilidades de dirección para pedidos de 3dprintmaxxing."
+    ],
+    "thanks": [
+      "Solicitud recibida — 3dprintmaxxing",
+      "Hemos recibido tu solicitud de impresión 3D personalizada. Consulta los próximos pasos y vuelve al sitio."
+    ],
+    "rate-limited": [
+      "Límite de solicitudes — 3dprintmaxxing",
+      "El formulario alcanzó su límite temporal. Vuelve a 3dprintmaxxing e inténtalo de nuevo más tarde."
+    ]
+  },
+  "pt-br": {
+    "index": [
+      "Impressão 3D personalizada — 3dprintmaxxing",
+      "Peça uma impressão 3D FDM personalizada com materiais claros e orçamento baseado no modelo e no uso pretendido."
+    ],
+    "blog": [
+      "Tutoriais de impressão 3D — 3dprintmaxxing",
+      "Aprenda a escolher filamentos, melhorar o PLA, corrigir problemas da primeira camada e reduzir falhas de impressão 3D."
+    ],
+    "article-filament": [
+      "Guia de filamento 3D — 3dprintmaxxing",
+      "Compare PLA, PETG, ABS e TPU para impressão 3D personalizada considerando resistência, calor, flexibilidade e acabamento."
+    ],
+    "article-reliable-pla": [
+      "Impressões PLA confiáveis — 3dprintmaxxing",
+      "Melhore a qualidade do PLA com mesa limpa, filamento seco, temperaturas adequadas, resfriamento e ajustes repetíveis."
+    ],
+    "article-first-layer": [
+      "Soluções para a primeira camada — 3dprintmaxxing",
+      "Diagnostique baixa adesão, altura do bico, empenamento, elephant foot e cantos levantados na impressão 3D."
+    ],
+    "privacy-policy": [
+      "Política de privacidade — 3dprintmaxxing",
+      "Veja como a 3dprintmaxxing trata informações de pedidos, orçamentos de impressão 3D e comunicações do site."
+    ],
+    "refund-policy": [
+      "Política de reembolso — 3dprintmaxxing",
+      "Consulte as regras de reembolso para pedidos de impressão 3D personalizada, cancelamentos aprovados e limites de produção."
+    ],
+    "billing-policy": [
+      "Política de cobrança — 3dprintmaxxing",
+      "Consulte pagamentos, aprovação de orçamento, frete e responsabilidades de endereço nos pedidos da 3dprintmaxxing."
+    ],
+    "thanks": [
+      "Solicitação recebida — 3dprintmaxxing",
+      "Sua solicitação de impressão 3D personalizada foi recebida. Veja os próximos passos e volte ao site."
+    ],
+    "rate-limited": [
+      "Limite de solicitações — 3dprintmaxxing",
+      "O formulário atingiu o limite temporário. Volte à 3dprintmaxxing e tente novamente mais tarde."
+    ]
+  },
+  "fr": {
+    "index": [
+      "Impression 3D personnalisée — 3dprintmaxxing",
+      "Demandez une impression 3D FDM personnalisée avec un devis fondé sur votre modèle, le matériau et son usage."
+    ],
+    "blog": [
+      "Tutoriels d’impression 3D — 3dprintmaxxing",
+      "Apprenez à choisir un filament, fiabiliser le PLA, corriger la première couche et réduire les échecs d’impression 3D."
+    ],
+    "article-filament": [
+      "Guide du filament 3D — 3dprintmaxxing",
+      "Comparez PLA, PETG, ABS et TPU pour une impression 3D selon la résistance, la chaleur, la souplesse et la finition."
+    ],
+    "article-reliable-pla": [
+      "Impressions PLA fiables — 3dprintmaxxing",
+      "Améliorez vos impressions PLA avec un plateau propre, un filament sec, des températures cohérentes et des réglages reproductibles."
+    ],
+    "article-first-layer": [
+      "Dépannage de la première couche — 3dprintmaxxing",
+      "Diagnostiquez l’adhérence, la hauteur de buse, le warping, l’elephant foot et les coins relevés en impression 3D."
+    ],
+    "privacy-policy": [
+      "Politique de confidentialité — 3dprintmaxxing",
+      "Découvrez comment 3dprintmaxxing traite les informations de devis, de commande et de communication liées à l’impression 3D."
+    ],
+    "refund-policy": [
+      "Politique de remboursement — 3dprintmaxxing",
+      "Consultez les conditions de remboursement des commandes d’impression 3D, des annulations approuvées et de la production."
+    ],
+    "billing-policy": [
+      "Politique de facturation — 3dprintmaxxing",
+      "Consultez les paiements, devis, frais d’expédition et responsabilités d’adresse pour les commandes 3dprintmaxxing."
+    ],
+    "thanks": [
+      "Demande reçue — 3dprintmaxxing",
+      "Votre demande d’impression 3D personnalisée a bien été reçue. Consultez la suite et revenez au site."
+    ],
+    "rate-limited": [
+      "Limite de demandes — 3dprintmaxxing",
+      "Le formulaire a atteint sa limite temporaire. Revenez sur 3dprintmaxxing et réessayez plus tard."
+    ]
+  },
+  "de": {
+    "index": [
+      "Individueller 3D-Druck — 3dprintmaxxing",
+      "Fordern Sie einen individuellen FDM-3D-Druck mit Materialberatung und einem Angebot für Modell und Einsatzzweck an."
+    ],
+    "blog": [
+      "3D-Druck-Anleitungen — 3dprintmaxxing",
+      "Lernen Sie Filamentwahl, zuverlässigen PLA-Druck, Fehler der ersten Schicht und weniger Fehldrucke kennen."
+    ],
+    "article-filament": [
+      "3D-Druck-Filament wählen — 3dprintmaxxing",
+      "Vergleichen Sie PLA, PETG, ABS und TPU für 3D-Druck nach Festigkeit, Wärme, Flexibilität, Optik und Nachbearbeitung."
+    ],
+    "article-reliable-pla": [
+      "Zuverlässiger PLA-Druck — 3dprintmaxxing",
+      "Verbessern Sie PLA-Drucke mit sauberem Druckbett, trockenem Filament, passenden Temperaturen und wiederholbaren Einstellungen."
+    ],
+    "article-first-layer": [
+      "Erste Schicht richtig drucken — 3dprintmaxxing",
+      "Finden Sie Ursachen für Haftung, Düsenhöhe, Warping, Elefantenfuß und hochstehende Ecken beim 3D-Druck."
+    ],
+    "privacy-policy": [
+      "Datenschutzerklärung — 3dprintmaxxing",
+      "Erfahren Sie, wie 3dprintmaxxing Informationen aus 3D-Druckanfragen, Angeboten und Website-Kommunikation verarbeitet."
+    ],
+    "refund-policy": [
+      "Rückerstattungsrichtlinie — 3dprintmaxxing",
+      "Lesen Sie die Rückerstattungsbedingungen für individuelle 3D-Druckaufträge, Stornierungen und laufende Produktion."
+    ],
+    "billing-policy": [
+      "Abrechnungsrichtlinie — 3dprintmaxxing",
+      "Lesen Sie Zahlungsfristen, Angebotsfreigabe, Versandkosten und Adresspflichten für 3dprintmaxxing-Aufträge."
+    ],
+    "thanks": [
+      "Anfrage erhalten — 3dprintmaxxing",
+      "Ihre Anfrage für einen individuellen 3D-Druck ist eingegangen. Sehen Sie die nächsten Schritte und kehren Sie zurück."
+    ],
+    "rate-limited": [
+      "Anfragelimit erreicht — 3dprintmaxxing",
+      "Das Formular hat vorübergehend sein Limit erreicht. Kehren Sie zu 3dprintmaxxing zurück und versuchen Sie es später erneut."
+    ]
+  },
+  "it": {
+    "index": [
+      "Stampa 3D personalizzata — 3dprintmaxxing",
+      "Richiedi una stampa 3D FDM personalizzata con materiali chiari e un preventivo basato su modello e utilizzo."
+    ],
+    "blog": [
+      "Guide per la stampa 3D — 3dprintmaxxing",
+      "Scopri come scegliere il filamento, rendere affidabile il PLA, risolvere il primo layer e ridurre le stampe fallite."
+    ],
+    "article-filament": [
+      "Guida ai filamenti 3D — 3dprintmaxxing",
+      "Confronta PLA, PETG, ABS e TPU per la stampa 3D in base a resistenza, calore, flessibilità, aspetto e finitura."
+    ],
+    "article-reliable-pla": [
+      "Stampe PLA affidabili — 3dprintmaxxing",
+      "Migliora la qualità del PLA con piano pulito, filamento asciutto, temperature corrette, raffreddamento e impostazioni ripetibili."
+    ],
+    "article-first-layer": [
+      "Problemi del primo layer — 3dprintmaxxing",
+      "Diagnostica adesione, altezza dell’ugello, warping, elephant foot e angoli sollevati nelle stampe 3D."
+    ],
+    "privacy-policy": [
+      "Informativa sulla privacy — 3dprintmaxxing",
+      "Scopri come 3dprintmaxxing gestisce i dati inviati per preventivi, ordini e comunicazioni sulla stampa 3D."
+    ],
+    "refund-policy": [
+      "Politica sui rimborsi — 3dprintmaxxing",
+      "Consulta le condizioni di rimborso per ordini di stampa 3D personalizzata, cancellazioni e produzione iniziata."
+    ],
+    "billing-policy": [
+      "Politica di fatturazione — 3dprintmaxxing",
+      "Consulta pagamenti, approvazione del preventivo, spedizione e responsabilità dell’indirizzo per gli ordini 3dprintmaxxing."
+    ],
+    "thanks": [
+      "Richiesta ricevuta — 3dprintmaxxing",
+      "La tua richiesta di stampa 3D personalizzata è stata ricevuta. Leggi i prossimi passaggi e torna al sito."
+    ],
+    "rate-limited": [
+      "Limite richieste raggiunto — 3dprintmaxxing",
+      "Il modulo ha raggiunto il limite temporaneo. Torna su 3dprintmaxxing e riprova più tardi."
+    ]
+  },
+  "ja": {
+    "index": [
+      "カスタム3Dプリント — 3dprintmaxxing",
+      "モデルと用途に合わせて、材料選びと見積もりを確認できるカスタムFDM 3Dプリントサービスです。 カスタム3Dプリントの材料選び、見積もり、印刷品質をわかりやすく案内します。"
+    ],
+    "blog": [
+      "3Dプリントチュートリアル — 3dprintmaxxing",
+      "フィラメント選び、PLAの安定印刷、初層の問題、失敗プリントを減らす方法を実践的に解説します。 カスタム3Dプリントの材料選び、見積もり、印刷品質をわかりやすく案内します。"
+    ],
+    "article-filament": [
+      "3Dプリント用フィラメント — 3dprintmaxxing",
+      "PLA、PETG、ABS、TPUを強度、耐熱性、柔軟性、見た目、後処理の違いから比較します。 カスタム3Dプリントの材料選び、見積もり、印刷品質をわかりやすく案内します。"
+    ],
+    "article-reliable-pla": [
+      "安定したPLAプリント — 3dprintmaxxing",
+      "清潔なベッド、乾燥したフィラメント、温度、冷却、スライサー設定でPLAの品質を安定させます。 カスタム3Dプリントの材料選び、見積もり、印刷品質をわかりやすく案内します。"
+    ],
+    "article-first-layer": [
+      "初層プリントの問題解決 — 3dprintmaxxing",
+      "接着不良、ノズル高さ、反り、エレファントフット、角の浮きを順番に診断する3Dプリントガイドです。 カスタム3Dプリントの材料選び、見積もり、印刷品質をわかりやすく案内します。"
+    ],
+    "privacy-policy": [
+      "プライバシーポリシー — 3dprintmaxxing",
+      "3dprintmaxxingが3Dプリントの見積もり、注文、問い合わせ情報をどのように扱うかを説明します。 カスタム3Dプリントの材料選び、見積もり、印刷品質をわかりやすく案内します。"
+    ],
+    "refund-policy": [
+      "返金ポリシー — 3dprintmaxxing",
+      "カスタム3Dプリントの注文、キャンセル、製作開始後の返金条件について説明します。 カスタム3Dプリントの材料選び、見積もり、印刷品質をわかりやすく案内します。"
+    ],
+    "billing-policy": [
+      "請求ポリシー — 3dprintmaxxing",
+      "カスタム3Dプリントの支払い、見積もり、送料、配送先情報に関する条件を確認できます。 カスタム3Dプリントの材料選び、見積もり、印刷品質をわかりやすく案内します。"
+    ],
+    "thanks": [
+      "リクエストを受信しました — 3dprintmaxxing",
+      "カスタム3Dプリントのリクエストを受信しました。次の手順を確認してサイトに戻れます。 カスタム3Dプリントの材料選び、見積もり、印刷品質をわかりやすく案内します。"
+    ],
+    "rate-limited": [
+      "リクエスト上限に達しました — 3dprintmaxxing",
+      "フォームの一時的な送信上限に達しました。時間を置いて3dprintmaxxingから再度お試しください。 カスタム3Dプリントの材料選び、見積もり、印刷品質をわかりやすく案内します。"
+    ]
+  },
+  "ko": {
+    "index": [
+      "맞춤형 3D 프린팅 — 3dprintmaxxing",
+      "모델과 용도에 맞는 재료 선택과 견적을 확인할 수 있는 맞춤형 FDM 3D 프린팅 서비스입니다. 맞춤 제작, 견적, 출력 품질을 이해하기 쉽게 안내합니다."
+    ],
+    "blog": [
+      "3D 프린팅 튜토리얼 — 3dprintmaxxing",
+      "필라멘트 선택, 안정적인 PLA 출력, 첫 레이어 문제 해결, 실패한 3D 출력 줄이기를 배워 보세요. 맞춤 제작, 견적, 출력 품질을 이해하기 쉽게 안내합니다."
+    ],
+    "article-filament": [
+      "3D 프린팅 필라멘트 가이드 — 3dprintmaxxing",
+      "강도, 내열성, 유연성, 외관과 후처리를 기준으로 PLA, PETG, ABS, TPU를 비교합니다. 맞춤 제작, 견적, 출력 품질을 이해하기 쉽게 안내합니다."
+    ],
+    "article-reliable-pla": [
+      "안정적인 PLA 출력 — 3dprintmaxxing",
+      "깨끗한 베드, 건조한 필라멘트, 온도, 냉각과 슬라이서 설정으로 PLA 출력 품질을 높입니다. 맞춤 제작, 견적, 출력 품질을 이해하기 쉽게 안내합니다."
+    ],
+    "article-first-layer": [
+      "첫 레이어 문제 해결 — 3dprintmaxxing",
+      "접착 불량, 노즐 높이, 뒤틀림, 코끼리발과 들뜬 모서리를 순서대로 진단하는 3D 프린팅 안내입니다. 맞춤 제작, 견적, 출력 품질을 이해하기 쉽게 안내합니다."
+    ],
+    "privacy-policy": [
+      "개인정보처리방침 — 3dprintmaxxing",
+      "3dprintmaxxing가 3D 프린팅 견적, 주문, 문의를 위해 제출된 정보를 처리하는 방법을 안내합니다. 맞춤 제작, 견적, 출력 품질을 이해하기 쉽게 안내합니다."
+    ],
+    "refund-policy": [
+      "환불 정책 — 3dprintmaxxing",
+      "맞춤형 3D 프린팅 주문의 환불, 승인된 취소와 제작 시작 후 적용되는 조건을 확인하세요. 맞춤 제작, 견적, 출력 품질을 이해하기 쉽게 안내합니다."
+    ],
+    "billing-policy": [
+      "청구 정책 — 3dprintmaxxing",
+      "맞춤형 3D 프린팅 주문의 결제, 견적 승인, 배송비와 주소 책임에 관한 조건을 확인하세요. 맞춤 제작, 견적, 출력 품질을 이해하기 쉽게 안내합니다."
+    ],
+    "thanks": [
+      "요청이 접수되었습니다 — 3dprintmaxxing",
+      "맞춤형 3D 프린팅 요청이 접수되었습니다. 다음 단계를 확인하고 사이트로 돌아가세요. 맞춤 제작, 견적, 출력 품질을 이해하기 쉽게 안내합니다."
+    ],
+    "rate-limited": [
+      "요청 한도에 도달했습니다 — 3dprintmaxxing",
+      "양식의 임시 요청 한도에 도달했습니다. 3dprintmaxxing로 돌아가 잠시 후 다시 시도하세요. 맞춤 제작, 견적, 출력 품질을 이해하기 쉽게 안내합니다."
+    ]
+  },
+  "zh": {
+    "index": [
+      "定制3D打印 — 3dprintmaxxing",
+      "根据模型和用途选择材料并获取报价的定制FDM 3D打印服务。 提供清晰的定制打印建议、报价说明和质量排查方法。"
+    ],
+    "blog": [
+      "3D打印教程 — 3dprintmaxxing",
+      "学习耗材选择、稳定打印PLA、解决首层问题，以及减少3D打印失败的方法。 提供清晰的定制打印建议、报价说明和质量排查方法。"
+    ],
+    "article-filament": [
+      "3D打印耗材指南 — 3dprintmaxxing",
+      "从强度、耐热性、柔韧性、外观和后处理等方面比较PLA、PETG、ABS与TPU。 提供清晰的定制打印建议、报价说明和质量排查方法。"
+    ],
+    "article-reliable-pla": [
+      "稳定PLA打印 — 3dprintmaxxing",
+      "通过清洁平台、干燥耗材、合适温度、冷却和切片设置提高PLA打印质量。 提供清晰的定制打印建议、报价说明和质量排查方法。"
+    ],
+    "article-first-layer": [
+      "首层打印问题解决 — 3dprintmaxxing",
+      "按顺序诊断粘附不良、喷嘴高度、翘曲、象脚和边角翘起等3D打印问题。 提供清晰的定制打印建议、报价说明和质量排查方法。"
+    ],
+    "privacy-policy": [
+      "隐私政策 — 3dprintmaxxing",
+      "了解3dprintmaxxing如何处理3D打印报价、订单和网站咨询中提交的信息。 提供清晰的定制打印建议、报价说明和质量排查方法。"
+    ],
+    "refund-policy": [
+      "退款政策 — 3dprintmaxxing",
+      "查看定制3D打印订单、批准取消以及开始制作后的退款条件。 提供清晰的定制打印建议、报价说明和质量排查方法。"
+    ],
+    "billing-policy": [
+      "账单政策 — 3dprintmaxxing",
+      "了解定制3D打印订单的付款、报价确认、运费和地址责任。 提供清晰的定制打印建议、报价说明和质量排查方法。"
+    ],
+    "thanks": [
+      "请求已收到 — 3dprintmaxxing",
+      "我们已收到你的定制3D打印请求。查看下一步并返回3dprintmaxxing网站。 提供清晰的定制打印建议、报价说明和质量排查方法。"
+    ],
+    "rate-limited": [
+      "请求达到临时上限 — 3dprintmaxxing",
+      "表单已达到临时提交上限。返回3dprintmaxxing，稍后再试。 提供清晰的定制打印建议、报价说明和质量排查方法。"
+    ]
+  }
+}
