@@ -39,10 +39,6 @@
     "rate-limited": [
       "Request Limit Reached — 3dprintmaxxing",
       "This request form has reached its temporary limit. Return to 3dprintmaxxing and try again later."
-    ],
-    "custom-3d-printing": [
-      "Custom FDM 3D Printing Service | STL Quotes & Prototypes — 3dprintmaxxing",
-      "Custom FDM 3D printing service with human-reviewed quotes, STL file support, prototypes, hobby parts, and small batches."
     ]
   },
   "es": {
@@ -85,10 +81,6 @@
     "rate-limited": [
       "Límite de solicitudes — 3dprintmaxxing",
       "El formulario alcanzó su límite temporal. Vuelve a 3dprintmaxxing e inténtalo de nuevo más tarde."
-    ],
-    "custom-3d-printing": [
-      "Impresión 3D personalizada — 3dprintmaxxing",
-      "Custom FDM 3D printing service with human-reviewed quotes, STL file support, prototypes, hobby parts, and small batches."
     ]
   },
   "pt-br": {
@@ -131,10 +123,6 @@
     "rate-limited": [
       "Limite de solicitações — 3dprintmaxxing",
       "O formulário atingiu o limite temporário. Volte à 3dprintmaxxing e tente novamente mais tarde."
-    ],
-    "custom-3d-printing": [
-      "Impressão 3D personalizada — 3dprintmaxxing",
-      "Custom FDM 3D printing service with human-reviewed quotes, STL file support, prototypes, hobby parts, and small batches."
     ]
   },
   "fr": {
@@ -177,10 +165,6 @@
     "rate-limited": [
       "Limite de demandes — 3dprintmaxxing",
       "Le formulaire a atteint sa limite temporaire. Revenez sur 3dprintmaxxing et réessayez plus tard."
-    ],
-    "custom-3d-printing": [
-      "Impression 3D personnalisée — 3dprintmaxxing",
-      "Custom FDM 3D printing service with human-reviewed quotes, STL file support, prototypes, hobby parts, and small batches."
     ]
   },
   "de": {
@@ -223,10 +207,6 @@
     "rate-limited": [
       "Anfragelimit erreicht — 3dprintmaxxing",
       "Das Formular hat vorübergehend sein Limit erreicht. Kehren Sie zu 3dprintmaxxing zurück und versuchen Sie es später erneut."
-    ],
-    "custom-3d-printing": [
-      "Individueller 3D-Druck — 3dprintmaxxing",
-      "Custom FDM 3D printing service with human-reviewed quotes, STL file support, prototypes, hobby parts, and small batches."
     ]
   },
   "it": {
@@ -269,10 +249,6 @@
     "rate-limited": [
       "Limite richieste raggiunto — 3dprintmaxxing",
       "Il modulo ha raggiunto il limite temporaneo. Torna su 3dprintmaxxing e riprova più tardi."
-    ],
-    "custom-3d-printing": [
-      "Stampa 3D personalizzata — 3dprintmaxxing",
-      "Custom FDM 3D printing service with human-reviewed quotes, STL file support, prototypes, hobby parts, and small batches."
     ]
   },
   "ja": {
@@ -315,10 +291,6 @@
     "rate-limited": [
       "リクエスト上限に達しました — 3dprintmaxxing",
       "フォームの一時的な送信上限に達しました。時間を置いて3dprintmaxxingから再度お試しください。 カスタム3Dプリントの材料選び、見積もり、印刷品質をわかりやすく案内します。"
-    ],
-    "custom-3d-printing": [
-      "カスタム3Dプリント — 3dprintmaxxing",
-      "Custom FDM 3D printing service with human-reviewed quotes, STL file support, prototypes, hobby parts, and small batches."
     ]
   },
   "ko": {
@@ -361,10 +333,6 @@
     "rate-limited": [
       "요청 한도에 도달했습니다 — 3dprintmaxxing",
       "양식의 임시 요청 한도에 도달했습니다. 3dprintmaxxing로 돌아가 잠시 후 다시 시도하세요. 맞춤 제작, 견적, 출력 품질을 이해하기 쉽게 안내합니다."
-    ],
-    "custom-3d-printing": [
-      "맞춤형 3D 프린팅 — 3dprintmaxxing",
-      "Custom FDM 3D printing service with human-reviewed quotes, STL file support, prototypes, hobby parts, and small batches."
     ]
   },
   "zh": {
@@ -407,10 +375,6 @@
     "rate-limited": [
       "请求达到临时上限 — 3dprintmaxxing",
       "表单已达到临时提交上限。返回3dprintmaxxing，稍后再试。 提供清晰的定制打印建议、报价说明和质量排查方法。"
-    ],
-    "custom-3d-printing": [
-      "定制3D打印 — 3dprintmaxxing",
-      "Custom FDM 3D printing service with human-reviewed quotes, STL file support, prototypes, hobby parts, and small batches."
     ]
   }
 }
