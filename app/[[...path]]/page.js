@@ -10,10 +10,11 @@ function sanitizeHtml(html) {
 
 const LANGUAGES = ['en', 'es', 'pt-br', 'fr', 'de', 'it', 'ja', 'ko', 'zh'];
 const HTML_LANGUAGES = { en: 'en-US', es: 'es', 'pt-br': 'pt-BR', fr: 'fr', de: 'de', it: 'it', ja: 'ja', ko: 'ko', zh: 'zh-CN' };
-const ROUTES = ['index', 'thanks', 'privacy-policy', 'refund-policy', 'billing-policy', 'rate-limited', 'blog', 'article-filament', 'article-reliable-pla', 'article-first-layer'];
+const ROUTES = ['index', 'thanks', 'privacy-policy', 'refund-policy', 'billing-policy', 'rate-limited', 'blog', 'article-filament', 'article-reliable-pla', 'article-first-layer', 'custom-3d-printing'];
 const BLOG_SEO_PATH = path.join(process.cwd(), 'content', 'blog-seo.json');
 const SUPPORTING_COPY_PATH = path.join(process.cwd(), 'content', 'seo-supporting-copy.json');const SITE_URL = 'https://3dprintmaxxing.vercel.app';
 const ARTICLE_ROUTES = ['article-filament', 'article-reliable-pla', 'article-first-layer'];
+const SERVICE_ROUTES = ['custom-3d-printing'];
 const ARTICLE_TOPICS = {
   'article-filament': 'FDM 3D printing filament selection',
   'article-reliable-pla': 'reliable PLA 3D printing',
@@ -104,6 +105,8 @@ function structuredDataMarkup(locale, route, html) {
       '@type': 'CollectionPage', name: title, description, url: canonical, inLanguage: HTML_LANGUAGES[locale] || locale,
       mainEntity: { '@type': 'ItemList', itemListElement: Object.keys(articleTitles).map((articleRoute, index) => ({ '@type': 'ListItem', position: index + 1, name: articleTitles[articleRoute], url: absoluteUrl(`/${locale}/${articleRoute}`) })) },
     });
+  } else if (SERVICE_ROUTES.includes(route)) {
+    graph.push({ '@type': 'Service', name: title, serviceType: 'Custom FDM 3D printing service', description, url: canonical, provider: { '@type': 'Organization', name: '3dprintmaxxing', url: SITE_URL }, areaServed: 'Worldwide', offers: { '@type': 'Offer', availability: 'https://schema.org/InStock', url: canonical } });
   } else if (ARTICLE_ROUTES.includes(route)) {
     const imagePath = html.match(/<img[^>]+src=["']([^"']+)["']/i)?.[1];
     graph.push({
