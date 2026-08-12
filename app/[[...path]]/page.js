@@ -44,23 +44,6 @@ const RELATED_ARTICLES = {
   zh: { heading: '继续阅读', browse: '浏览所有教程 →', read: '阅读指南 →', titles: { 'article-filament': '如何为定制 3D 打印选择耗材', 'article-reliable-pla': '如何获得更可靠的 PLA 3D 打印', 'article-first-layer': '首层问题、翘曲与 PLA 打印失败' } },
 };
 
-const ARTICLE_SECTION_IMAGES = {
-  'article-filament': ['filament-spools-new.jpg', 'filament-green.jpg', 'filament-printer-new.jpg', 'filament-workshop.jpg'],
-  'article-reliable-pla': ['pla-printed-objects.jpg', 'pla-shelf.jpg', 'pla-living-room.jpg', 'pla-star-print.jpg'],
-  'article-first-layer': ['first-layer-print.jpg', 'first-layer-nozzle.jpg', 'first-layer-model.jpg', 'first-layer-object.jpg'],
-};
-
-function addArticleSectionImages(html, route) {
-  const images = ARTICLE_SECTION_IMAGES[route];
-  if (!images) return html;
-  let index = 0;
-  return html.replace(/(<h2\b[^>]*>[\s\S]*?<\/h2>)/gi, (heading) => {
-    const image = images[index % images.length];
-    index += 1;
-    return `${heading}<figure class=\"article-section-image\"><img src=\"/article-images/${image}\" alt=\"3D printing ${route.replace('article-', '').replaceAll('-', ' ')} example\" loading=\"lazy\" decoding=\"async\" /></figure>`;
-  });
-}
-
 function relatedMarkup(locale, route) {
   if (!route.startsWith('article-')) return '';
   const copy = RELATED_ARTICLES[locale] || RELATED_ARTICLES.en;
@@ -163,7 +146,7 @@ function localizeLinks(html, locale, route, injected = '') {
     .replace(/href="\.\.\/(en|es|pt-br|fr|de|it|ja|ko|zh)\/"/g, 'href="/$1"');
 
   for (const [from, to] of [['Blog', labels.blog], ['Privacy Policy', labels.privacy], ['Refund Policy', labels.refund], ['Billing Policy', labels.billing], ['← back to the site', `← ${labels.back}`], ['back to the site', labels.back]]) content = content.replaceAll(`>${from}<`, `>${to}<`);
-  const articleContent = addArticleSectionImages(content, route);
+  const articleContent = content;
   return { head, content: injected ? articleContent.replace('<footer', `${injected}<footer`) : articleContent };
 }
 
@@ -185,7 +168,7 @@ export default async function StaticPage({ params }) {
   if (!requestedLocale) redirect('/en');
   if (!LANGUAGES.includes(requestedLocale)) notFound();
   const route = segments.slice(1).join('/') || 'index';
-  if (!ROUTES.includes(route)) notFound();
+  if (segments.length > 2 || !ROUTES.includes(route)) notFound();
   let html;
   try { html = await readFile(path.join(process.cwd(), requestedLocale, `${route}.html`), 'utf8'); } catch { notFound(); }
   const injected = await pageInjectedMarkup(requestedLocale, route);
