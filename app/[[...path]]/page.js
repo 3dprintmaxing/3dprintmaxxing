@@ -12,12 +12,23 @@ const LANGUAGES = ['en', 'es', 'pt-br', 'fr', 'de', 'it', 'ja', 'ko', 'zh'];
 const HTML_LANGUAGES = { en: 'en-US', es: 'es', 'pt-br': 'pt-BR', fr: 'fr', de: 'de', it: 'it', ja: 'ja', ko: 'ko', zh: 'zh-CN' };
 const ROUTES = ['index', 'thanks', 'privacy-policy', 'refund-policy', 'billing-policy', 'rate-limited', 'blog', 'article-filament', 'article-reliable-pla', 'article-first-layer'];
 const BLOG_SEO_PATH = path.join(process.cwd(), 'content', 'blog-seo.json');
-const SUPPORTING_COPY_PATH = path.join(process.cwd(), 'content', 'seo-supporting-copy.json');const SITE_URL = 'https://3dprintmaxxing.vercel.app';
+const SUPPORTING_COPY_PATH = path.join(process.cwd(), 'content', 'seo-supporting-copy.json');
+const SITE_URL = 'https://3dprintmaxxing.vercel.app';
 const ARTICLE_ROUTES = ['article-filament', 'article-reliable-pla', 'article-first-layer'];
 const ARTICLE_TOPICS = {
   'article-filament': 'FDM 3D printing filament selection',
   'article-reliable-pla': 'reliable PLA 3D printing',
   'article-first-layer': '3D printing first-layer troubleshooting',
+};
+
+const DUPLICATE_IMAGE_SOURCES = {
+  '/article-images/red-yellow-print-new.jpg': '/article-images/first-layer-print.jpg',
+  '/article-images/workshop-tools-new.jpg': '/article-images/filament-workshop.jpg',
+  '/article-images/pla-living-room.jpg': '/article-images/filament-living-room-new.jpg',
+  '/article-images/pla-printed-objects.jpg': '/article-images/filament-printer-new.jpg',
+  '/article-images/printed-objects-new.jpg': '/article-images/filament-printer-new.jpg',
+  '/article-images/filament-green.jpg': '/article-images/filament-green-new.jpg',
+  '/article-images/star-test-print-new.jpg': '/article-images/pla-star-print.jpg',
 };
 
 const LINK_LABELS = {
@@ -129,6 +140,23 @@ async function pageInjectedMarkup(locale, route) {
   return blocks.join('');
 }
 
+function canonicalizeImageSource(source) {
+  const cleanSource = source.split('?')[0];
+  return DUPLICATE_IMAGE_SOURCES[cleanSource] || cleanSource;
+}
+
+function deduplicateArticleImages(content) {
+  const seen = new Set();
+  return content.replace(/<img\b[^>]*>/gi, (tag) => {
+    const match = tag.match(/\bsrc=["']([^"']+)["']/i);
+    if (!match) return tag;
+    const canonicalSource = canonicalizeImageSource(match[1]);
+    if (seen.has(canonicalSource)) return '';
+    seen.add(canonicalSource);
+    return tag.replace(match[1], canonicalSource);
+  });
+}
+
 function localizeLinks(html, locale, route, injected = '') {
   const labels = LINK_LABELS[locale] || LINK_LABELS.en;
   const pagePath = (name) => `/${locale}/${name}`;
@@ -147,8 +175,8 @@ function localizeLinks(html, locale, route, injected = '') {
     .replace(/href="\.\.\/(en|es|pt-br|fr|de|it|ja|ko|zh)\/"/g, 'href="/$1"');
 
   for (const [from, to] of [['Blog', labels.blog], ['Privacy Policy', labels.privacy], ['Refund Policy', labels.refund], ['Billing Policy', labels.billing], ['← back to the site', `← ${labels.back}`], ['back to the site', labels.back]]) content = content.replaceAll(`>${from}<`, `>${to}<`);
-  const articleContent = content;
-  return { head, content: injected ? articleContent.replace('<footer', `${injected}<footer`) : articleContent };
+  content = deduplicateArticleImages(content);
+  return { head, content: injected ? content.replace('<footer', `${injected}<footer`) : content };
 }
 
 function ensureDocumentLanguage(content, locale) {
