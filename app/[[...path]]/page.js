@@ -74,7 +74,7 @@ function absoluteUrl(pathname) {
 }
 
 function jsonLdScript(data) {
-  return `<script type="application/ld+json">${JSON.stringify(data).replace(/</g, '\u003c')}</script>`;
+  return `<script type="application/ld+json">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`;
 }
 
 function plainText(value) {
@@ -125,6 +125,7 @@ async function pageInjectedMarkup(locale, route) {
   if (route === 'blog') blocks.push(await blogSeoMarkup(locale));
   const supporting = await supportingCopyMarkup(locale, route);
   if (supporting) blocks.push(supporting);
+  if (route.startsWith('article-')) blocks.push(relatedMarkup(locale, route));
   return blocks.join('');
 }
 
