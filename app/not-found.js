@@ -2,22 +2,21 @@ import Link from 'next/link';
 
 export default function NotFound() {
   return (
-    <main style={{ minHeight: '100vh', background: '#f6f5f0', color: '#1a1a1a', fontFamily: 'Verdana, Geneva, sans-serif', padding: '0 18px' }}>
-      <header style={{ borderBottom: '2px solid #1a1a1a', background: '#fff', margin: '0 -18px', padding: '16px 18px' }}>
-        <div style={{ maxWidth: '720px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
-          <Link href="/en/" style={{ color: '#1a1a1a', fontFamily: 'Georgia, serif', fontSize: '1.3rem', fontWeight: 700, textDecoration: 'none' }}>3dprint<span style={{ color: '#c1440e' }}>maxxing</span></Link>
+    <main style={{ minHeight: '100vh', background: '#f6f5f0', color: '#1a1a1a', fontFamily: 'Verdana, Geneva, sans-serif', padding: '18px' }}>
+      <header style={{ maxWidth: '720px', margin: '0 auto', borderBottom: '2px solid #1a1a1a', paddingBottom: '16px', background: '#fff' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px', padding: '0 18px' }}>
+          <Link href="/en/" style={{ fontFamily: 'Georgia, serif', fontWeight: 700, fontSize: '1.3rem', textDecoration: 'none', color: '#1a1a1a' }}>3dprint<span style={{ color: '#c1440e' }}>maxxing</span></Link>
           <span style={{ color: '#625d55', fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.12em' }}>404</span>
         </div>
       </header>
-      <section style={{ maxWidth: '720px', margin: '0 auto', padding: '48px 0 72px' }}>
-        <h1 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(2rem, 5vw, 3.25rem)', lineHeight: 1.15, margin: '0 0 16px' }}>Page not found</h1>
-        <p style={{ maxWidth: '560px', fontSize: '1.05rem', lineHeight: 1.7, margin: '0 0 28px' }}>That print path does not exist. The page may have moved, or the address may be mistyped.</p>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
-          <Link href="/en/" style={{ display: 'inline-block', background: '#c1440e', color: '#fff', padding: '11px 18px', fontWeight: 700, textDecoration: 'none' }}>Back to homepage</Link>
-          <Link href="/en/blog" style={{ display: 'inline-block', border: '1px solid #1a1a1a', color: '#1a1a1a', padding: '10px 18px', fontWeight: 700, textDecoration: 'none' }}>Browse the blog</Link>
+      <section style={{ maxWidth: '720px', margin: '28px auto 0', padding: '0 18px' }}>
+        <h1 style={{ fontFamily: 'Georgia, serif', fontSize: '1.9rem', lineHeight: 1.25, margin: '0 0 10px' }}>That page doesn&apos;t exist.</h1>
+        <div style={{ background: '#fff', border: '1px solid #ccc8ba', padding: '16px 18px', margin: '18px 0 30px' }}>
+          <p style={{ margin: '0 0 10px' }}>The link may be out of date or the address may be wrong.</p>
+          <p style={{ margin: 0 }}><Link href="/en/" style={{ color: '#0645ad' }}>← back to the site</Link></p>
         </div>
       </section>
-      <footer style={{ maxWidth: '720px', margin: '0 auto', borderTop: '2px solid #1a1a1a', padding: '16px 0 30px', color: '#555', fontSize: '0.8rem', textAlign: 'center' }}>3dprintmaxxing</footer>
+      <footer style={{ maxWidth: '720px', margin: '40px auto 0', borderTop: '2px solid #1a1a1a', padding: '16px 18px 30px', color: '#555', textAlign: 'center', fontSize: '0.8rem' }}>3dprintmaxxing</footer>
     </main>
   );
 }
