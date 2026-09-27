@@ -1,19 +1,23 @@
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { readFile, readFile as readTextFile } from 'node:fs/promises';
 import path from 'node:path';
+import { getPageMetadataRecord } from '../../../metadata';
+import {
+  BASE_URL as SITE_URL,
+  LANGUAGES,
+  LANGUAGE_TAGS as HTML_LANGUAGES,
+  ROUTES,
+  isSupportedLocale,
+  isSupportedRoute,
+  routePath,
+  routeUrl,
+} from '../../../site-config';
 
 export const dynamic = 'force-static';
+export const dynamicParams = false;
 
-function sanitizeHtml(html) {
-  return html || '';
-}
-
-const LANGUAGES = ['en', 'es', 'pt-br', 'fr', 'de', 'it', 'ja', 'ko', 'zh'];
-const HTML_LANGUAGES = { en: 'en-US', es: 'es', 'pt-br': 'pt-BR', fr: 'fr', de: 'de', it: 'it', ja: 'ja', ko: 'ko', zh: 'zh-CN' };
-const ROUTES = ['index', 'thanks', 'privacy-policy', 'refund-policy', 'billing-policy', 'rate-limited', 'blog', 'article-filament', 'article-reliable-pla', 'article-first-layer'];
 const BLOG_SEO_PATH = path.join(process.cwd(), 'content', 'blog-seo.json');
 const SUPPORTING_COPY_PATH = path.join(process.cwd(), 'content', 'seo-supporting-copy.json');
-const SITE_URL = 'https://3dprintmaxxing.vercel.app';
 const ARTICLE_ROUTES = ['article-filament', 'article-reliable-pla', 'article-first-layer'];
 const ARTICLE_TOPICS = {
   'article-filament': 'FDM 3D printing filament selection',
@@ -55,6 +59,18 @@ const RELATED_ARTICLES = {
   zh: { heading: '继续阅读', browse: '浏览所有教程 →', read: '阅读指南 →', titles: { 'article-filament': '如何为定制 3D 打印选择耗材', 'article-reliable-pla': '如何获得更可靠的 PLA 3D 打印', 'article-first-layer': '首层问题、翘曲与 PLA 打印失败' } },
 };
 
+const FORM_COPY = {
+  en: { cta: 'Request a print', sending: 'Sending…', error: 'Something went wrong. Please try again.', privacy: 'See the', privacyLink: 'Privacy Policy', file: 'Your file' },
+  es: { cta: 'Solicitar una impresión', sending: 'Enviando…', error: 'Algo salió mal. Inténtalo de nuevo.', privacy: 'Consulta la', privacyLink: 'Política de privacidad', file: 'Tu archivo' },
+  'pt-br': { cta: 'Solicitar uma impressão', sending: 'Enviando…', error: 'Algo deu errado. Tente novamente.', privacy: 'Consulte a', privacyLink: 'Política de privacidade', file: 'Seu arquivo' },
+  fr: { cta: 'Demander une impression', sending: 'Envoi…', error: 'Une erreur s’est produite. Réessayez.', privacy: 'Consultez la', privacyLink: 'Politique de confidentialité', file: 'Votre fichier' },
+  de: { cta: 'Druck anfragen', sending: 'Wird gesendet…', error: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.', privacy: 'Lesen Sie die', privacyLink: 'Datenschutzerklärung', file: 'Ihre Datei' },
+  it: { cta: 'Richiedi una stampa', sending: 'Invio in corso…', error: 'Si è verificato un errore. Riprova.', privacy: 'Consulta la', privacyLink: 'Informativa sulla privacy', file: 'Il tuo file' },
+  ja: { cta: 'プリントを依頼する', sending: '送信中…', error: '問題が発生しました。もう一度お試しください。', privacy: '', privacyLink: 'プライバシーポリシー', file: 'ファイル' },
+  ko: { cta: '출력 요청하기', sending: '전송 중…', error: '문제가 발생했습니다. 다시 시도해 주세요.', privacy: '', privacyLink: '개인정보처리방침', file: '파일' },
+  zh: { cta: '请求打印', sending: '正在发送…', error: '出现问题，请重试。', privacy: '请查看', privacyLink: '隐私政策', file: '你的文件' },
+};
+
 function relatedMarkup(locale, route) {
   if (!route.startsWith('article-')) return '';
   const copy = RELATED_ARTICLES[locale] || RELATED_ARTICLES.en;
@@ -84,18 +100,15 @@ function absoluteUrl(pathname) {
   return new URL(pathname, SITE_URL).toString();
 }
 
-function jsonLdScript(data) {
-  return `<script type="application/ld+json">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`;
-}
-
 function plainText(value) {
   return value.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
-function structuredDataMarkup(locale, route, html) {
-  const canonical = absoluteUrl(`/${locale}${route === 'index' ? '' : `/${route}`}`);
-  const title = plainText(html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] || '3dprintmaxxing');
-  const description = plainText(html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i)?.[1] || 'Practical FDM 3D printing guidance and custom print requests from 3dprintmaxxing.');
+async function structuredDataMarkup(locale, route, html) {
+  const canonical = routeUrl(locale, route);
+  const metadata = await getPageMetadataRecord(locale, route);
+  const title = metadata?.title || plainText(html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] || '3dprintmaxxing');
+  const description = metadata?.description || plainText(html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i)?.[1] || 'Practical FDM 3D printing guidance and custom print requests from 3dprintmaxxing.');
   const breadcrumbNames = [{ name: 'Home', item: absoluteUrl(`/${locale}`) }];
   if (route !== 'index') breadcrumbNames.push({ name: title.replace(/\s*[—|].*$/, ''), item: canonical });
   const graph = [{
@@ -128,7 +141,7 @@ function structuredDataMarkup(locale, route, html) {
     graph.push({ '@type': 'WebPage', name: title, description, url: canonical, inLanguage: HTML_LANGUAGES[locale] || locale });
   }
 
-  return jsonLdScript({ '@context': 'https://schema.org', '@graph': graph });
+  return JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c');
 }
 
 async function pageInjectedMarkup(locale, route) {
@@ -160,7 +173,6 @@ function deduplicateArticleImages(content) {
 function localizeLinks(html, locale, route, injected = '') {
   const labels = LINK_LABELS[locale] || LINK_LABELS.en;
   const pagePath = (name) => `/${locale}/${name}`;
-  const head = html.match(/<head[^>]*>([\s\S]*?)<\/head>/i)?.[1] || '';
   let content = html
     .replace(/^<!doctype html>/i, '')
     .replace(/<html[^>]*>|<\/html>|<head[\s\S]*?<\/head>|<body[^>]*>|<\/body>/gi, '');
@@ -176,32 +188,88 @@ function localizeLinks(html, locale, route, injected = '') {
 
   for (const [from, to] of [['Blog', labels.blog], ['Privacy Policy', labels.privacy], ['Refund Policy', labels.refund], ['Billing Policy', labels.billing], ['← back to the site', `← ${labels.back}`], ['back to the site', labels.back]]) content = content.replaceAll(`>${from}<`, `>${to}<`);
   content = deduplicateArticleImages(content);
-  return { head, content: injected ? content.replace('<footer', `${injected}<footer`) : content };
+  return injected ? content.replace('<footer', `${injected}<footer`) : content;
 }
 
-function ensureDocumentLanguage(content, locale) {
-  const lang = HTML_LANGUAGES[locale] || locale;
-  return content.replace(/<html([^>]*)>/i, (_, attributes) => {
-    const withoutLang = attributes.replace(/\s+lang=("[^"]*"|'[^']*')/i, '');
-    return `<html${withoutLang} lang="${lang}">`;
+function addAttribute(tag, attribute, value) {
+  if (new RegExp(`\\s${attribute}=`, 'i').test(tag)) return tag;
+  return tag.replace(/>$/, ` ${attribute}="${value}">`);
+}
+
+function enhanceRequestFormMarkup(content, locale, route) {
+  if (route !== 'index' || !content.includes('data-print-form')) return content;
+
+  const copy = FORM_COPY[locale] || FORM_COPY.en;
+  const formIdPrefix = `print-${locale}`;
+  let enhanced = content.replace(/<form\b([^>]*\bdata-print-form\b[^>]*)>/i, (tag) => {
+    let next = addAttribute(tag, 'data-status-sending', copy.sending);
+    next = addAttribute(next, 'data-status-error', copy.error);
+    return next;
   });
+
+  enhanced = enhanced.replace(/(<label)([^>]*)(>[\s\S]*?<\/label>\s*)(<(?:input|textarea)\b[^>]*\bname="([^"]+)"[^>]*>)/gi, (match, start, labelAttributes, labelEnd, control, name) => {
+    if (name.startsWith('_') || /\sfor=/i.test(labelAttributes)) return match;
+    return `${start}${labelAttributes} for="${formIdPrefix}-${name}"${labelEnd}${control}`;
+  });
+
+  enhanced = enhanced.replace(/<(input|textarea)\b([^>]*\bname="([^"]+)"[^>]*)>/gi, (tag, element, attributes, name) => {
+    if (name.startsWith('_')) return tag;
+    let next = `<${element}${attributes}>`;
+    next = addAttribute(next, 'id', `${formIdPrefix}-${name}`);
+
+    if (name === 'name') next = addAttribute(next, 'autocomplete', 'name');
+    if (name === 'email') next = addAttribute(next, 'autocomplete', 'email');
+    if (name === 'phone') next = addAttribute(next, 'autocomplete', 'tel');
+    if (name === 'address') next = addAttribute(next, 'autocomplete', 'street-address');
+    if (name === 'description') next = addAttribute(next, 'autocomplete', 'off');
+    if (name === 'color') next = addAttribute(next, 'autocomplete', 'off');
+    if (name === 'budget') next = addAttribute(next, 'inputmode', 'decimal');
+    if (name === 'quantity') {
+      next = next.replace(/\stype=("[^"]*"|'[^']*')/i, '');
+      next = addAttribute(next, 'type', 'number');
+      next = addAttribute(next, 'min', '1');
+      next = addAttribute(next, 'step', '1');
+      next = addAttribute(next, 'inputmode', 'numeric');
+    }
+    if (name === 'attachments') next = addAttribute(next, 'aria-label', copy.file);
+    return next;
+  });
+
+  enhanced = enhanced.replace(/<div class="field"><span class="label">([^<]+)<\/span><div class="radio">([\s\S]*?)<\/div><\/div>/i, '<fieldset class="field material-field"><legend class="label">$1</legend><div class="radio">$2</div></fieldset>');
+  enhanced = enhanced.replace(/<span class="label">([^<]+)<\/span><div class="drop">([\s\S]*?<input\b[^>]*\bname="attachments"[^>]*>)/i, `<label class="label" for="${formIdPrefix}-attachments">$1</label><div class="drop">$2`);
+  enhanced = enhanced.replace(/<span data-status class="hint"><\/span>/i, '<span data-status class="hint form-status" role="status" aria-live="polite" aria-atomic="true"></span>');
+
+  const privacyPrefix = copy.privacy ? `${copy.privacy} ` : '';
+  const privacy = `<p class="form-privacy hint">${privacyPrefix}<a href="${routePath(locale, 'privacy-policy')}">${copy.privacyLink}</a>.</p>`;
+  return enhanced.replace(/(<button class="submit" type="submit">)/i, `${privacy}$1`);
+}
+
+function addHomeCta(content, locale, route) {
+  if (route !== 'index') return content;
+  const copy = FORM_COPY[locale] || FORM_COPY.en;
+  return content.replace(/(<h1[^>]*>[\s\S]*?<\/h1>)/i, `$1<p class="hero-request"><a class="hero-request-link" href="#request">${copy.cta}</a></p>`);
 }
 
 export async function generateStaticParams() {
-  return [{ path: [] }, ...LANGUAGES.flatMap((lang) => ROUTES.map((route) => ({ path: [lang, ...(route === 'index' ? [] : [route])] })))];
+  return LANGUAGES.flatMap((locale) => ROUTES.map((route) => ({
+    locale,
+    slug: route === 'index' ? [] : [route],
+  })));
 }
 
 export default async function StaticPage({ params }) {
-  const { path: segments = [] } = await params;
-  const requestedLocale = segments[0];
-  if (!requestedLocale) redirect('/en');
-  if (!LANGUAGES.includes(requestedLocale)) notFound();
-  const route = segments.slice(1).join('/') || 'index';
-  if (segments.length > 2 || !ROUTES.includes(route)) notFound();
+  const { locale: requestedLocale, slug = [] } = await params;
+  if (!isSupportedLocale(requestedLocale)) notFound();
+  const route = slug.join('/') || 'index';
+  if (slug.length > 1 || !isSupportedRoute(route)) notFound();
   let html;
   try { html = await readFile(path.join(process.cwd(), requestedLocale, `${route}.html`), 'utf8'); } catch { notFound(); }
   const injected = await pageInjectedMarkup(requestedLocale, route);
+  const structuredData = await structuredDataMarkup(requestedLocale, route, html);
   const localized = localizeLinks(html, requestedLocale, route, injected);
-  const structuredData = structuredDataMarkup(requestedLocale, route, html);
-  return <><head dangerouslySetInnerHTML={{ __html: sanitizeHtml(`${localized.head}${structuredData}`) }} /><div lang={HTML_LANGUAGES[requestedLocale] || requestedLocale} dangerouslySetInnerHTML={{ __html: sanitizeHtml(ensureDocumentLanguage(localized.content, requestedLocale)) }} /></>;
+  const enhanced = addHomeCta(enhanceRequestFormMarkup(localized, requestedLocale, route), requestedLocale, route);
+  return <>
+    <div lang={HTML_LANGUAGES[requestedLocale] || requestedLocale} dangerouslySetInnerHTML={{ __html: enhanced }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData }} />
+  </>;
 }

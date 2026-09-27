@@ -1,32 +1,43 @@
 document.querySelectorAll('form[data-print-form]').forEach((form) => {
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
+
     const button = form.querySelector('button[type="submit"]');
     const status = form.querySelector('[data-status]');
     const next = form.dataset.thanks;
     const destination = next ? new URL(next, window.location.href).href : null;
     let redirect = form.querySelector('input[name="_next"]');
+
     if (!redirect) {
       redirect = document.createElement('input');
       redirect.type = 'hidden';
       redirect.name = '_next';
       form.appendChild(redirect);
     }
+
     if (destination) redirect.value = destination;
-    if (button) button.disabled = true;
-    if (status) status.textContent = 'Sending…';
+    if (button) {
+      button.disabled = true;
+      button.setAttribute('aria-disabled', 'true');
+    }
+    form.setAttribute('aria-busy', 'true');
+    if (status) status.textContent = form.dataset.statusSending || 'Sending…';
 
     try {
       const response = await fetch(form.action, {
         method: 'POST',
         body: new FormData(form),
-        headers: { Accept: 'application/json' }
+        headers: { Accept: 'application/json' },
       });
       if (!response.ok) throw new Error('Form submission failed');
       if (destination) window.location.assign(destination);
     } catch (error) {
-      if (button) button.disabled = false;
-      if (status) status.textContent = 'Something went wrong. Please try again.';
+      form.setAttribute('aria-busy', 'false');
+      if (button) {
+        button.disabled = false;
+        button.setAttribute('aria-disabled', 'false');
+      }
+      if (status) status.textContent = form.dataset.statusError || 'Something went wrong. Please try again.';
     }
   });
 });
@@ -42,7 +53,7 @@ document.querySelectorAll('form[data-print-form]').forEach((form) => {
     it: 'Italiano',
     ja: '日本語',
     ko: '한국어',
-    zh: '中文'
+    zh: '中文',
   };
   const menuLabels = {
     en: 'menu',
@@ -53,7 +64,7 @@ document.querySelectorAll('form[data-print-form]').forEach((form) => {
     it: 'menu',
     ja: 'メニュー',
     ko: '메뉴',
-    zh: '菜单'
+    zh: '菜单',
   };
   const pathParts = window.location.pathname.split('/').filter(Boolean);
   const locale = languages.includes(pathParts[0]) ? pathParts[0] : 'en';
@@ -61,7 +72,12 @@ document.querySelectorAll('form[data-print-form]').forEach((form) => {
   const currentPage = `/${locale}${page ? `/${page}` : ''}`;
 
   const slugify = (text, used) => {
-    const base = text.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '') || 'section';
+    const normalized = (text || '').normalize('NFKD').toLowerCase().trim();
+    const base = normalized
+      .replace(/[^\p{L}\p{N}\s-]/gu, '')
+      .replace(/[\s_]+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '') || `section-${used.size + 1}`;
     let id = base;
     let number = 2;
     while (used.has(id)) id = `${base}-${number++}`;
@@ -131,7 +147,10 @@ document.querySelectorAll('form[data-print-form]').forEach((form) => {
       if (!header.contains(event.target)) close();
     });
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') close();
+      if (event.key === 'Escape') {
+        close();
+        toggle.focus();
+      }
     });
   });
 
