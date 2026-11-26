@@ -27,6 +27,8 @@ export const ROUTES = [
   'article-first-layer',
 ];
 
+export const ENGLISH_ONLY_ROUTES = ['about'];
+
 export const INDEXABLE_ROUTES = [
   'index',
   'blog',
@@ -36,14 +38,15 @@ export const INDEXABLE_ROUTES = [
   'privacy-policy',
   'refund-policy',
   'billing-policy',
+  'about',
 ];
 
 export function isSupportedLocale(locale) {
   return LANGUAGES.includes(locale);
 }
 
-export function isSupportedRoute(route) {
-  return ROUTES.includes(route);
+export function isSupportedRoute(route, locale) {
+  return ROUTES.includes(route) || (locale === 'en' && ENGLISH_ONLY_ROUTES.includes(route));
 }
 
 export function routePath(locale, page = 'index') {
