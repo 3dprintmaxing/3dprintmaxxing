@@ -273,7 +273,7 @@ function addHomeInfo(content, locale, route) {
 }
 
 export async function generateStaticParams() {
-  return LANGUAGES.flatMap((locale) => ROUTES.map((route) => ({
+  return LANGUAGES.flatMap((locale) => [...ROUTES, ...(locale === 'en' ? ['about'] : [])].map((route) => ({
     locale,
     slug: route === 'index' ? [] : [route],
   })));
@@ -283,7 +283,7 @@ export default async function StaticPage({ params }) {
   const { locale: requestedLocale, slug = [] } = await params;
   if (!isSupportedLocale(requestedLocale)) notFound();
   const route = slug.join('/') || 'index';
-  if (slug.length > 1 || !isSupportedRoute(route)) notFound();
+  if (slug.length > 1 || !isSupportedRoute(route, requestedLocale)) notFound();
   let html;
   try { html = await readFile(path.join(process.cwd(), requestedLocale, `${route}.html`), 'utf8'); } catch { notFound(); }
   const injected = await pageInjectedMarkup(requestedLocale, route);
