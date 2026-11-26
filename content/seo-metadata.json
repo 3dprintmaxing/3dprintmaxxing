@@ -9,16 +9,16 @@
       "Learn practical 3D printing basics: choose filament, improve PLA reliability, fix first-layer problems, and reduce failed prints."
     ],
     "article-filament": [
-      "3D Printing Filament Guide — 3dprintmaxxing",
-      "Compare PLA, PETG, ABS, and TPU for custom 3D prints, including strength, heat resistance, flexibility, finish, and cost."
+      "How to Choose 3D Printing Filament: PLA, PETG, ABS & TPU | 3dprintmaxxing",
+      "Compare common FDM filaments by strength, heat resistance, flexibility, finish, and print difficulty. Learn what to consider before requesting a custom print."
     ],
     "article-reliable-pla": [
-      "Reliable PLA 3D Printing — 3dprintmaxxing",
-      "Improve PLA print quality with a clean bed, dry filament, sensible temperatures, controlled cooling, and repeatable slicer checks."
+      "How to Get More Reliable PLA 3D Prints | 3dprintmaxxing",
+      "A practical PLA FDM workflow: prepare the build surface, check the first layer, store filament well, change one setting at a time, and inspect the finished print."
     ],
     "article-first-layer": [
-      "First-Layer 3D Printing Fixes — 3dprintmaxxing",
-      "Diagnose first-layer 3D printing problems such as poor adhesion, nozzle height, warping, elephant foot, and lifted corners."
+      "3D Printing First-Layer Problems: Adhesion, Leveling & Warping | 3dprintmaxxing",
+      "Diagnose common FDM first-layer problems including poor adhesion, nozzle height, uneven leveling, lifted corners, and warping with a systematic checklist."
     ],
     "privacy-policy": [
       "Privacy Policy — 3dprintmaxxing",

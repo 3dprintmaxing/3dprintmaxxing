@@ -25,10 +25,11 @@ const PAGE_KEYWORDS = {
   about: ['about 3dprintmaxxing', 'independent FDM 3D printing service', 'custom 3D printing business'],
   pricing: ['3D printing cost', 'custom 3D printing quote', 'STL printing price'],
   'get-stl-printed': ['where to print an STL file', 'STL 3D printing service', 'get an STL printed'],
+  'custom-3d-printing': ['custom 3D printing service', 'one-off 3D printing', 'custom FDM parts', 'prototype 3D printing'],
 };
 
 const SHORT_TITLES = {
-  en: { index: '3D Printing Services — 3dprintmaxxing', about: 'About 3dprintmaxxing | Independent FDM 3D Printing', blog: '3D Printing Tutorials — 3dprintmaxxing', 'article-filament': '3D Printing Filament Guide — 3dprintmaxxing', 'article-reliable-pla': 'Reliable PLA 3D Printing — 3dprintmaxxing', 'article-first-layer': 'First-Layer 3D Printing Fixes — 3dprintmaxxing' },
+  en: { index: '3D Printing Services — 3dprintmaxxing', 'custom-3d-printing': 'Custom 3D Printing Service — 3dprintmaxxing', about: 'About 3dprintmaxxing | Independent FDM 3D Printing', blog: '3D Printing Tutorials — 3dprintmaxxing', 'article-filament': '3D Printing Filament Guide — 3dprintmaxxing', 'article-reliable-pla': 'Reliable PLA 3D Printing — 3dprintmaxxing', 'article-first-layer': 'First-Layer 3D Printing Fixes — 3dprintmaxxing' },
   es: { index: 'Impresión 3D personalizada — 3dprintmaxxing', blog: 'Tutoriales de impresión 3D — 3dprintmaxxing', 'article-filament': 'Guía de filamento 3D — 3dprintmaxxing', 'article-reliable-pla': 'Impresiones PLA fiables — 3dprintmaxxing', 'article-first-layer': 'Soluciones para la primera capa — 3dprintmaxxing' },
   'pt-br': { index: 'Impressão 3D personalizada — 3dprintmaxxing', blog: 'Tutoriais de impressão 3D — 3dprintmaxxing', 'article-filament': 'Guia de filamento 3D — 3dprintmaxxing', 'article-reliable-pla': 'Impressões PLA confiáveis — 3dprintmaxxing', 'article-first-layer': 'Soluções para a primeira camada — 3dprintmaxxing' },
   fr: { index: 'Impression 3D personnalisée — 3dprintmaxxing', blog: 'Tutoriels d’impression 3D — 3dprintmaxxing', 'article-filament': 'Guide du filament 3D — 3dprintmaxxing', 'article-reliable-pla': 'Impressions PLA fiables — 3dprintmaxxing', 'article-first-layer': 'Dépannage de la première couche — 3dprintmaxxing' },
@@ -44,6 +45,12 @@ const SEARCH_INTENTS = {
     en: {
       title: '3D Printing Services | Custom FDM Prints, Quotes & Prototypes',
       description: '3D printing services for custom parts, prototypes, and hobby projects. Send an STL or describe your idea to get a practical FDM print quote before production.',
+    },
+  },
+  'custom-3d-printing': {
+    en: {
+      title: 'Custom 3D Printing Service for One-Off Parts & Prototypes | 3dprintmaxxing',
+      description: 'Need a custom 3D print? Get an individual FDM quote for one-off parts, prototypes, and hobby projects, with approval before printing and mail delivery.',
     },
   },
   blog: {
@@ -119,14 +126,18 @@ export async function generateRouteMetadata({ locale, page = 'index', segmentCou
 
   const isIndexable = INDEXABLE_ROUTES.includes(page);
   const canonical = routeUrl(locale, page);
-  const hasLocalizedAlternates = isIndexable && page !== 'about';
-  const alternates = hasLocalizedAlternates
+  const supportedLanguages = LANGUAGES.filter((language) => isSupportedRoute(page, language));
+  const alternates = isIndexable
     ? {
         canonical,
-        languages: {
-          ...Object.fromEntries(LANGUAGES.map((language) => [language, routeUrl(language, page)])),
-          'x-default': routeUrl('en', page),
-        },
+        ...(supportedLanguages.length > 1
+          ? {
+              languages: {
+                ...Object.fromEntries(supportedLanguages.map((language) => [language, routeUrl(language, page)])),
+                'x-default': routeUrl('en', page),
+              },
+            }
+          : {}),
       }
     : undefined;
 

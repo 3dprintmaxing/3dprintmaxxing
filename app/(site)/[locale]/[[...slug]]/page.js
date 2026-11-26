@@ -124,16 +124,26 @@ async function structuredDataMarkup(locale, route, html) {
   const description = metadata?.description || plainText(html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i)?.[1] || 'Practical FDM 3D printing guidance and custom print requests from 3dprintmaxxing.');
   const breadcrumbNames = [{ name: 'Home', item: absoluteUrl(`/${locale}`) }];
   if (route !== 'index') breadcrumbNames.push({ name: title.replace(/\s*[—|].*$/, ''), item: canonical });
-  const graph = [{
-    '@type': 'BreadcrumbList',
-    itemListElement: breadcrumbNames.map((item, index) => ({ '@type': 'ListItem', position: index + 1, name: item.name, item: item.item })),
-  }];
+  const organizationId = `${SITE_URL}/#organization`;
+  const graph = [
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: breadcrumbNames.map((item, index) => ({ '@type': 'ListItem', position: index + 1, name: item.name, item: item.item })),
+    },
+    {
+      '@type': 'Organization',
+      '@id': organizationId,
+      name: '3dprintmaxxing',
+      url: SITE_URL,
+      logo: absoluteUrl('/assets/apple-touch-icon.png'),
+      sameAs: ['https://linktr.ee/3dprintmaxxing'],
+    },
+  ];
 
   if (route === 'index') {
     graph.push(
-      { '@type': 'WebSite', name: '3dprintmaxxing', url: absoluteUrl(`/${locale}`), inLanguage: HTML_LANGUAGES[locale] || locale },
-      { '@type': 'Organization', name: '3dprintmaxxing', url: SITE_URL, logo: absoluteUrl('/assets/apple-touch-icon.png') },
-      { '@type': 'Service', name: title, serviceType: 'Custom FDM 3D printing', provider: { '@type': 'Organization', name: '3dprintmaxxing', url: SITE_URL }, description, url: canonical },
+      { '@type': 'WebSite', '@id': `${SITE_URL}/#website`, name: '3dprintmaxxing', url: absoluteUrl(`/${locale}`), inLanguage: HTML_LANGUAGES[locale] || locale },
+      { '@type': 'Service', '@id': `${canonical}#service`, name: 'Custom FDM 3D printing', serviceType: 'Mail-order FDM 3D printing', provider: { '@id': organizationId }, description, url: canonical },
     );
   } else if (route === 'blog') {
     const articleTitles = RELATED_ARTICLES[locale]?.titles || RELATED_ARTICLES.en.titles;
@@ -150,6 +160,26 @@ async function structuredDataMarkup(locale, route, html) {
       publisher: { '@type': 'Organization', name: '3dprintmaxxing', url: SITE_URL, logo: { '@type': 'ImageObject', url: absoluteUrl('/assets/apple-touch-icon.png') } },
       ...(imagePath ? { image: absoluteUrl(imagePath) } : {}),
     });
+  } else if (['pricing', 'get-stl-printed', 'custom-3d-printing'].includes(route)) {
+    graph.push(
+      {
+        '@type': 'WebPage',
+        name: title,
+        description,
+        url: canonical,
+        inLanguage: HTML_LANGUAGES[locale] || locale,
+        mainEntity: { '@id': `${canonical}#service` },
+      },
+      {
+        '@type': 'Service',
+        '@id': `${canonical}#service`,
+        name: 'Custom FDM 3D printing',
+        serviceType: 'Mail-order FDM 3D printing',
+        provider: { '@id': organizationId },
+        description,
+        url: canonical,
+      },
+    );
   } else {
     graph.push({ '@type': 'WebPage', name: title, description, url: canonical, inLanguage: HTML_LANGUAGES[locale] || locale });
   }
@@ -162,7 +192,10 @@ async function pageInjectedMarkup(locale, route) {
   if (route === 'blog') blocks.push(await blogSeoMarkup(locale));
   const supporting = await supportingCopyMarkup(locale, route);
   if (supporting) blocks.push(supporting);
-  if (route.startsWith('article-')) blocks.push(relatedMarkup(locale, route));
+  if (route.startsWith('article-')) {
+    blocks.push(relatedMarkup(locale, route));
+
+  }
   return blocks.join('');
 }
 
@@ -273,7 +306,7 @@ function addHomeInfo(content, locale, route) {
 }
 
 export async function generateStaticParams() {
-  return LANGUAGES.flatMap((locale) => [...ROUTES, ...(locale === 'en' ? ['about', 'pricing', 'get-stl-printed'] : [])].map((route) => ({
+  return LANGUAGES.flatMap((locale) => [...ROUTES, ...(locale === 'en' ? ['about', 'pricing', 'get-stl-printed', 'custom-3d-printing'] : [])].map((route) => ({
     locale,
     slug: route === 'index' ? [] : [route],
   })));
