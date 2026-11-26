@@ -24,8 +24,8 @@ jobs:
           const response = await fetch(sitemapUrl);
           if (!response.ok) throw new Error(`Sitemap fetch failed: HTTP ${response.status}`);
           const xml = await response.text();
-          const urls = [...xml.matchAll(/<loc>\\s*([^<]+?)\\s*<\\/loc>/g)]
-            .map(match => match[1].trim())
+          const urls = xml.split("<loc>").slice(1)
+            .map(part => part.split("</loc>")[0].trim())
             .filter(url => {
               try {
                 const parsed = new URL(url);
