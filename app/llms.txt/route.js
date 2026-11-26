@@ -37,14 +37,14 @@ const content = `# 3dprintmaxxing
 
 ## Pricing and service
 
-Each print is quoted individually. Quotes account for filament use, printer time, quantity, and shipping. The itemized price and estimated timeline are sent by email before production or payment. There are no fixed catalog prices. Orders are mailed; shipping is available anywhere.
+Each print is quoted individually. Quotes account for filament use, printer time, quantity, and shipping. The itemized price and estimated timeline are sent by email before production or payment. There are no fixed catalog prices. Orders are mailed to the destination supplied with the request; local pickup is not offered. The service does not claim a public walk-in storefront.
 
 ## Printer and accepted files
 
 - Build volume: 220 × 220 × 220 mm
 - Layer resolution: 0.1–0.4 mm
 - Accepted file formats: STL, OBJ, 3MF, and STEP
-- Custom design can be discussed from a written description when the customer does not have a model file.
+- The printer is primarily configured for PLA; availability of other materials must be confirmed for each request.
 
 ## Localized pages
 
