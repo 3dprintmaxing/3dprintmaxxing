@@ -3,7 +3,7 @@ const languages = ['en', 'es', 'pt-br', 'fr', 'de', 'it', 'ja', 'ko', 'zh'];
 const pages = ['', 'blog', 'article-filament', 'article-reliable-pla', 'article-first-layer', 'privacy-policy', 'refund-policy', 'billing-policy'];
 
 export default function sitemap() {
-  return languages.flatMap((language) => [...pages, ...(language === 'en' ? ['about'] : [])].map((page) => ({
+  return languages.flatMap((language) => [...pages, ...(language === 'en' ? ['about', 'pricing', 'get-stl-printed'] : [])].map((page) => ({
     url: `${base}/${language}${page ? `/${page}` : ''}`,
   })));
 }
