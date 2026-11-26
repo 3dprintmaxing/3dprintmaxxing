@@ -191,7 +191,10 @@ async function pageInjectedMarkup(locale, route) {
   if (route === 'blog') blocks.push(await blogSeoMarkup(locale));
   const supporting = await supportingCopyMarkup(locale, route);
   if (supporting) blocks.push(supporting);
-  if (route.startsWith('article-')) blocks.push(relatedMarkup(locale, route));
+  if (route.startsWith('article-')) {
+    blocks.push(relatedMarkup(locale, route));
+    if (locale === 'en') blocks.push('<section class="section request" aria-labelledby="print-guide-cta"><h2 id="print-guide-cta">Need a part printed?</h2><p>3dprintmaxxing reviews one-off FDM print requests and sends an individual quote before production. See the <a href="/en/custom-3d-printing">custom 3D printing service</a> or <a href="/en/#request">request a quote</a>.</p></section>');
+  }
   return blocks.join('');
 }
 
