@@ -8,6 +8,7 @@ export default async function LocaleRootLayout({ children, params }) {
   return (
     <html lang={language}>
       <head>
+        <meta name="google-site-verification" content="i9imBNMrFJkYGxXgMudHaRkt8fuPnBOAJjZMx9DhfLY" />
         <link rel="stylesheet" href="/styles.min.css" />
       </head>
       <body>
