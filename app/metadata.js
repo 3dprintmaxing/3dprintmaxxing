@@ -23,6 +23,8 @@ const PAGE_KEYWORDS = {
   'refund-policy': ['3D printing refund policy'],
   'billing-policy': ['3D printing billing policy'],
   about: ['about 3dprintmaxxing', 'independent FDM 3D printing service', 'custom 3D printing business'],
+  pricing: ['3D printing cost', 'custom 3D printing quote', 'STL printing price'],
+  'get-stl-printed': ['where to print an STL file', 'STL 3D printing service', 'get an STL printed'],
 };
 
 const SHORT_TITLES = {
