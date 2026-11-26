@@ -1,0 +1,53 @@
+name: IndexNow URL submission
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Submit production sitemap URLs to IndexNow
+        env:
+          INDEXNOW_KEY: 3d9f7a2c6b1e4f80a5c3d7e9b2f6148a
+        run: |
+          node --input-type=module <<'NODE'
+          const host = "3dprintmaxxing.vercel.app";
+          const key = process.env.INDEXNOW_KEY;
+          const sitemapUrl = `https://${host}/sitemap.xml`;
+          const response = await fetch(sitemapUrl);
+          if (!response.ok) throw new Error(`Sitemap fetch failed: HTTP ${response.status}`);
+          const xml = await response.text();
+          const urls = xml.split("<loc>").slice(1)
+            .map(part => part.split("</loc>")[0].trim())
+            .filter(url => {
+              try {
+                const parsed = new URL(url);
+                return parsed.protocol === "https:" && parsed.hostname === host;
+              } catch {
+                return false;
+              }
+            });
+          if (!urls.length) throw new Error("No valid production URLs found in sitemap.");
+          const result = await fetch("https://api.indexnow.org/indexnow", {
+            method: "POST",
+            headers: { "Content-Type": "application/json; charset=utf-8" },
+            body: JSON.stringify({
+              host,
+              key,
+              keyLocation: `https://${host}/${key}.txt`,
+              urlList: [...new Set(urls)]
+            })
+          });
+          if (!result.ok) {
+            const body = await result.text();
+            throw new Error(`IndexNow rejected submission: HTTP ${result.status} ${body}`);
+          }
+          console.log(`IndexNow accepted ${urls.length} sitemap URLs (HTTP ${result.status}).`);
+          NODE
