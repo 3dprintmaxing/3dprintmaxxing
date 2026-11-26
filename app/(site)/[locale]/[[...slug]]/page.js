@@ -71,6 +71,19 @@ const FORM_COPY = {
   zh: { cta: '请求打印', sending: '正在发送…', error: '出现问题，请重试。', privacy: '请查看', privacyLink: '隐私政策', file: '你的文件' },
 };
 
+// Keep this date in sync with substantive homepage content changes.
+const HOME_INFO = {
+  en: { updated: 'Last updated: November 26, 2026', pricingTitle: 'How pricing works', pricing: 'Each print is quoted individually based on filament used, printer time, quantity, and shipping. You receive the itemized quote by email and can approve it before anything is printed or charged. There are no fixed catalog prices.' },
+  es: { updated: 'Última actualización: 26 de noviembre de 2026', pricingTitle: 'Cómo se calcula el precio', pricing: 'Cada impresión se presupuesta individualmente según el filamento utilizado, el tiempo de impresión, la cantidad y el envío. Recibirás un presupuesto detallado por correo electrónico y podrás aprobarlo antes de que se imprima o se cobre nada. No hay precios fijos de catálogo.' },
+  'pt-br': { updated: 'Última atualização: 26 de novembro de 2026', pricingTitle: 'Como o preço é calculado', pricing: 'Cada impressão recebe um orçamento individual com base no filamento utilizado, no tempo de impressão, na quantidade e no frete. Você recebe o orçamento detalhado por e-mail e pode aprová-lo antes de qualquer impressão ou cobrança. Não há preços fixos de catálogo.' },
+  fr: { updated: 'Dernière mise à jour : 26 novembre 2026', pricingTitle: 'Comment le prix est calculé', pricing: 'Chaque impression fait l’objet d’un devis individuel selon le filament utilisé, le temps machine, la quantité et les frais d’expédition. Vous recevez le devis détaillé par e-mail et pouvez l’accepter avant toute impression ou facturation. Il n’y a pas de tarifs fixes au catalogue.' },
+  de: { updated: 'Zuletzt aktualisiert: 26. November 2026', pricingTitle: 'So wird der Preis berechnet', pricing: 'Jeder Druck wird individuell anhand des Filamentverbrauchs, der Druckzeit, der Stückzahl und des Versands kalkuliert. Du erhältst das aufgeschlüsselte Angebot per E-Mail und kannst es annehmen, bevor gedruckt oder etwas berechnet wird. Es gibt keine festen Katalogpreise.' },
+  it: { updated: 'Ultimo aggiornamento: 26 novembre 2026', pricingTitle: 'Come viene calcolato il prezzo', pricing: 'Ogni stampa riceve un preventivo personalizzato in base al filamento utilizzato, al tempo di stampa, alla quantità e alla spedizione. Riceverai il preventivo dettagliato via e-mail e potrai approvarlo prima che venga stampato o addebitato qualsiasi importo. Non esistono prezzi fissi a catalogo.' },
+  ja: { updated: '最終更新日：2026年11月26日', pricingTitle: '料金の決まり方', pricing: '料金は、使用するフィラメント、印刷時間、数量、送料に基づいて、注文ごとに個別にお見積もりします。印刷や請求の前に、内訳をメールでお送りし、承認していただいてから作業を開始します。固定のカタログ価格はありません。' },
+  ko: { updated: '마지막 업데이트: 2026년 11월 26일', pricingTitle: '가격 책정 방식', pricing: '각 출력물의 가격은 사용되는 필라멘트, 출력 시간, 수량 및 배송비를 기준으로 개별 산정합니다. 출력하거나 비용을 청구하기 전에 항목별 견적을 이메일로 보내 드리며, 승인한 후에만 진행합니다. 정해진 카탈로그 가격은 없습니다.' },
+  zh: { updated: '最后更新：2026年11月26日', pricingTitle: '价格如何计算', pricing: '每件打印品都会根据耗材用量、打印时间、数量和运费单独报价。我们会在打印或收费前通过电子邮件发送明细报价，得到你的确认后才会开始处理。我们没有固定的目录价格。' },
+};
+
 function relatedMarkup(locale, route) {
   if (!route.startsWith('article-')) return '';
   const copy = RELATED_ARTICLES[locale] || RELATED_ARTICLES.en;
@@ -250,6 +263,15 @@ function addHomeCta(content, locale, route) {
   return content.replace(/(<h1[^>]*>[\s\S]*?<\/h1>)/i, `$1<p class="hero-request"><a class="hero-request-link" href="#request">${copy.cta}</a></p>`);
 }
 
+function addHomeInfo(content, locale, route) {
+  if (route !== 'index') return content;
+  const copy = HOME_INFO[locale] || HOME_INFO.en;
+  const updated = `<p class="hint page-updated"><time datetime="2026-11-26">${copy.updated}</time></p>`;
+  const pricing = `<section class="section pricing-info" aria-labelledby="pricing-heading"><h2 id="pricing-heading">${copy.pricingTitle}</h2><p>${copy.pricing}</p></section>`;
+  const withDate = content.replace(/(<h1[^>]*>[\\s\\S]*?<\\/h1>)/i, `$1${updated}`);
+  return withDate.replace('<section id="how"', `${pricing}<section id="how"`);
+}
+
 export async function generateStaticParams() {
   return LANGUAGES.flatMap((locale) => ROUTES.map((route) => ({
     locale,
@@ -267,7 +289,8 @@ export default async function StaticPage({ params }) {
   const injected = await pageInjectedMarkup(requestedLocale, route);
   const structuredData = await structuredDataMarkup(requestedLocale, route, html);
   const localized = localizeLinks(html, requestedLocale, route, injected);
-  const enhanced = addHomeCta(enhanceRequestFormMarkup(localized, requestedLocale, route), requestedLocale, route);
+  const withHomeInfo = addHomeInfo(enhanceRequestFormMarkup(localized, requestedLocale, route), requestedLocale, route);
+  const enhanced = addHomeCta(withHomeInfo, requestedLocale, route);
   return <>
     <div lang={HTML_LANGUAGES[requestedLocale] || requestedLocale} dangerouslySetInnerHTML={{ __html: enhanced }} />
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData }} />
