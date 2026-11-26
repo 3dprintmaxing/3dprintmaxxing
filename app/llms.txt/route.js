@@ -24,7 +24,9 @@ const pages = [
 ];
 
 const localizedPages = languages.map(([locale, language]) => {
-  const localePages = locale === 'en' ? [...pages, ['/about', 'About 3dprintmaxxing']] : pages;
+  const localePages = locale === 'en'
+    ? [...pages, ['/about', 'About 3dprintmaxxing'], ['/custom-3d-printing', 'Custom 3D printing service'], ['/get-stl-printed', 'Where to get an STL file printed'], ['/pricing', 'Custom 3D printing pricing']]
+    : pages;
   const links = localePages.map(([path, label]) => `- [${label}](${base}/${locale}${path})`).join('\n');
   return `### ${language} (/${locale}/)\n\n${links}`;
 }).join('\n\n');
