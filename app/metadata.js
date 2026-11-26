@@ -22,10 +22,11 @@ const PAGE_KEYWORDS = {
   'privacy-policy': ['3D printing privacy policy'],
   'refund-policy': ['3D printing refund policy'],
   'billing-policy': ['3D printing billing policy'],
+  about: ['about 3dprintmaxxing', 'independent FDM 3D printing service', 'custom 3D printing business'],
 };
 
 const SHORT_TITLES = {
-  en: { index: '3D Printing Services — 3dprintmaxxing', blog: '3D Printing Tutorials — 3dprintmaxxing', 'article-filament': '3D Printing Filament Guide — 3dprintmaxxing', 'article-reliable-pla': 'Reliable PLA 3D Printing — 3dprintmaxxing', 'article-first-layer': 'First-Layer 3D Printing Fixes — 3dprintmaxxing' },
+  en: { index: '3D Printing Services — 3dprintmaxxing', about: 'About 3dprintmaxxing | Independent FDM 3D Printing', blog: '3D Printing Tutorials — 3dprintmaxxing', 'article-filament': '3D Printing Filament Guide — 3dprintmaxxing', 'article-reliable-pla': 'Reliable PLA 3D Printing — 3dprintmaxxing', 'article-first-layer': 'First-Layer 3D Printing Fixes — 3dprintmaxxing' },
   es: { index: 'Impresión 3D personalizada — 3dprintmaxxing', blog: 'Tutoriales de impresión 3D — 3dprintmaxxing', 'article-filament': 'Guía de filamento 3D — 3dprintmaxxing', 'article-reliable-pla': 'Impresiones PLA fiables — 3dprintmaxxing', 'article-first-layer': 'Soluciones para la primera capa — 3dprintmaxxing' },
   'pt-br': { index: 'Impressão 3D personalizada — 3dprintmaxxing', blog: 'Tutoriais de impressão 3D — 3dprintmaxxing', 'article-filament': 'Guia de filamento 3D — 3dprintmaxxing', 'article-reliable-pla': 'Impressões PLA confiáveis — 3dprintmaxxing', 'article-first-layer': 'Soluções para a primeira camada — 3dprintmaxxing' },
   fr: { index: 'Impression 3D personnalisée — 3dprintmaxxing', blog: 'Tutoriels d’impression 3D — 3dprintmaxxing', 'article-filament': 'Guide du filament 3D — 3dprintmaxxing', 'article-reliable-pla': 'Impressions PLA fiables — 3dprintmaxxing', 'article-first-layer': 'Dépannage de la première couche — 3dprintmaxxing' },
@@ -73,7 +74,7 @@ async function loadSeoMetadata() {
 }
 
 export async function getPageMetadataRecord(locale, page) {
-  if (!isSupportedLocale(locale) || !isSupportedRoute(page)) return null;
+  if (!isSupportedLocale(locale) || !isSupportedRoute(page, locale)) return null;
 
   try {
     const [seoMetadata, html] = await Promise.all([
@@ -107,7 +108,7 @@ function noIndexMetadata() {
 }
 
 export async function generateRouteMetadata({ locale, page = 'index', segmentCount = 0 }) {
-  if (segmentCount > 1 || !isSupportedLocale(locale) || !isSupportedRoute(page)) {
+  if (segmentCount > 1 || !isSupportedLocale(locale) || !isSupportedRoute(page, locale)) {
     return noIndexMetadata();
   }
 
