@@ -117,7 +117,8 @@ export async function generateRouteMetadata({ locale, page = 'index', segmentCou
 
   const isIndexable = INDEXABLE_ROUTES.includes(page);
   const canonical = routeUrl(locale, page);
-  const alternates = isIndexable
+  const hasLocalizedAlternates = isIndexable && page !== 'about';
+  const alternates = hasLocalizedAlternates
     ? {
         canonical,
         languages: {
