@@ -6,6 +6,8 @@
 
 - [English home](https://3dprintmaxxing.vercel.app/en/)
 - [English blog](https://3dprintmaxxing.vercel.app/en/blog)
+- [3D printing pricing and quotes](https://3dprintmaxxing.vercel.app/en/pricing)
+- [Where to get an STL file printed](https://3dprintmaxxing.vercel.app/en/get-stl-printed)
 - [Privacy policy](https://3dprintmaxxing.vercel.app/en/privacy-policy)
 - [Billing policy](https://3dprintmaxxing.vercel.app/en/billing-policy)
 - [Refund policy](https://3dprintmaxxing.vercel.app/en/refund-policy)
