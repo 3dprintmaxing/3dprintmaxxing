@@ -27,7 +27,7 @@ export const ROUTES = [
   'article-first-layer',
 ];
 
-export const ENGLISH_ONLY_ROUTES = ['about'];
+export const ENGLISH_ONLY_ROUTES = ['about', 'pricing', 'get-stl-printed'];
 
 export const INDEXABLE_ROUTES = [
   'index',
@@ -39,6 +39,8 @@ export const INDEXABLE_ROUTES = [
   'refund-policy',
   'billing-policy',
   'about',
+  'pricing',
+  'get-stl-printed',
 ];
 
 export function isSupportedLocale(locale) {
