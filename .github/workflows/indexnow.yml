@@ -17,7 +17,7 @@ jobs:
         env:
           INDEXNOW_KEY: 3d9f7a2c6b1e4f80a5c3d7e9b2f6148a
         run: |
-          node <<'NODE'
+          node --input-type=module <<'NODE'
           const host = "3dprintmaxxing.vercel.app";
           const key = process.env.INDEXNOW_KEY;
           const sitemapUrl = `https://${host}/sitemap.xml`;
