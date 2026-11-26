@@ -273,7 +273,7 @@ function addHomeInfo(content, locale, route) {
 }
 
 export async function generateStaticParams() {
-  return LANGUAGES.flatMap((locale) => [...ROUTES, ...(locale === 'en' ? ['about'] : [])].map((route) => ({
+  return LANGUAGES.flatMap((locale) => [...ROUTES, ...(locale === 'en' ? ['about', 'pricing', 'get-stl-printed'] : [])].map((route) => ({
     locale,
     slug: route === 'index' ? [] : [route],
   })));
