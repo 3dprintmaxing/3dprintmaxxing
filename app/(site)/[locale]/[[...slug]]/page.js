@@ -268,7 +268,7 @@ function addHomeInfo(content, locale, route) {
   const copy = HOME_INFO[locale] || HOME_INFO.en;
   const updated = `<p class="hint page-updated"><time datetime="2026-11-26">${copy.updated}</time></p>`;
   const pricing = `<section class="section pricing-info" aria-labelledby="pricing-heading"><h2 id="pricing-heading">${copy.pricingTitle}</h2><p>${copy.pricing}</p></section>`;
-  const withDate = content.replace(/(<h1[^>]*>[\\s\\S]*?<\\/h1>)/i, `$1${updated}`);
+  const withDate = content.replace(/(<h1[^>]*>[\s\S]*?<\/h1>)/i, `$1\${updated}`);
   return withDate.replace('<section id="how"', `${pricing}<section id="how"`);
 }
 
